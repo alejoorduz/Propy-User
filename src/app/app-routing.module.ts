@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   },
@@ -50,7 +46,8 @@ const routes: Routes = [
   {
     path: 'inscribirse-modal',
     loadChildren: () => import('./inscripciones/inscribirse-modal/inscribirse-modal.module').then( m => m.InscribirseModalPageModule)
-  },  {
+  },
+  {
     path: 'calendar',
     loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
   },
