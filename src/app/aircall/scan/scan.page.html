@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    
+    
+      <!-- <ion-back-button  ></ion-back-button> -->
+   
+    <ion-title mode=ios class="tittle"> 
+    <ion-icon class="home" defaultHref="botonera" name="home-outline" (click)=home();></ion-icon>
+      <!-- <div class="toplogo">
+      <img src="../../assets/images/Logo_oscurito.png">
+      </div> -->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  
+  <div class="expand_tittle">
+    <h1 style="text-align:center;" class="tituloavisos">MODO CONEXION DIRECTA</h1>
+  </div>
+
+  <div class="expand">
+    <h1 style="text-align:center;" class="tituloavisos">Instrucciones
+    <ion-icon class="scanarrow" (click)="expandarrow()" name="arrow-forward-circle-outline"></ion-icon></h1>
+  </div>
+
+  <div class="scansv" #scansv>
+    <ion-grid class="scangrid">
+    <ion-row class="scanrow">
+      <ion-col class="scancol">
+         <div class="texto">
+           <h3 class="pe">Si la aplicación aún no te funciona, intenta conectar el <br>ascensor directamente: <br><br>
+            1- Presiona el botón <strong>"Scan"</strong>  <br><br>
+            2- Busca y oprime el nombre de <strong> AIRCALL SV</strong> <br><br>
+            *Debes estar dentro del ascensor <br>
+            *Evita conectarte desde las configuraciones del celular.<br>
+            *Tener la ubicacion prendida.<br>
+            *Tener el Bluetooth prendido.</h3>
+         </div>
+      </ion-col>
+    </ion-row>
+<!--     
+    <ion-row class="scanrow">
+      <ion-col class="scancol">
+      <div class="scanpiso">
+       
+        <input placeholder="Piso" class="scaninput" type="text" id="fname" name="fname"> 
+       
+      
+    </div>  
+      </ion-col>
+    </ion-row> -->
+    </ion-grid>
+    </div>
+
+ 
+   
+  <div class="butonscan">
+    <ion-buttons end>
+      <button ion-button class="buttonpad" (click)="scan()">
+        Scan
+      </button>
+      <!-- <button ion-button class="scan" >
+        Install
+      </button>
+   </ion-buttons>
+   <ion-buttons end>
+    <button ion-button class="btn" (click)="add_to_home($event)"  >Install</button>
+  --></ion-buttons> 
+  </div>
+    <ion-content padding>
+      <div class="todo">
+      <div class="divlista">
+      <ion-list class="lista"> 
+       <button ion-item class="device" *ngFor="let device of devices" (click)="deviceSelected(device)">
+         <h2 class="device_selected">{{ device.name || 'Unnamed' }}</h2><br>
+         <!-- <p>{{ device.id }}</p>
+         <p>RSSI: {{ device.rssi }}</p> -->
+       </button>  
+      </ion-list> 
+      </div>
+      </div>
+      <div class="logo_abajo">
+      <div class="logofondo">
+        <img class="imgfondo" src="../../assets/images/Logo_oscurito.png">
+      </div>
+      </div>
+   </ion-content>
+
+   <!-- <ion-footer style="background-color: #cbcbcb;">
+    <ion-toolbar>
+      <ion-grid>
+      <ion-row>
+      
+      <ion-col style="text-align: center"><p> {{ statusMessage }}</p></ion-col>
+      
+      </ion-row>
+    </ion-grid>
+      
+    </ion-toolbar>
+  </ion-footer> -->

@@ -1,0 +1,48 @@
+<ion-content>
+  <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+<div class="headertittle">
+  Añadir Negocios
+</div>
+<!-- <div class="headericon">
+   <ion-icon class="icono"  name="person-circle-outline" (click)="this.getLocation()"></ion-icon>
+  </div> -->
+</div>
+<div class="todo">
+<div class="divform">
+  <div class="formulario">
+      <label class="formulario__label">
+      Busca el nombre del proyecto al que te quieres inscribir
+      </label>
+      <!-- <label class="formulario__label" style="font-size: 10px;">
+        <i>(Si el servicio es 24 Hr escoje de 1Am a 12PM)</i>
+        </label> -->
+      <div class="time_picker">
+        <!-- <ion-label>Inicio</ion-label> -->
+        <ion-select placeholder="Proyecto" id="proyecto" class="ion-select-mes" [(ngModel)]="proyecto" (ngModelChange)="bring_passcode()">
+          <ion-select-option *ngFor="let proyecto of lista_proyectos" [value]="proyecto.id">
+            {{proyecto.id}}
+          </ion-select-option>
+        </ion-select>
+        <!-- <ion-datetime class="datetime" presentation="time" ></ion-datetime> -->
+        <!-- <ion-label>Fin</ion-label> -->
+         <!-- <ion-datetime class="datetime" presentation="time" ></ion-datetime> -->
+     </div>
+  </div>
+
+  <div class="formulario">
+    <ion-item class="input_box">
+    <ion-label class="formulario__label" position="floating" >Escribe la contraseña de ingreso</ion-label>
+    <ion-input id="key" name="servicio"></ion-input>
+    </ion-item>
+  </div>
+  <div class="div_button">
+<button class="submit" (click)="submitForm()" expand="block">Suscribirse</button>
+</div>
+</div>
+
+
+</div>
+</ion-content>

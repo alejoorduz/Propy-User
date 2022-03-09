@@ -1,0 +1,56 @@
+<!-- <ion-header class="header">
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+    
+    </div>
+  </div>
+
+<div class="todo">
+    <!-- <div class="crear_comunicado">
+        <h1 style="text-align:center;" class="tituloavisos">Publica un comunicado en {{this.proyecto}}</h1>
+        <h2  class="avisos">En esta sección podras enviar comunicados a todos los propietarios, lo que publiques aca lo podran ver los usuarios.</h2>
+      <div class="divform">
+        <ion-item class="formulario">
+          <ion-label position="floating" >Titulo del comunicado</ion-label>
+          <ion-input type="text" id="tittle" placeholder="Ej: Junta Extraodinaria" [(ngModel)]="tittle"></ion-input>
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="floating">Tema</ion-label>
+          <ion-input type="text" id="tema" required placeholder="Ej: Reunion del lunes" [(ngModel)]="tema"></ion-input>
+        </ion-item>
+        <ion-item class="formulariofinal">
+          <ion-label position="floating" >Reporte:</ion-label>
+          <ion-textarea rows="6" cols="20" id="reporte" placeholder="Ej: Queremos invitarlos a la junta del lunes" [(ngModel)]="reporte"></ion-textarea>
+        </ion-item>
+        <button class="submit" (click)="upload_publication()" expand="block">Enviar</button>
+      </div>
+    </div> -->
+    <div class="ver_comunicados">
+            <h1 class="texto">Mis reservas de {{this.servicio}}</h1>
+            <ion-grid class="grid">
+              <ion-col class="col">
+                <ion-row class="row" *ngFor="let reserva of reservas">
+                    <div class="card">
+                      <div class="tema">
+                       Dia: {{ reserva.dia }} 
+                      </div>
+                      <div class="reporte">
+                       Hora: {{ reserva.hora}}:00
+                    </div>
+                       <ion-icon class="trash-icon" (click)="delete(reserva.id)" name="trash-outline"></ion-icon>
+                  </div>
+                </ion-row>
+              </ion-col>
+            </ion-grid>
+    </div> 
+</div>
+</ion-content>

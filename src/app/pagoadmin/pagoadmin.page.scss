@@ -1,0 +1,134 @@
+//HEADER-------------------------------------------------
+ion-header{
+  background-color: var(--ion-color-primary);
+  color: var(--ion-color-header-text);
+  justify-items: center;
+  align-items: center;
+}
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+  }
+
+
+.headercontainer{
+  width: 100%;
+  height: 60px;
+  display: flex;
+}
+
+
+.back{
+    width: 20%;
+    height: 40px;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headertittle{
+  //margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  width: 60%;
+  height: 100%;
+  text-align: center;
+  color: var(--ion-color-header-text);
+ // background-color: yellow;
+}
+
+.headericon{
+  width: 20%;
+  height: 60px;
+  text-align: center;
+  color: var(--ion-color-header-text);
+}
+
+.icono{
+  margin-top: 10px;
+  width: 60%;
+  height: 60%;
+  color: var(--ion-color-header-text);
+}
+
+.iconoback{
+  margin-top: 10px;
+  width: 80%;
+  height: 80%;
+  color: var(--ion-color-header-text);
+}
+//--------------------------------------------------
+
+ion-content {
+    --background: var(--ion-color-secondary);
+   //--background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
+   --ion-safe-area-top: 100px;
+   overflow-y: scroll !important;
+ }
+
+.todo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-between;
+}
+
+.parrafo{
+    //margin-top: 200px;
+    //background-color: blanchedalmond;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .parrafo__texto{
+    text-align: center;
+    font-size: 20px;
+  }
+  
+.mediosdepago{
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.link{
+    width: 500px;
+    height: 50px;
+}
+
+.guardar_link{
+    margin-top: 50px;
+    width: 100px;
+    height: 50px;
+    background-color: #6B7AA1;
+    color: white;
+    border-radius: 20px;
+    border: black solid 1px
+}
+
+.pse_boton{
+    margin-top: 50px;
+    width: 100px;
+    height: 50px;
+    background-color: #6B7AA1;
+    color: white;
+    border-radius: 20px;
+    border: black solid 1px
+}
+
+.iframe{
+  width: 100%;
+  height: 100vh;
+}

@@ -1,0 +1,195 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <div class="align-header">
+          <div class="back">
+            <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+          </div>
+          <!-- <ion-buttons class="size" slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons> -->
+       <div id="cabeza">   
+        <ion-title mode=ios class="tittle" >
+          AirCall <strong>Pro</strong> 
+          <!-- <div class="footertoplogo">
+            <img src="../../assets/images/Logo.png">
+            </div> -->
+        </ion-title>
+      </div>
+ 
+      <div class="textouno">
+        <!-- <ion-icon class="puno" name="call-outline" (click)="presentPopover($event)"></ion-icon> -->
+        </div>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<!-- <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher> -->
+
+<!-- <ion-menu side="start" menuId="primerMenu" contentId="principal" class="my-custom-menu" persistent="true">
+  <ion-header class="menuheader">
+    <ion-toolbar>
+      <ion-title class="tittle">Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="no-scroll">
+    <ion-list class="menu">
+      <ion-item routerLink="/details" (click)="togglemenu()">Información</ion-item>
+      <ion-item routerLink="/scan" (click)="togglemenu()">Problemas de conexión</ion-item>
+     <ion-item routerLink="/contacto" (click)="togglemenu()">Reportar un daño</ion-item>
+    </ion-list>
+    <div class="footertoplogo">
+    <img src="../../assets/images/Logo_oscurito.png">
+    </div>
+    <div class="footertop">
+      Designed By:
+    </div>
+    <div class="footer">
+      <strong>Soluciones Verticales SAS</strong>
+    </div>
+  </ion-content>
+
+</ion-menu> -->
+
+<!-- <ion-router-outlet id="principal"></ion-router-outlet> -->
+
+<ion-content padding #pageTop>
+  <div class="todo" >
+    <ion-icon (click)="downpage()" class="iconPM" name="chevron-down-outline"></ion-icon>
+    <!-- <ion-icon  name="chevron-down-circle-outline"></ion-icon> -->
+   
+      <details class="details" #details>
+        <summary #summary (click)="configactivated()">Editar mis pisos</summary>
+          <div class="textox">
+              <p class="avisoselec">Elige los pisos que quieres tener en tu botonera. <br><br> Puedes modificarlos en cualquier momento</p>
+          </div>
+
+          <div class="content">
+            <ion-item class="select_item">
+              <ion-label class="select_label">Añadir pisos</ion-label>
+              <ion-select class="selector" okText="Guardar" cancelText="Atrás" multiple="true" [(ngModel)]="selected_floors" (ngModelChange)="onChange()">
+                <ion-select-option *ngFor="let floor of floors" [value]="{valor: floor.valor, nombre: floor.nombre, code: floor.code}">{{floor.valor}}</ion-select-option>
+              </ion-select>
+              <!-- <ion-button type="submit" class="scanbotonguardar" #save (click)="onChange()">Guardar</ion-button> -->
+            </ion-item>
+          </div>
+      </details>
+  
+      <!-- <div class="content_tiempo">
+      
+        <div class="card">
+          <div class="divWeatherMain">
+            <div class="weatherWidgetRow" style="font-size: 45px; margin-top: 15px;">{{WeatherData.temp_celcius}}°</div>
+
+            <div class="tiempo">
+            <p id="lluvia"></p>
+            </div> 
+          </div>
+
+          <div class="divWeatherMain_bottom">
+              <div class="weatherWidgetRow_bottom" >
+                <div class="h1">{{this.WeatherData.main.humidity}} %</div> 
+                <div class="h2">Humedad</div> 
+            </div>
+              <div class="weatherWidgetRow_bottom" >
+                <div class="h1">{{this.WeatherData.main.pressure}} hPa</div>
+                <div class="h2">Presión</div> 
+                </div>
+              <div class="weatherWidgetRow_bottom" >
+                <div class="h1">{{this.wind_speed}} m/s</div>
+                <div class="h2">Viento</div>
+              </div>
+          </div>
+          
+        </div>
+        <div class="logofondo">
+          <img class="imgfondo" src="../../assets/images/Logo_oscurito.png">
+        </div>
+      </div> -->
+     
+    <div class="textocentral">
+      <div class="center_logo">
+      <img class="logosoluciones" src="../../assets/images/Logo Soluciones.png">
+      </div>
+      <h1 class="avisos"><strong id="titulo">¡Antes de empezar, ten en cuenta esta información!</strong> <br><br>
+      1- Esta app necesita tener el <strong>BLUETOOH</strong> y la <strong>UBICACIÓN</strong> encendida para funcionar correctamente.<br><br>
+      2- Se deben <strong>Aceptar los permisos de ubicación</strong> cuando la app lo requiera<br> <i>No guardamos ni utilizamos ningún dato personal de los usuarios, este permiso es necesario en ciertos dispositivos al usar Bluetooth Low Energy.</i> <br><br>
+      3- La app controlará el ascensor <strong>siempre y cuando te encuentres dentro de él</strong>, una vez afuera ya no podrás controlarlo. <br><br>
+      4- En caso de <strong>EMERGENCIA</strong> oprime el icono de teléfono en la esquina superior derecha para desplegar los numeros de contacto, contamos con <strong>servicio de asistencia inmediata 24/7.</strong> <br><br>
+      5- Si estás dentro del ascensor y la app no funciona, puedes intentar ingresando al <strong>Escáner</strong> dentro de la pestaña <strong>"Problemas de conexión"</strong>, allí encontraras instrucciones para entrar a <strong>"Modo Conexión Directa"</strong>.  <br><br>
+      6- Tener la aplicación abierta en segundo plano no consume muchos datos ni batería, y si te ahorra tiempo cuando ingreses a ella.<br><br> 
+      <div class="avisosdos">
+      <strong id="titulo">¡Ya puedes empezar!</strong>  <br><br> 
+      </div>
+       <div class="avisostres">
+       <button class="comenzar" (click)="comenzar()">Comenzar</button> 
+      </div>
+      </h1>
+    </div>
+   
+    <div class="center_bottom_card">
+       <div class="card">
+          <div class="texto">
+          <p><strong>Tus pisos</strong></p><ion-icon (click)="comenzar()" class="texto__icon" name="create-outline"></ion-icon>
+        </div>
+        <div class="texto">
+          <p id="aviso_modo"></p>
+        </div>
+     <div class="position-keypad">
+          <div class="align-center" >
+              <ion-grid class="grid" >
+                <ion-row class="row" >
+                    <div class="col" *ngFor="let floor of selected_floors">
+                      <button [disabled]="cancelado" id="Rock" class="buttonpad" (click)="Connected(floor.code,floor.nombre,0)">{{floor.valor}}</button>
+                    </div>
+                </ion-row>
+              </ion-grid>
+            </div>
+      </div>
+    </div>
+  </div>
+
+<div class="center_bottom_card">
+<div class="card" (click)="modal_scan()">
+  <div class="card__text">
+    <div class="card__text-label"> <p class="no_conecta">No me conecta </p>  <ion-icon class="alert_icon"  name="alert-circle-outline"></ion-icon></div>
+  </div>
+</div>
+</div>
+
+<!-- <div class="center_bottom_card">
+  <div class="card" routerLink="/contacto">
+    <div class="card__text">
+      <div class="card__text-label"> <p class="no_conecta">Enviar sugerencias </p><ion-icon class="alert_icon" name="document-text-outline"></ion-icon></div>
+    </div>
+  </div>
+  </div> -->
+
+   <div class="logo_bottom">
+    <img class="logosoluciones" src="../../assets/images/Logo Soluciones.png">
+    </div>
+
+  </div>
+
+ 
+
+
+ </ion-content>
+
+ 
+ <ion-footer style="background-color: #326273;">
+   <ion-toolbar>
+     <ion-grid>
+     <ion-row>
+     
+     <ion-col style="text-align: center"><p class="footer_message"> {{ statusMessage }}</p></ion-col>
+     
+     </ion-row>
+   </ion-grid>
+     
+   </ion-toolbar>
+ </ion-footer>

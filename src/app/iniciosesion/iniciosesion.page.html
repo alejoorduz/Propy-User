@@ -1,0 +1,81 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <div class="headercontainer">
+      <div class="back">
+
+      </div>
+  <div class="headertittle">
+    <ion-title >Iniciar Sesión</ion-title>
+  </div>
+  <div class="headericon">
+    </div>
+  </div> 
+  </ion-toolbar>
+</ion-header>-->
+
+<ion-content>
+
+  <img class="imagen" src="../../assets/images/ilustracion_horario.jpg" alt="">
+
+  <div class="parrafo">
+    <h1 class="parrafo__texto">Bienvenido a PROPY</h1>
+    </div>
+  <form class="form">
+    <div class="div_email">
+    <ion-item mode="ios" class="email">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" #email required></ion-input>
+    </ion-item>
+    </div>
+    <div class="olvide">
+      <p class="ubicar">
+        <a (click)="crear_cuenta()">Crear Cuenta</a>
+      </p>
+    </div>
+  
+ 
+  <div class="div_contra">
+    <ion-list>
+        <ion-item class="contra">
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" #password required></ion-input>
+       </ion-item>
+    </ion-list>
+    
+  </div>
+  <div class="olvide">
+    <p class="ubicar">
+      <a (click)="recuperacion()">Olvide la Contraseña</a>
+    </p>
+  </div>
+
+  
+    <div class="div_logins">
+    <ion-row>
+      <ion-col>
+        <button type="submit" class="bot_entrar" (click)="onlogin(email,password)">
+          Entrar
+        </button>
+      </ion-col>
+    </ion-row>
+  </div> 
+  <!-- Boton para ingreso con gmail deshabilitado por error en movil -->
+  <!--
+  <div class="div_login">
+    <span class="divider line one-line">o</span>
+  </div>
+  <div class="div_login">
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" class="bot_google" (click)="onloginGoogle(email,password)">
+          Login with Google
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div> -->
+  
+  </form>
+
+  <!-- <img class="imagen" src="../../assets/images/tierra.png" alt=""> -->
+
+</ion-content>

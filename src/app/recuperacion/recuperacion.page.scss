@@ -1,0 +1,49 @@
+ion-content {
+  --background: var(--ion-color-secondary);
+ // --background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
+}
+
+
+.tittle{
+color: black;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 80px;
+width: 100%;
+background-color:  var(--ion-color-primary);
+}
+
+.form{
+//background-color: yellowgreen;
+height: 50%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.form__div{
+width: 100%;
+height: 90%;
+//background-color: yellow;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.form__div--item{
+width: 80%;
+align-self: center;
+border: solid rgb(91, 5, 148) 1px;
+}
+
+.form__div--boton{
+margin-top: 50px;
+width: 49%;
+height: 30px;
+background-color: rgb(91, 5, 148);
+color: white;
+align-self: center;
+border-radius: 5px;
+border: solid 1px black
+}

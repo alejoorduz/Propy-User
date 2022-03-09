@@ -1,0 +1,51 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <div class="headercontainer">
+      <div class="back">
+        <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+      </div>
+  <div class="headertittle">
+     Reservas disponibles men 
+  </div>
+  <!-- <div class="headericon">
+     <ion-icon class="icono"  name="person-circle-outline" (click)="this.getLocation()"></ion-icon>
+    </div> -->
+  </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding"> 
+
+    <ion-button (click)="navigate()">ver horarios disponibles</ion-button>
+
+   
+    <!-- <calendar 
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    lockSwipes="true"
+  >
+  </calendar> -->
+
+    <!-- <calendar 
+    *ngIf="modalReady"
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    startHours="0"
+    noEventLabel="no events to display"
+    endHours="23"
+    step="30"
+    startingDayWeek="1"
+    >
+    </calendar>  -->
+
+    <!-- (onCurrentDateChanged)="onCurrentDateChanged($event)"
+    (onRangeChanged)="reloadSource(startTime, endTime)"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)" -->
+  </div>
+</ion-content>

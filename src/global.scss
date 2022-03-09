@@ -24,3 +24,111 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.adding_modal {
+    height: 100%;
+    width: 100%;
+    //top: 10%;
+    position: absolute; 
+   // display: block; 
+   // padding: 20% 10% !important;
+}
+
+.emergencias_modal {
+    --width: 70%;
+    --height: 70%;
+    border: solid black 2px;
+    background-color: var(--ion-color-primary)
+    //top: 10%;
+   // position: absolute; 
+   // display: block; 
+   // padding: 20% 10% !important;
+}
+
+
+
+.popover .popover-viewport {
+    background: #5c9ead;
+    height: 80%;
+    width: 80%;
+    border: solid 3px black;
+  }
+
+.monthview-container{
+    background-color: white !important;
+}
+
+.calendar-event-inner{
+    background-color: var(--ion-color-primary) !important;
+}
+
+.monthview-current {
+    background-color: rgb(24,185,133) !important;
+  }
+
+.monthview-selected{
+    background-color: rgb(30, 131, 214) !important;
+}
+  
+.monthview-primary-with-event {
+    background-color: var(--ion-color-primary) !important;
+  }
+
+.monthview-secondary-with-event{
+    background-color: var(--ion-color-primary) !important;
+}
+
+.weekview-with-event{
+    background-color: rgb(81, 155, 13) !important;
+}
+
+.week-view-current{
+    background-color: rgb(134, 27, 27) !important;
+}
+
+.weekview-selected{
+    background-color:  rgb(30, 131, 214) !important;
+}
+
+.dayview-selected{
+    background-color:  rgb(30, 131, 214) !important;
+}
+
+.weekview-allday-label{
+    background-color: rgb(255, 255, 255) !important;
+    display: none;
+    height: 3px;
+}
+
+.dayview-allday-label{
+    background-color: rgb(255, 255, 255) !important;
+    border: rgb(112,51,204);
+    display: none;
+    height: 3px;
+    //rgb(24,185,133);
+}
+
+.calendar-hour-column{
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.swiper-slide{
+    background-color: white !important;
+}
+
+.weekview-allday-table{
+    display: none;
+}
+
+.weekview-normal-event-container {
+    margin-top: 38px !important; ;
+}
+
+.dayview-normal-event-container {
+    margin-top: 0px !important; 
+}
+
+.dayview-allday-table {
+    display: none !important;
+}
+

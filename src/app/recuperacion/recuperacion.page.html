@@ -1,0 +1,17 @@
+<ion-content>
+  <div class="tittle">Recuperación de contraseña</div>
+  <form class="form">
+    <div class="form__div">
+    <ion-item class="form__div--item">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" #email required></ion-input>
+    </ion-item>    
+        <button class="form__div--boton" type="submit" (click)="onReset(email)">
+          Recuperar cuenta
+        </button>
+        <button class="form__div--boton" type="submit" routerLink="/iniciosesion">
+          Atrás
+        </button>
+     </div>
+  </form>
+</ion-content>

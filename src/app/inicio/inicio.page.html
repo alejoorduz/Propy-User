@@ -1,0 +1,210 @@
+<!-- <ion-header class="header">
+  <ion-toolbar>
+    <div class="headercontainer">
+      <div class="back">
+        <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+      </div>
+  <div class="headertittle">
+    <ion-title > Servicios </ion-title>
+  </div>
+
+  </div>
+  </ion-toolbar>
+</ion-header> -->
+
+
+<!-- <div class="todo">
+<div class="parrafo" *ngIf='this.show_services'>
+<h1 class="parrafo__texto">¡Bienvenido a {{this.proyecto}}!</h1>
+<h1 class="parrafo__texto">Estos son los servicios disponibles</h1>
+</div> -->
+
+
+<ion-content padding>
+
+  <div class="headercontainer">
+      <div class="back">
+        <ion-icon name="business-outline" class="iconoback" (click)="dismiss()"></ion-icon>
+      </div>
+  <div class="headertittle">
+  </div>
+  <div class="headericon">
+     <!-- <ion-icon class="icono" name="person-circle-outline" (click)="this.getLocation()"></ion-icon> -->
+    </div>
+  </div>
+  <img class="imagen" src="../../assets/images/security.png" alt="">
+  <div class="todo">
+    <div class="parrafo_borrado" *ngIf='this.show'>
+      <div class="delete_parraf">Parece que tu administrador elimino el negocio, eliminalo tu tambien de tu lista
+      <button class="delete_button" (click)="delete(this.proyecto)">Eliminar de mi lista</button></div>
+    </div>
+    <div class="grid" *ngIf='this.show_services'>
+  <div class="parrafo">
+  <h1 class="parrafo__texto">Bienvenid@ {{this.nombre}} </h1>
+  <h1 class="parrafo__texto">Estos son los servicios que ofrece <strong>{{this.proyecto}}</strong></h1>
+  </div>
+</div>
+    
+    <div class="slider">
+  <ion-slides [options]="option" #slideWithNav pager="true">
+    <ion-slide *ngIf="reserva==true" class="slide">
+      <ion-card  (click)="this.elegir_servicio('reservas')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Reservas</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="calendar-outline"></ion-icon>
+          <h1 class="descripcion">Gestiona las reservas de los diferentes servicios que ofrece {{this.proyecto}}</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="pagos==true" class="slide">
+      <ion-card (click)="this.elegir_servicio('pagos')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Pagos</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="cash-outline"></ion-icon>
+          <h1 class="descripcion">Accede al link de pago de {{this.proyecto}}</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="comunicado==true" class="slide">
+      <ion-card (click)="this.elegir_servicio('comunicados')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Comunicados</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="newspaper-outline"></ion-icon>
+          <h1 class="descripcion">Lee los comunicados importantes de {{this.proyecto}}</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="documento==true" class="slide">
+      <ion-card (click)="this.elegir_servicio('documentos')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Documentos</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="document-attach-outline"></ion-icon> 
+          <h1 class="descripcion">Descarga algun documento importante de {{this.proyecto}}</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="monitoreo==true" class="slide">
+      <ion-card  (click)="this.elegir_servicio('monitoreo')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Monitoreo</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="business-outline"></ion-icon>
+          <h1 class="descripcion">Monitorea en tiempo real datos obtenidos por {{this.proyecto}}</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="seguridad==true" class="slide">
+      <ion-card (click)="this.elegir_servicio('seguridad')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Seguridad</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="shield-half-outline"></ion-icon>
+          <h1 class="descripcion">Revisa los temas de seguridad de {{this.proyecto}}</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="aircall==true" class="slide">
+      <ion-card  (click)="this.elegir_servicio('aircall')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>AirCall</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="keypad-outline"></ion-icon>
+          <h1 class="descripcion">Controla el Ascensor</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="usuarios==true" class="slide">
+      <ion-card  (click)="this.elegir_servicio('usuarios')">
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Usuarios</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="people-outline"></ion-icon>
+          <h1 class="descripcion">Gestiona los usuarios que hacen uso de {{this.proyecto}}</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  
+     <ion-slide *ngIf="emergencia==true" class="slide">
+      <ion-card  (click)="this.elegir_servicio('emergencias')" >
+        <ion-card-header>
+          <ion-card-subtitle>Servicios</ion-card-subtitle>
+          <ion-card-title>Emergencia 24/7</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" name="notifications-circle-outline"></ion-icon>
+          <h1 class="descripcion">Contacto directo con Call-Center por emergencias en el ascensor de {{this.proyecto}}.</h1>
+        </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  </ion-slides>
+  </div>   
+  </div>
+  </ion-content>
+  
+<!-- 
+<ion-content padding>
+<div class="parrafo_borrado" *ngIf='this.show'>
+  <div class="delete_parraf">Parece que tu administrador elimino el negocio, eliminalo tu tambien de tu lista
+  <button class="delete_button" (click)="delete(this.proyecto)">Eliminar de mi lista</button></div>
+</div>
+
+<div class="grid" *ngIf='this.show_services' >
+  <div class="row">
+ 
+    <div class="columna" *ngIf="reservas==true">
+      <button class="boton_servicios"  (click)="this.elegir_servicio('reservas')"> Reservas <ion-icon class="icon" name="calendar-outline"></ion-icon></button>
+    </div>
+    <div class="columna" *ngIf="pagos==true">
+      <button class="boton_servicios"  (click)="this.elegir_servicio('pagos')"> Pagos <ion-icon class="icon" name="cash-outline"></ion-icon></button>
+    </div>
+    <div class="columna" *ngIf="comunicados==true">
+      <button class="boton_servicios"  (click)="this.elegir_servicio('comunicados')"> Comunicados <ion-icon class="icon" name="newspaper-outline"></ion-icon></button>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="columna" *ngIf="documentos==true">
+      <button class="boton_servicios"  (click)="this.elegir_servicio('documentos')"> Documentos<ion-icon class="icon" name="document-attach-outline"></ion-icon> </button>
+    </div>
+    <div class="columna" *ngIf="mascotas==true">
+      <button class="boton_servicios"  (click)="this.elegir_servicio('mascotas')"> Ingreso mascotas <ion-icon class="icon" name="paw-outline"></ion-icon></button>
+    </div>
+    <div class="columna" *ngIf="monitoreo==true">
+      <button class="boton_servicios"  (click)="this.elegir_servicio('monitoreo')"> Monitoreo <ion-icon class="icon" name="business-outline"></ion-icon></button>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="columna" *ngIf="seguridad==true">
+      <button class="boton_servicios"  (click)="this.elegir_servicio('seguridad')"> Seguridad <ion-icon class="icon" name="shield-half-outline"></ion-icon></button>
+    </div>
+  </div>
+</div>
+
+</div>
+</ion-content> -->

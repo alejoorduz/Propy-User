@@ -1,0 +1,479 @@
+//HEADER-------------------------------------------------
+ion-header{
+  background-color: var(--ion-color-primary);
+  color: black;
+  justify-items: center;
+  align-items: center;
+  border: none;
+}
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+  border: none;
+  }
+
+
+.headercontainer{
+  width: 100%;
+  height: 60px;
+  display: flex;
+}
+
+
+.back{
+    width: 20%;
+    height: 40px;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headertittle{
+ margin-top: 20px;
+  width: 60%;
+  height: 40px;
+  text-align: center;
+  color: black;
+}
+
+.headericon{
+  width: 20%;
+  height: 60px;
+  text-align: center;
+  color: black;
+}
+
+.icono_mas{
+  margin-top: 10px;
+  width: 60%;
+  height: 60%;
+  color: black;
+  opacity: 0.3;
+}
+
+.iconoback{
+  margin-top: 10px;
+  width: 80%;
+  height: 80%;
+  color: black;
+}
+//--------------------------------------------------
+
+ion-content {
+  --background: var(--ion-color-secondary);
+   //--background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
+   --ion-safe-area-top: 100px;
+   overflow-y: scroll !important;
+  }
+  
+  .todo{
+      width: 100%;
+      height: 40%;
+      //background-color: rgb(131, 172, 207);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+  
+  .new_user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0.6;
+    //background-color: red;
+    color: white;
+  }
+
+  .new_user_text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 80%;
+    text-align: left;
+    max-width: 400px;
+    border: dashed rgb(8, 8, 8) 3px;
+    font-size: clamp(5px, 6.5vw, 30px);
+    padding: 5px;
+    background-color: var(--ion-color-primary);
+    color: black;
+    text-align: center;
+  }
+
+  .parrafo{
+    //background-color: blanchedalmond;
+    width: 100%;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //flex-direction: column;
+  }
+
+  .icono{
+    margin-top: 10px;
+    width: 90%;
+    height: 90%;
+    color: black;
+    opacity: 0.3;
+  }
+
+  .imagen_perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+  }
+
+  .resumen_perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    height: 70%;
+  }
+  
+  .resumen__nombre{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+  //  background-color: yellow;
+   // text-align: bottom left;
+    font-size: clamp(5px, 4vw, 20px);
+  }
+
+  .resumen__datos{
+  //  background-color: yellowgreen;
+   display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    width: 100%;
+    height: 10%;
+    //text-align: top left;
+    font-size: clamp(5px, 3vw, 20px);
+  }
+  
+  .grid{
+    display: grid;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    height: 100%;
+    gap: 10px;
+  }
+  
+  .col{
+     // background-color: burlywood;
+      display: flex;
+      //justify-content: center;
+     align-items: flex-start;
+      flex-direction: column;
+      //height: 35vh;
+      width: 100%;
+      //max-height: 250px;
+      //width: 50%;
+    //  max-width: 150px;
+     // min-height: 220px;
+    }
+    
+    .row{
+      margin-top: 20px;
+      width: 100%;
+    // background-color: tomato;
+     display: flex;
+     //justify-content: center;
+     align-items: flex-start;
+     flex-direction: column;
+      //flex-wrap:  wrap-reverse
+      //height: 400px;
+    }
+  
+    .add_icon{
+      width: 80vw;
+      max-width: 600px;
+      height: 100px;
+      background-color: #90b48e;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      border-radius: 20px;
+      box-shadow: -8px 1px black;
+  }
+    
+    .service_label{
+        border: solid black 1px;
+        width: 80vw;
+        max-width: 600px;
+        height: 100px;
+        background-color: #C1CFC0;
+        font-size: 20px;
+        border-radius: 5px;
+        box-shadow: -8px 1px black;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+  
+    .derecha{
+     // background-color: chocolate;
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .izquierda{
+    //  background-color: cornflowerblue;
+      width: 50%;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      flex-direction: column;
+      text-align: left;
+    }
+   
+    .service__service{
+      font-size: clamp(10px, 7vw, 40px);
+      color: black;
+    //  text-align: left;
+    }
+  
+    .service__days{
+      width: 100%;
+      font-size: clamp(10px, 2.5vw, 20px);
+      color: black;
+      text-align: left;
+    }
+  
+  
+    .sercice__onoff{
+      width: 100%;
+      font-size: clamp(10px, 2.5vw,  20px);
+      display: flex;
+     // justify-content: center;
+      align-items: center;
+      //flex-direction: column;
+      color: black;
+      text-align: left;
+    }
+  
+    .service__max{
+      width: 100%;
+      font-size: clamp(10px, 2.5vw,  20px);
+      width: 100%;
+     // background-color: chartreuse;
+      display: flex;
+      //justify-content: center;
+      align-items: center;
+      //flex-direction: column;
+      color: black;
+      text-align: left;
+    }
+
+
+  //-Prueba de card del aircall----------------------------------------------------------------------------------------------------
+
+  .divWeatherMain{
+    display: flex;
+    justify-content: center;
+   // flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    width: 100%;
+    height: 50%;
+   // background: rgb(236, 168, 168);
+    // background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
+    color: white;;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .weatherWidgetRow{
+    font-size: 50px;
+   // background-color: rgb(187, 0, 125);
+    color: black;
+   // display:block;
+   // margin:0 auto;
+    width: 30%;
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+  //position: relative;   
+ // left: 10%; 
+}
+
+.tiempo{
+//background-color: rosybrown;
+  width: 70%;
+  height: 100%;
+  display: flex;
+ // flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1500;
+}
+
+  .tiempo p{
+  color: white;
+  height: 20%;
+  // width: 100%;
+  // height: 100%;
+  // background-color: blue;
+  
+}
+
+.divWeatherMain_bottom{
+  width: 100%;
+ // background-color: sandybrown;
+  display: flex;
+  height: 70%;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 1500;
+}
+
+.weatherWidgetRow_bottom{
+    // background-color: rgb(187, 0, 125);
+      color: black;
+      //display:block;
+      align-items: center;
+      // position: relative;
+      // top: px;
+     // margin:0 auto;
+      width: 25%;
+      height: 60%;
+       display: flex;
+       flex-direction: column;
+      justify-content: left;
+      align-items: center;
+    //position: relative;   
+   // left: 10%; 
+   z-index: 1000;
+}
+
+.h1{
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 50%;
+  //background-color: rgb(96, 244, 133);
+  font-size: clamp(5px, 2vw, 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  z-index: 1000;
+}
+
+.h2{
+  height: 50%;
+  width: 100%;
+ // background-color: rgb(96, 244, 212);
+ font-size: clamp(5px, 2vw, 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.slider{
+  margin-top: 60px;
+  width: 100%;
+  z-index: 20;
+  max-width: 400px;
+  background-color: transparent !important;
+ // height: 400px;
+ // background-color: linear-gradient(180deg, rgb(252, 252, 252), rgb(184, 184, 184), #ffffff);;
+}
+
+.slide{
+  //background-color: rgba(255, 171, 93, 0.39);
+  height: 350px;
+  width: 80%;
+  z-index: 20;
+  background-color: transparent !important;
+}
+
+ion-slides{
+  z-index: 20;
+  background-color: transparent !important;
+//background-color: #c5c5c59f;
+  //--background: linear-gradient(180deg, rgb(252, 252, 252), rgb(122, 122, 122), #ffffff);
+}
+
+ion-card{
+  background-color: rgb(255, 255, 255);
+  border: solid black 1px;
+  height: 75%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: -18px 15px rgb(153, 153, 153);
+  min-width: 210px
+}
+
+ion-card:active {
+  background-color:  rgb(164, 120, 230); ;
+  box-shadow: 0 5px #666;
+  transform: translateY(15px);
+  color: white;
+}
+
+ion-card-header{
+  width: 100%;
+  height: 100%;
+}
+
+// ion-card-title{
+
+// }
+
+.show_delete{
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 10%;
+  left: 85%;
+  color: var(--ionic-color-primary);
+  opacity: 0.3;
+  z-index: 200;
+}
+
+.trash-icon{
+  width: 30px;
+  height: 30px;
+  color: var(--ion-color-primary);
+  // position: relative;
+  // top: 10%;
+  // left: 95%;
+  
+}
+
+.building{
+  margin-top: 10px;
+  width: 90px;
+  height: 90px;
+}
+
+.imagen{
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  height: auto;
+  opacity: 0.4;
+}
+
+//-------------------------------------------------------------
+  
