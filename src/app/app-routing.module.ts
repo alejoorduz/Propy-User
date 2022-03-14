@@ -78,6 +78,66 @@ const routes: Routes = [
   {
     path: 'mis-reservas',
     loadChildren: () => import('./reserva/mis-reservas/mis-reservas.module').then( m => m.MisReservasPageModule)
+  },
+  {
+    path: 'documentos',
+    loadChildren: () => import('./documentos/documentos.module').then( m => m.DocumentosPageModule)
+  },
+  {
+    path: 'mascotas',
+    loadChildren: () => import('./mascotas/mascotas.module').then( m => m.MascotasPageModule)
+  },
+  {
+    path: 'trasteos',
+    loadChildren: () => import('./trasteos/trasteos.module').then( m => m.TrasteosPageModule)
+  },
+  {
+    path: 'clasificados',
+    loadChildren: () => import('./clasificados/clasificados.module').then( m => m.ClasificadosPageModule)
+  },
+  {
+    path: 'directorio',
+    loadChildren: () => import('./directorio/directorio.module').then( m => m.DirectorioPageModule)
+  },
+  {
+    path: 'finanzas',
+    loadChildren: () => import('./finanzas/finanzas.module').then( m => m.FinanzasPageModule)
+  },
+  {
+    path: 'autorizaciones',
+    loadChildren: () => import('./autorizaciones/autorizaciones.module').then( m => m.AutorizacionesPageModule)
+  },
+  {
+    path: 'beneficios',
+    loadChildren: () => import('./beneficios/beneficios.module').then( m => m.BeneficiosPageModule)
+  },
+  {
+    path: 'seguridad',
+    loadChildren: () => import('./seguridad/seguridad.module').then( m => m.SeguridadPageModule)
+  },
+  {
+    path: 'preguntas',
+    loadChildren: () => import('./preguntas/preguntas.module').then( m => m.PreguntasPageModule)
+  },
+  {
+    path: 'acceso',
+    loadChildren: () => import('./acceso/acceso.module').then( m => m.AccesoPageModule)
+  },
+  {
+    path: 'eventos',
+    loadChildren: () => import('./eventos/eventos.module').then( m => m.EventosPageModule)
+  },
+  {
+    path: 'citofonia',
+    loadChildren: () => import('./citofonia/citofonia.module').then( m => m.CitofoniaPageModule)
+  },
+  {
+    path: 'encuestas',
+    loadChildren: () => import('./encuestas/encuestas.module').then( m => m.EncuestasPageModule)
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   }
 
 ];

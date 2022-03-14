@@ -340,11 +340,9 @@ export class InscripcionesPage implements OnInit {
     delete(proyecto){
       this.fbs.delete_doc("user/"+this.current_user_uid+"/proyectos", proyecto).then(() => {
         console.log("proyecto borrado")
-       // this.dismiss();
-        // Actualizar la lista completa
-        //this.consultar_lista_servicios();
-        // Limpiar datos de pantalla
-        //this.tareaEditando = {} as Tarea;
+      })
+      this.fbs.delete_doc("Proyectos/"+proyecto+"/usuarios", this.current_user_name).then(() => {
+        console.log("usuario borrado")
       })
     }
 

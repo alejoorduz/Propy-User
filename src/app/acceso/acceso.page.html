@@ -1,0 +1,56 @@
+<!-- <ion-header class="header">
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title > Control de Acceso </ion-title>
+    </div>
+  </div>
+
+<div class="todo">
+    <div class="ver_comunicados">
+            <h1 class="texto"><strong>{{this.proyecto}}</strong></h1>
+            <!-- <h1 class="texto"></h1> -->
+            <ion-grid class="grid">
+              <ion-col class="col">
+                <ion-row class="row" *ngFor="let comunicado of comunicados">
+                    <div class="card" tabindex="1" (click)="presentAlertdone()">
+                      <div class="imagen">
+                        <ion-icon class="img-icon" [name]="comunicado.icon"></ion-icon>
+                      </div>
+                      <div class="card-inner">
+                      <div class="top">
+                        <div class="titulo">  
+                          <strong>{{ comunicado.titulo }}</strong>  
+                        </div>
+                        <!-- <div class="dia_hora">  
+                          <div class="dia">
+                              {{ comunicado.subtitulo }}  
+                          </div>
+                          <div class="hora">
+                            {{ comunicado.fecha }} 
+                          </div>
+                        </div> -->
+                    </div>
+                      <!-- <div class="tema">
+                         {{comunicado.subtitulo}} 
+                      </div> -->
+                      <!-- <div class="reporte">
+                        {{comunicado.data.icono}} 
+                    </div> -->
+                    </div>
+                      <!-- <div class="descarga"><ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="download-outline"></ion-icon></div> -->
+                  </div>
+                </ion-row>
+              </ion-col>
+            </ion-grid>
+    </div> 
+</div>
+</ion-content>

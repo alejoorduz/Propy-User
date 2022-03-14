@@ -1,5 +1,7 @@
 {
   "name": "PropyUser",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,81 @@
+<!-- <ion-header class="header">
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title > Mascotas </ion-title>
+    </div>
+  </div>
+
+<div class="todo">
+    <div class="crear_comunicado">
+        <h1 style="text-align:center;" class="tituloavisos">Ingresa la información de tu Mascota</h1>
+        <h2  class="avisos">Asi será mas facil tener información en caso de accidentes o perdidas de la mascota</h2>
+      <div class="divform">
+        <ion-item class="formulario">
+          <ion-label position="floating" >Nombre Mascota</ion-label>
+          <ion-input type="text" id="nombres" placeholder="Ej: Coco" [(ngModel)]="nombres"></ion-input>
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="floating">Especie</ion-label>
+          <ion-input type="text" id="especie" required placeholder="Ej: Perro" [(ngModel)]="especie"></ion-input>
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="floating">Raza</ion-label>
+          <ion-input type="text" id="raza" required placeholder="Ej: Chihuahua" [(ngModel)]="raza"></ion-input>
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="foto">Foto Mascota</ion-label>
+          <!-- <ion-input type="text" id="tema" required placeholder="Ej: Perro" [(ngModel)]="tema"></ion-input> -->
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="vacuna">Foto Vacunas</ion-label>
+          <!-- <ion-input type="text" id="tema" required placeholder="Ej: Perro" [(ngModel)]="tema"></ion-input> -->
+        </ion-item>
+        <!-- <ion-item class="formulariofinal">
+          <ion-label position="floating" >Raza:</ion-label>
+          <ion-textarea rows="6" cols="20" id="reporte" placeholder="Ej: Chihuahua" [(ngModel)]="reporte"></ion-textarea>
+        </ion-item> -->
+        <button class="submit" (click)="upload_publication()" expand="block">Enviar</button>
+      </div>
+    </div>
+    <div class="ver_comunicados">
+            <h1 class="texto">Mis Mascotas</h1>
+            <ion-grid class="grid">
+              <ion-col class="col">
+                <ion-row class="row" *ngFor="let comunicado of comunicados">
+                    <div class="card">
+                      <div class="top">
+                        <div class="titulo">  
+                          <strong>{{ comunicado.data.nombre }}</strong>  
+                        </div>
+                        <!-- <div class="dia_hora">  
+                          <div class="dia">
+                              {{ comunicado.data.dia }}  
+                          </div>
+                          <div class="hora">
+                            {{ comunicado.data.hora }} 
+                        </div>
+                        </div> -->
+                    </div>
+                      <div class="tema">
+                        {{comunicado.data.especie}} 
+                      </div>
+                      <div class="reporte">
+                        {{comunicado.data.raza}} 
+                    </div>
+                       <ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="trash-outline"></ion-icon>
+                  </div>
+                </ion-row>
+              </ion-col>
+            </ion-grid>
+    </div> 
+</div>
+</ion-content>

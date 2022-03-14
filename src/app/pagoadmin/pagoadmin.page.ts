@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 //import { $ } from 'protractor';
 import * as $ from "jquery";
-import { identifierModuleUrl } from '@angular/compiler';
+//import { identifierModuleUrl } from '@angular/compiler';
 import { ModalController } from '@ionic/angular';
 
 @Component({

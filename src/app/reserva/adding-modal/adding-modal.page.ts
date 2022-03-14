@@ -8,7 +8,7 @@ import { data } from 'jquery';
 import { ModalController } from "@ionic/angular";
 import { FirestoreService } from '../../firestore.service';
 import * as moment from 'moment';
-import { format, parseISO } from 'date-fns';
+//import { format, parseISO } from 'date-fns';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { CalendarMode } from 'ionic2-calendar/calendar';
 

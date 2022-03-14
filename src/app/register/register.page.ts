@@ -1,4 +1,3 @@
-import { identifierModuleUrl } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router, NavigationExtras } from "@angular/router";

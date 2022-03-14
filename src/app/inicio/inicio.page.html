@@ -21,16 +21,16 @@
 
 
 <ion-content padding>
-
   <div class="headercontainer">
       <div class="back">
         <ion-icon name="business-outline" class="iconoback" (click)="dismiss()"></ion-icon>
       </div>
   <div class="headertittle">
+    <ion-title ></ion-title>
   </div>
   <div class="headericon">
      <!-- <ion-icon class="icono" name="person-circle-outline" (click)="this.getLocation()"></ion-icon> -->
-    </div>
+  </div>
   </div>
   <img class="imagen" src="../../assets/images/security.png" alt="">
   <div class="todo">
@@ -41,132 +41,60 @@
     <div class="grid" *ngIf='this.show_services'>
   <div class="parrafo">
   <h1 class="parrafo__texto">Bienvenid@ {{this.nombre}} </h1>
-  <h1 class="parrafo__texto">Estos son los servicios que ofrece <strong>{{this.proyecto}}</strong></h1>
+  <h1 class="parrafo__texto">Estos son los servicios que ofrece <strong> {{this.proyecto}} </strong>  </h1>
   </div>
 </div>
-    
-    <div class="slider">
+
+<!-- <div class="slider">
   <ion-slides [options]="option" #slideWithNav pager="true">
-    <ion-slide *ngIf="reserva==true" class="slide">
-      <ion-card  (click)="this.elegir_servicio('reservas')">
+    <ion-slide  class="slide" *ngFor="let servicio of servicios">
+      <ion-card *ngIf="servicio.habilitado==true" (click)="this.elegir_servicio(servicio.nombre)">
         <ion-card-header>
           <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Reservas</ion-card-title>
+          <ion-card-title>{{servicio.nombre}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-icon class="icon" name="calendar-outline"></ion-icon>
-          <h1 class="descripcion">Gestiona las reservas de los diferentes servicios que ofrece {{this.proyecto}}</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="pagos==true" class="slide">
-      <ion-card (click)="this.elegir_servicio('pagos')">
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Pagos</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="cash-outline"></ion-icon>
-          <h1 class="descripcion">Accede al link de pago de {{this.proyecto}}</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="comunicado==true" class="slide">
-      <ion-card (click)="this.elegir_servicio('comunicados')">
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Comunicados</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="newspaper-outline"></ion-icon>
-          <h1 class="descripcion">Lee los comunicados importantes de {{this.proyecto}}</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="documento==true" class="slide">
-      <ion-card (click)="this.elegir_servicio('documentos')">
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Documentos</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="document-attach-outline"></ion-icon> 
-          <h1 class="descripcion">Descarga algun documento importante de {{this.proyecto}}</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="monitoreo==true" class="slide">
-      <ion-card  (click)="this.elegir_servicio('monitoreo')">
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Monitoreo</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="business-outline"></ion-icon>
-          <h1 class="descripcion">Monitorea en tiempo real datos obtenidos por {{this.proyecto}}</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="seguridad==true" class="slide">
-      <ion-card (click)="this.elegir_servicio('seguridad')">
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Seguridad</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="shield-half-outline"></ion-icon>
-          <h1 class="descripcion">Revisa los temas de seguridad de {{this.proyecto}}</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="aircall==true" class="slide">
-      <ion-card  (click)="this.elegir_servicio('aircall')">
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>AirCall</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="keypad-outline"></ion-icon>
-          <h1 class="descripcion">Controla el Ascensor</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="usuarios==true" class="slide">
-      <ion-card  (click)="this.elegir_servicio('usuarios')">
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Usuarios</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="people-outline"></ion-icon>
-          <h1 class="descripcion">Gestiona los usuarios que hacen uso de {{this.proyecto}}</h1>
-        </ion-card-content>
-      </ion-card>
-     </ion-slide>
-  
-     <ion-slide *ngIf="emergencia==true" class="slide">
-      <ion-card  (click)="this.elegir_servicio('emergencias')" >
-        <ion-card-header>
-          <ion-card-subtitle>Servicios</ion-card-subtitle>
-          <ion-card-title>Emergencia 24/7</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-icon class="icon" name="notifications-circle-outline"></ion-icon>
-          <h1 class="descripcion">Contacto directo con Call-Center por emergencias en el ascensor de {{this.proyecto}}.</h1>
+          <ion-icon class="icon" [name]='servicio.icon'></ion-icon>
+          <h1 class="descripcion">{{servicio.descripcion}} {{this.proyecto}}</h1>
         </ion-card-content>
       </ion-card>
      </ion-slide>
   </ion-slides>
-  </div>   
+  </div> -->
+
+  <div class="position-keypad">
+    <div class="align-center" >
+        <ion-grid class="grid" >
+          <ion-row class="row" >
+              <div class="col" *ngFor="let servicio of servicios">
+                <ion-card *ngIf="servicio.habilitado==true" (click)="this.elegir_servicio(servicio.nombre)">
+                  <ion-card-header>
+                    <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
+                    <ion-card-title>{{servicio.nombre}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-icon class="icon" [name]='servicio.icon'></ion-icon>
+                    <h1 class="descripcion">{{servicio.descripcion}}</h1>
+                  </ion-card-content>
+                </ion-card>
+              </div>
+          </ion-row>
+        </ion-grid>
+      </div>
+</div>
+
+  <!-- <ion-grid class="grid" *ngIf='this.show_services' >
+    <ion-row class="row" *ngFor="let servicio of servicios" >
+      <ion-col class="col" *ngIf="servicio.habilitado==true">
+        <button class="boton_servicios" (click)="this.elegir_servicio('servicio.nombre')">
+          {{servicio.nombre}}
+          <ion-icon class="icon" name="servicio.icon"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
   </div>
-  </ion-content>
+</ion-content>
   
 <!-- 
 <ion-content padding>

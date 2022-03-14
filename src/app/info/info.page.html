@@ -1,0 +1,32 @@
+<!-- <ion-header class="header">
+  <ion-toolbar>
+
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title > </ion-title>
+    </div>
+  </div>
+
+<div class="todo">
+  <img class="imagen" [src]="url" alt="">
+   </div>
+   <div class="botones" *ngIf="this.show">
+     <button class="boton">
+      Llamar
+     </button>
+     <button class="boton">
+       ¿Como llegar?
+    </button>
+    <button class="boton">
+      Reservar
+   </button>
+   </div>
+</ion-content>
+

@@ -7,7 +7,7 @@ import * as $ from "jquery";
 import { data } from 'jquery';
 import { ModalController } from "@ionic/angular";
 import { FirestoreService } from '../../firestore.service';
-import { StringifyOptions } from 'querystring';
+//import { StringifyOptions } from 'querystring';
 
 @Component({
   selector: 'app-inscribirse-modal',
