@@ -301,10 +301,19 @@ ion-header{
   //  background-color: rgb(216, 53, 216);
   }
 
-//   .calendario{
-//         background-color: #374d83;
-//         width: 90%;
-//   }
+ //  .calendario{
+  //       background-color: #ffffff;
+  //      width: 90%;
+ //  }
+
+  .datetime{
+    --background: white;
+  }
+
+  .time-body{
+    border: black;
+    border-radius: 10px;
+  }
   
   
   //--------------------------------------------------------------------------------------------------------------

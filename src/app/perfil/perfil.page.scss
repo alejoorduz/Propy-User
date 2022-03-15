@@ -16,6 +16,7 @@ ion-toolbar {
   width: 100%;
   height: 60px;
   display: flex;
+  color: black;
 }
 
 
@@ -25,6 +26,7 @@ ion-toolbar {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
 }
 
 .headertittle{
@@ -79,6 +81,7 @@ ion-content {
     display: flex;
     //background-color: blue;
     justify-content: center;
+    color: black;
   }
 
 .divform{
@@ -89,6 +92,7 @@ ion-content {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    color: black;
     //background-color: yellow;
 }
 
@@ -103,6 +107,7 @@ ion-content {
     //position: relative;
     //left: 10%;
     border-radius: 20px;
+    color: black;
 }
 
 .label{
@@ -114,6 +119,7 @@ ion-content {
   align-items: center;
   border-radius: 30px;
   border:solid rgb(112, 51, 204) 1px;
+  color: black;
 }
 
 
@@ -121,7 +127,7 @@ ion-content {
   margin-top: 40px;
     width: 150px;
     height: 120px; //100vh o 100vw wiewheight o viewwidth
-    color: white;
+    color: black;
     max-width: 300px;
     display: inline-block;
     font-size: 20px;

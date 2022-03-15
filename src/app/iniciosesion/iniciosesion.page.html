@@ -21,28 +21,27 @@
     <h1 class="parrafo__texto">Bienvenido a PROPY</h1>
     </div>
   <form class="form">
+
     <div class="div_email">
-    <ion-item mode="ios" class="email">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" #email required></ion-input>
-    </ion-item>
+      <ion-item  class="email" lines="none">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input class="input" type="text" #email required></ion-input>
+      </ion-item>
     </div>
+
     <div class="olvide">
       <p class="ubicar">
         <a (click)="crear_cuenta()">Crear Cuenta</a>
       </p>
     </div>
   
- 
   <div class="div_contra">
-    <ion-list>
-        <ion-item class="contra">
+        <ion-item class="contra" lines="none">
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input type="password" #password required></ion-input>
        </ion-item>
-    </ion-list>
-    
   </div>
+
   <div class="olvide">
     <p class="ubicar">
       <a (click)="recuperacion()">Olvide la Contraseña</a>

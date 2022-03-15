@@ -24,7 +24,7 @@ import { LocalNotifications} from '@ionic-native/local-notifications/ngx'
   entryComponents: [],
   imports: [BrowserModule,
     NgCalendarModule, 
-    IonicModule.forRoot(),
+    IonicModule.forRoot( ),
     IonicStorageModule.forRoot(), 
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

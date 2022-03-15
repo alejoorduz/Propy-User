@@ -85,7 +85,7 @@ ion-content {
     width: 100%;
     opacity: 0.6;
     //background-color: red;
-    color: white;
+    color: black;
   }
 
   .new_user_text{
@@ -99,7 +99,7 @@ ion-content {
     border: dashed rgb(8, 8, 8) 3px;
     font-size: clamp(5px, 6.5vw, 30px);
     padding: 5px;
-    background-color: var(--ion-color-primary);
+    background-color: var(--ion-color-secondary);
     color: black;
     text-align: center;
   }
@@ -137,6 +137,7 @@ ion-content {
     flex-direction: column;
     width: 50%;
     height: 70%;
+    color: black;
   }
   
   .resumen__nombre{
@@ -148,6 +149,7 @@ ion-content {
   //  background-color: yellow;
    // text-align: bottom left;
     font-size: clamp(5px, 4vw, 20px);
+    color: black;
   }
 
   .resumen__datos{
@@ -159,6 +161,7 @@ ion-content {
     height: 10%;
     //text-align: top left;
     font-size: clamp(5px, 3vw, 20px);
+    color: black;
   }
   
   .grid{
@@ -421,7 +424,8 @@ ion-card{
   align-items: center;
   flex-direction: column;
   box-shadow: -18px 15px rgb(153, 153, 153);
-  min-width: 210px
+  min-width: 210px;
+  color: black;
 }
 
 ion-card:active {
@@ -436,9 +440,9 @@ ion-card-header{
   height: 100%;
 }
 
-// ion-card-title{
-
-// }
+ion-card-title{
+  color: black;
+}
 
 .show_delete{
   width: 20px;

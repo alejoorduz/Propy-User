@@ -1,5 +1,4 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Servicios_np } from '../servicios/servicios-np'
 import { Router, NavigationExtras } from "@angular/router";
 import { AuthService } from '../auth.service';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
@@ -138,10 +137,10 @@ servicios = [
   icon:"calendar-number-outline",
   "habilitado":true},
 
-  {"nombre":"Usuarios",
-  "descripcion":"Revisa que usuarios hacen parte del edificio",
-  icon:"people-outline",
-  "habilitado":true},
+  // {"nombre":"Usuarios",
+  // "descripcion":"Revisa que usuarios hacen parte del edificio",
+  // icon:"people-outline",
+  // "habilitado":false},
 
   {"nombre":"Documentos",
   "descripcion":"Descarga documentos importantes",
@@ -236,17 +235,17 @@ servicios = [
         this.servicios[7].habilitado = this.proyect_services.data.preguntas;
         this.servicios[8].habilitado = this.proyect_services.data.emergencias;
         this.servicios[9].habilitado = this.proyect_services.data.eventos;
-        this.servicios[10].habilitado = true;
-        this.servicios[11].habilitado = this.proyect_services.data.documentos;
-        this.servicios[12].habilitado = this.proyect_services.data.clasificados;
-        this.servicios[13].habilitado = this.proyect_services.data.encuestas;
-        this.servicios[14].habilitado = this.proyect_services.data.acceso;
-        this.servicios[15].habilitado = this.proyect_services.data.pagos;
-        this.servicios[16].habilitado = this.proyect_services.data.monitoreo;
-        this.servicios[17].habilitado = this.proyect_services.data.finanzas;
-        this.servicios[18].habilitado = this.proyect_services.data.beneficios;
-        this.servicios[19].habilitado = this.proyect_services.data.seguridad;
-        this.servicios[20].habilitado = this.proyect_services.data.citofonia;
+        //this.servicios[10].habilitado = false;
+        this.servicios[10].habilitado = this.proyect_services.data.documentos;
+        this.servicios[11].habilitado = this.proyect_services.data.clasificados;
+        this.servicios[12].habilitado = this.proyect_services.data.encuestas;
+        this.servicios[13].habilitado = this.proyect_services.data.acceso;
+        this.servicios[14].habilitado = this.proyect_services.data.pagos;
+        this.servicios[15].habilitado = this.proyect_services.data.monitoreo;
+        this.servicios[16].habilitado = this.proyect_services.data.finanzas;
+        this.servicios[17].habilitado = this.proyect_services.data.beneficios;
+        this.servicios[18].habilitado = this.proyect_services.data.seguridad;
+        this.servicios[19].habilitado = this.proyect_services.data.citofonia;
         // this.servicios[20].habilitado = this.proyect_services.data.autorizaciones;
         // this.servicios[21].habilitado = this.proyect_services.data.autorizaciones;
         console.log("auth: ", this.servicios[13])

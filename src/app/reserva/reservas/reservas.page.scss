@@ -4,6 +4,7 @@ ion-header{
   color: black;
   justify-items: center;
   align-items: center;
+  color: black;
 }
 
 ion-toolbar {
@@ -27,6 +28,7 @@ ion-toolbar {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
 }
 
 .icono_mas{
@@ -98,11 +100,13 @@ ion-content {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  color: black;
 }
 
 .parrafo__texto{
   text-align: center;
   font-size: clamp(15px, 2.5vw, 20px);
+  color: black;
 }
 
 .grid{
@@ -243,10 +247,10 @@ ion-content {
     width: 80%;
   }
   
-  ion-slides{
+  //ion-slides{
   //background-color: #c5c5c59f;
     //--background: linear-gradient(180deg, rgb(252, 252, 252), rgb(122, 122, 122), #ffffff);
-  }
+ // }
   
   ion-card{
     background-color: white;

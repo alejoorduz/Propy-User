@@ -4,6 +4,7 @@ ion-header{
   color: var(--ion-color-header-text);
   justify-items: center;
   align-items: center;
+  color: black;
 }
 
 ion-toolbar {
@@ -16,6 +17,7 @@ ion-toolbar {
   width: 100%;
   height: 60px;
   display: flex;
+  color: black;
 }
 
 
@@ -25,6 +27,7 @@ ion-toolbar {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
 }
 
 .headertittle{
@@ -38,6 +41,7 @@ ion-toolbar {
   text-align: center;
   color: var(--ion-color-header-text);
  // background-color: yellow;
+ color: black;
 }
 
 .headericon{
@@ -160,6 +164,7 @@ ion-content {
     margin-top: 10px;
     align-self: center;
     position: relative;
+    color: black;
     //left: 10%;
    // background-color: rebeccapurple;
 }
@@ -177,6 +182,7 @@ ion-content {
    // background-color: rgb(143, 188, 160);
     width: 100%;
     height: 20%;
+    color: black;
 }
 
 .formulario__services{
@@ -187,6 +193,7 @@ ion-content {
    // background-color: rgb(143, 188, 160);
     width: 100%;
     height: 200px;
+    color: black;
     
 }
 
@@ -196,6 +203,7 @@ ion-content {
     margin-top: 10px;
     align-self: center;
     position: relative;
+    color: black;
     //left: 10%;
 }
 
