@@ -20,6 +20,35 @@
             <!-- <h1 class="texto"></h1> -->
             <ion-grid class="grid">
               <ion-col class="col">
+                <ion-row class="row" *ngFor="let numero of numeros">
+                  <div class="card" tabindex="1" (click)="llamar(numero.data.numero)">
+                    <div class="imagen">
+                      <ion-icon class="img-icon" name="call-outline"></ion-icon>
+                    </div>
+                    <div class="card-inner">
+                    <div class="top">
+                      <div class="titulo">  
+                        <strong>{{ numero.data.nombre }}</strong>  
+                      </div>
+                      <!-- <div class="dia_hora">  
+                        <div class="dia">
+                            {{ comunicado.subtitulo }}  
+                        </div>
+                        <div class="hora">
+                          {{ comunicado.fecha }} 
+                        </div>
+                      </div> -->
+                  </div>
+                    <div class="tema">
+                       {{numero.data.numero}} 
+                    </div>
+                    <!-- <div class="reporte">
+                      {{comunicado.data.icono}} 
+                  </div> -->
+                  </div>
+                    <!-- <div class="descarga"><ion-icon class="trash-icon" (click)="delete(numero.id)" name="trash-outline"></ion-icon></div> -->
+                </div>
+              </ion-row>
                 <ion-row class="row" *ngFor="let comunicado of comunicados">
                     <div class="card" tabindex="1" (click)="llamar(comunicado.subtitulo)">
                       <div class="imagen">

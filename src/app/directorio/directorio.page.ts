@@ -16,66 +16,94 @@ export class DirectorioPage implements OnInit {
   @Input() nombre
   @Input() proyecto
  
+  numeros = [];
   comunicados  = [
-    {"titulo":"Porteria",
-    "subtitulo":"325 251 7895",
+
+    {"titulo":"Linea de Emergencia",
+    "subtitulo":"123",
     "icon":"call-outline"},
-  
-    {"titulo":"Administración",
-    "subtitulo":"321 458 9874",
+
+    {"titulo":"Policia Nacional",
+    "subtitulo":"112",
     "icon":"call-outline"},
-   
+
+    {"titulo":"Policia de Tránsito",
+    "subtitulo":"127",
+    "icon":"call-outline"},
+
+    {"titulo":"Defensa Civil",
+    "subtitulo":"144",
+    "icon":"call-outline"},
+
+    {"titulo":"Bomberos",
+    "subtitulo":"119",
+    "icon":"call-outline"},
+
+    {"titulo":"Cruz Roja",
+    "subtitulo":"132",
+    "icon":"call-outline"},
+
+    {"titulo":"Ambulancias",
+    "subtitulo":"125",
+    "icon":"call-outline"},
+
+    {"titulo":"Gaula",
+    "subtitulo":"165",
+    "icon":"call-outline"},
+
+    {"titulo":"Atención Desastres",
+    "subtitulo":"111",
+    "icon":"call-outline"},
+
+    {"titulo":"Violencia a Mujeres",
+    "subtitulo":"155",
+    "icon":"call-outline"},
+
     {"titulo":"DirecTv",
-    "subtitulo":"321 524 8955",
+    "subtitulo":"6015185656",
     "icon":"call-outline"},
 
     {"titulo":"Vanti",
-    "subtitulo":"321 525 7895",
+    "subtitulo":"6013078121",
     "icon":"call-outline"},
 
     {"titulo":"ETB",
-    "subtitulo":"325 256 9856",
+    "subtitulo":"6013777777",
     "icon":"call-outline"},
-
 
     {"titulo":"Movistar",
-    "subtitulo":"315 785 6984",
-    "icon":"call-outline"},
-
-    {"titulo":"Dominoes Pizza",
-    "subtitulo":"328 785 3226",
+    "subtitulo":"3152333333",
     "icon":"call-outline"},
 
     {"titulo":"TIGO",
-    "subtitulo":"985 125 6587",
+    "subtitulo":"018000422222",
     "icon":"call-outline"},
 
-    {"titulo":"Cruz Verde",
-    "subtitulo":"365 789 4523",
-    "icon":"call-outline"},
-
+    {"titulo":"CLARO",
+    "subtitulo":"6017441818",
+    "icon":"call-outline"}
   ]
+
 
   ngOnInit() {
     console.log("aja: ", this.uid,this.nombre,this.proyecto)
-   // this.get_comunicados();
+    this.get_comunicados();
   }
 
-//   get_comunicados(){
-//     this.fbs.consultar("/Proyectos/"+this.proyecto+"/comunicados").subscribe((servicios) => {
-//       this.comunicados = [];
-//       servicios.forEach((datosTarea: any) => {
-//         this.comunicados.push({
-//           id: datosTarea.payload.doc.id,
-//           data: datosTarea.payload.doc.data()
-//         });
-//       })
-//       //this.password = this.lista_proyectos.data.key
-//       console.log("traigamos la lista de comunicados")
-//       console.log(this.comunicados)
-//     });
-// }
-
+  get_comunicados(){
+    this.fbs.consultar("/Proyectos/"+this.proyecto+"/directorio").subscribe((servicios) => {
+      this.numeros = [];
+      servicios.forEach((datosTarea: any) => {
+        this.numeros.push({
+          id: datosTarea.payload.doc.id,
+          data: datosTarea.payload.doc.data()
+        });
+      })
+      //this.password = this.lista_proyectos.data.key
+      console.log("traigamos la lista de comunicados")
+      console.log(this.numeros)
+    });
+}
   async presentAlertdone() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',

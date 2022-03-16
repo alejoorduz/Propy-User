@@ -5,6 +5,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import * as moment from "moment";
 
 
+
 @Component({
   selector: 'app-mascotas',
   templateUrl: './mascotas.page.html',
@@ -19,6 +20,7 @@ export class MascotasPage implements OnInit {
 
   
   nombres: string
+  apto: string
   especie: string
   raza: string
   foto: string
@@ -32,7 +34,7 @@ export class MascotasPage implements OnInit {
   }
 
   get_comunicados(){
-    this.fbs.consultar("/Proyectos/"+this.proyecto+"/mascotas").subscribe((servicios) => {
+    this.fbs.consultar("/user/"+this.uid+"/proyectos/"+this.proyecto+"/mascotas").subscribe((servicios) => {
       this.comunicados = [];
       servicios.forEach((datosTarea: any) => {
         this.comunicados.push({
@@ -47,22 +49,27 @@ export class MascotasPage implements OnInit {
 }
 
   upload_publication(){
-    if ($("#nombre").val() == "" || $("#especie").val() == "" || $("#raza").val() == "") {
+    if ($("#apto").val() == "" || $("#nombre").val() == "" || $("#especie").val() == "" || $("#raza").val() == "") {
       this.presentAlert("Debes rellenar todos los espacios")
-    console.log("rellena todo maldito")
     } else {
        var timei = new Date(Date.now());
     var ti = moment(timei).format('h:mm:ss a'); 
     var dt = moment(timei).format('DD-MM-YYYY'); 
-    console.log("AHSHAJWSasasJDJA")
     let comunicado = {
+      dueno: this.nombre,
+      apto: this.apto,
       nombre: this.nombres,
       especie: this.especie,
       raza: this.raza,
       dia: dt,
       hora: ti
     };
-    this.firestoreService.add("Proyectos/"+this.proyecto+"/mascotas", comunicado )
+    var id = Math.floor(Math.random() * 3213546846468435454) + 1
+    console.log("random",id)
+    var sid = id.toString()
+    this.firestoreService.insertar("Proyectos/"+this.proyecto+"/mascotas/", sid, comunicado )
+    this.firestoreService.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/mascotas/", sid, comunicado )
+    $("#apto").val("")
     $("#nombres").val("")
     $("#especie").val("")
     $("#raza").val("")
@@ -107,10 +114,9 @@ export class MascotasPage implements OnInit {
   delete(comunicado){
     //console.log("borrando base de datos de",this.current_user_uid,  " del proyecto ",proyecto)
     this.fbs.delete_doc("Proyectos/"+this.proyecto+"/mascotas", comunicado).then(() => {
-      // Actualizar la lista completa
-     // this.consultar_lista_servicios();
-      // Limpiar datos de pantalla
-      //this.tareaEditando = {} as Tarea;
+    })
+
+    this.fbs.delete_doc("/user/"+this.uid+"/proyectos/"+this.proyecto+"/mascotas", comunicado).then(() => {
     })
   
     // this.fbs.delete_doc("Admins/"+this.current_user_uid+"/proyectos",proyecto).then(() => {

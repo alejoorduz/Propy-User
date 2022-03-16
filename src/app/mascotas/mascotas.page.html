@@ -21,24 +21,26 @@
       <div class="divform">
         <ion-item class="formulario">
           <ion-label position="floating" >Nombre Mascota</ion-label>
-          <ion-input type="text" id="nombres" placeholder="Ej: Coco" [(ngModel)]="nombres"></ion-input>
+          <ion-input type="text" id="nombres" placeholder="Ej: Nala" [(ngModel)]="nombres"></ion-input>
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="floating" >Torre y Apartamento</ion-label>
+          <ion-input type="text" id="apto" placeholder="Ej: Torre 2 - apto 08" [(ngModel)]="apto"></ion-input>
         </ion-item>
         <ion-item class="formulario">
           <ion-label position="floating">Especie</ion-label>
-          <ion-input type="text" id="especie" required placeholder="Ej: Perro" [(ngModel)]="especie"></ion-input>
+          <ion-input type="text" id="especie" required placeholder="Ej: Gato, Perro" [(ngModel)]="especie"></ion-input>
         </ion-item>
         <ion-item class="formulario">
           <ion-label position="floating">Raza</ion-label>
           <ion-input type="text" id="raza" required placeholder="Ej: Chihuahua" [(ngModel)]="raza"></ion-input>
         </ion-item>
-        <ion-item class="formulario">
+        <!-- <ion-item class="formulario">
           <ion-label position="foto">Foto Mascota</ion-label>
-          <!-- <ion-input type="text" id="tema" required placeholder="Ej: Perro" [(ngModel)]="tema"></ion-input> -->
         </ion-item>
         <ion-item class="formulario">
           <ion-label position="vacuna">Foto Vacunas</ion-label>
-          <!-- <ion-input type="text" id="tema" required placeholder="Ej: Perro" [(ngModel)]="tema"></ion-input> -->
-        </ion-item>
+        </ion-item> -->
         <!-- <ion-item class="formulariofinal">
           <ion-label position="floating" >Raza:</ion-label>
           <ion-textarea rows="6" cols="20" id="reporte" placeholder="Ej: Chihuahua" [(ngModel)]="reporte"></ion-textarea>
@@ -66,10 +68,10 @@
                         </div> -->
                     </div>
                       <div class="tema">
-                        {{comunicado.data.especie}} 
+                        {{comunicado.data.especie}} {{comunicado.data.raza}} 
                       </div>
                       <div class="reporte">
-                        {{comunicado.data.raza}} 
+                        {{comunicado.data.apto}}
                     </div>
                        <ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="trash-outline"></ion-icon>
                   </div>
