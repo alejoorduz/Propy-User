@@ -17,14 +17,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   name: 'safe'
 })
 
-@Component({
-  selector: 'app-info',
-  templateUrl: './info.page.html',
-  styleUrls: ['./info.page.scss'],
-  providers: [File,DocumentViewer]
 
+@Component({
+  selector: 'app-open-link',
+  templateUrl: './open-link.page.html',
+  styleUrls: ['./open-link.page.scss'],
+  providers: [File,DocumentViewer]
 })
-export class InfoPage implements OnInit {
+export class OpenLinkPage implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -150,13 +150,10 @@ downloadAndOpenPdf() {
       message: 'Gracias por tus sugerencias.',
       buttons: ['OK']
     });
-  
     await alert.present();
-  
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
-
   dismiss(){
     this.modalCtrl.dismiss();
   }

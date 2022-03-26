@@ -1,11 +1,6 @@
-<!-- <ion-header class="header">
+<ion-header class="header">
   <ion-toolbar>
-
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
-  <div class="headercontainer">
+<div class="headercontainer">
     <div class="back">
       <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
     </div>
@@ -13,44 +8,94 @@
       <ion-title > Encuestas </ion-title>
     </div>
   </div>
+  </ion-toolbar>
+</ion-header>
 
-<div class="todo">
+<ion-content>
+  
+
+  <div class="todo">
+    <!-- <div class="ver_comunicados">
+            <h1 class="texto"><strong>Agregar Formulario de Google Forms</strong></h1>
+            <h2 class="textodos">Accede a tu cuenta de Google forms y copia el Link para compartir formulario</h2>
+            <h3 class="textotres" (click)="GoToURL('https://docs.google.com/forms/u/0/')">https://docs.google.com/forms/u/0/<ion-icon style="color: blue;" name="share-outline"></ion-icon></h3>
+            <div class="divform">
+              <ion-item class="formulario">
+                <ion-label position="floating" >Nombre de encuesta</ion-label>
+                <ion-input type="text" id="nombre_numero" placeholder="Ej: Porteria" [(ngModel)]="nombre_numero"></ion-input>
+              </ion-item>
+              <ion-item class="formulario">
+                <ion-label position="floating">Link de la encuesta</ion-label>
+                <ion-input type="text" id="numero" required placeholder="" [(ngModel)]="numero"></ion-input>
+              </ion-item>
+             <button class="submit" (click)="upload_publication()" expand="block">Guardar</button>
+            </div>
+    </div>  -->
     <div class="ver_comunicados">
-            <h1 class="texto"><strong>{{this.proyecto}}</strong></h1>
-            <!-- <h1 class="texto"></h1> -->
-            <ion-grid class="grid">
-              <ion-col class="col">
-                <ion-row class="row" *ngFor="let comunicado of comunicados">
-                    <div class="card" (click)="modal_info()">
-                      <div class="imagen">
-                        <ion-icon class="img-icon" [name]="comunicado.icon"></ion-icon>
-                      </div>
-                      <div class="card-inner">
-                      <div class="top">
-                        <div class="titulo">  
-                          <strong>{{ comunicado.titulo }}</strong>  
-                        </div>
-                        <!-- <div class="dia_hora">  
-                          <div class="dia">
-                              {{ comunicado.subtitulo }}  
-                          </div>
-                          <div class="hora">
-                            {{ comunicado.fecha }} 
-                          </div>
-                        </div> -->
-                    </div>
-                      <div class="tema">
-                         {{comunicado.subtitulo}} 
-                      </div>
-                      <!-- <div class="reporte">
-                        {{comunicado.data.icono}} <ion-icon name="arrow-redo-outline"></ion-icon>
-                    </div> -->
-                    </div>
-                      <div class="descarga"><ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="arrow-redo-outline"></ion-icon></div>
+      <h1 class="texto"><strong>{{this.proyecto}}</strong></h1>
+      <!-- <h1 class="texto"></h1> -->
+      <ion-grid class="grid">
+        <ion-col class="col">
+          <ion-row class="row" *ngFor="let numero of numeros">
+            <div class="card" tabindex="1" (click)="modal_info(numero.data.numero)">
+              <!-- <div class="imagen">
+                <ion-icon class="img-icon" name="help-circle-outline"></ion-icon>
+              </div> -->
+              <div class="card-inner">
+              <div class="top">
+                <div class="titulo">  
+                  <strong>{{ numero.data.nombre }}</strong>  
+                </div>
+                <!-- <div class="dia_hora">  
+                  <div class="dia">
+                      {{ comunicado.subtitulo }}  
                   </div>
-                </ion-row>
-              </ion-col>
-            </ion-grid>
-    </div> 
+                  <div class="hora">
+                    {{ comunicado.fecha }} 
+                  </div>
+                </div> -->
+            </div>
+              <!-- <div class="tema">
+                 {{numero.data.numero}} 
+              </div> -->
+              <!-- <div class="reporte">
+                {{comunicado.data.icono}} 
+            </div> -->
+            </div>
+              <!-- <div class="descarga"><ion-icon class="trash-icon" (click)="delete(numero.id)" name="trash-outline"></ion-icon></div> -->
+          </div>
+        </ion-row>
+        <!--  <ion-row class="row" *ngFor="let comunicado of comunicados">
+              <div class="card" tabindex="1" (click)="llamar(comunicado.subtitulo)">
+                <div class="imagen">
+                  <ion-icon class="img-icon" [name]="comunicado.icon"></ion-icon>
+                </div>
+                <div class="card-inner">
+                <div class="top">
+                  <div class="titulo">  
+                    <strong>{{ comunicado.titulo }}</strong>  
+                  </div>
+                   <div class="dia_hora">  
+                    <div class="dia">
+                        {{ comunicado.subtitulo }}  
+                    </div>
+                    <div class="hora">
+                      {{ comunicado.fecha }} 
+                    </div>
+                  </div> 
+              </div>
+                <div class="tema">
+                   {{comunicado.subtitulo}} 
+                </div>-->
+                <!-- <div class="reporte">
+                  {{comunicado.data.icono}} 
+              </div> 
+              </div>-->
+                <!-- <div class="descarga"><ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="trash-outline"></ion-icon></div>
+            </div>
+          </ion-row> -->
+        </ion-col>
+      </ion-grid>
+</div> 
 </div>
 </ion-content>

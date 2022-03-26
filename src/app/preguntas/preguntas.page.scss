@@ -1,352 +1,369 @@
 //HEADER-------------------------------------------------
 ion-header{
-    background-color: var(--ion-color-primary);
-    color: black;
-    justify-items: center;
-    align-items: center;
-  }
-  
-  ion-toolbar {
-    --background: transparent;
-    --ion-color-base: transparent !important;
-    }
-  
-  
-  .headercontainer{
-    width: 100%;
-    height: 60px;
-    display: flex;
-  }
-  
-  
-  .back{
-      width: 20%;
-      height: 40px;   
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-  
-  .headertittle{
-   margin-top: 20px;
-    width: 60%;
-    height: 40px;
-    text-align: center;
-    color: black;
-  }
-  
-  .headericon{
-    width: 20%;
-    height: 60px;
-    text-align: center;
-    color: black;
-  }
-  
-  .icono{
-    margin-top: 10px;
-    width: 60%;
-    height: 60%;
-    color: black;
-  }
-  
-  .iconoback{
-    margin-top: 10px;
-    width: 80%;
-    height: 80%;
-    color: black;
-  }
-  //--------------------------------------------------
-  
-  ion-content {
-    --background: var(--ion-color-secundary);
-   //--background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
-   --ion-safe-area-top: 100px;
-   overflow-y: scroll !important;
-  }
-  
-  .todo{
-      width: 100%;
-      height: auto;
-      display: flex;
-      flex-direction: column;
-     // justify-content: center;
-      align-items: center;
-     // background-color: blue;
-  }
-  
-  .crear_comunicado{
-    width: 80%;
-    height: auto;
-    background-color:  rgba(229, 223, 236, 0.582);
-    display: flex;
-    //justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 30px;
-    border: solid black 1px;
-  }
-  
-  .texto{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .ver_comunicados{
-    margin-top: 40px;
-    width: 80%;
-    height: auto;
-    background-color:  rgba(175, 130, 226, 0.582);
-    display: flex;
-    //justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 30px;
-    border: solid black 1px;
-  
-  }
-  
-  
-  
-  .tituloavisos{
-      font-size: 30px;
-      display: flex;
-      //background-color: blue;
-      justify-content: center;
-    }
-  
-    .formulario{
-      width: 80%;
-      height: 70px;
-      margin-top: 10px;
-      align-self: center;
-      position: relative;
-      left: 10%;
-      border-radius: 20px;
-  }
-  
-  .formulariofinal{
-      width: 80%;
-      height: 200px;
-      margin-top: 10px;
-      align-self: center;
-      position: relative;
-      left: 10%;
-      border-radius: 20px;
-  }
-  
-  .divform{
-      margin-top: 10px;
-      width: 100%;
-      height: 100%;
-      display: block;
-      align-self: center;
-      text-align: center;
-      //background-color: yellow;
-  }
-  
-  .submit{
-    margin-bottom: 30px;
-      width: 120px;
-      height: 40px; //100vh o 100vw wiewheight o viewwidth
-      color: white;
-      max-width: 300px;
-      display: inline-block;
-      font-size: 20px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      outline: none;
-      background-color: rgb(112, 51, 204);;
-      border: 1px solid black;
-      border-radius: 40px;
-      box-shadow: 5 5px black ;
-    }
-    
-    .submit:active {
-      background-color: #374d83  ;
-      box-shadow: 0 5px #666;
-      transform: translateY(6px);
-    }
-  
-    .avisos{
-      font-size: 20px;
-      display: flex;
-      align-self: center;
-      text-align: center;
-      //background-color: blue;
-      justify-content: center;
-      position: relative;
-      left: 5%;
-      width: 90%;
-  } 
-  
-  //--------------------------------------------------------------------
-  
-  .grid{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    gap: 10px;
-  }
-  
-  .col{
-     // background-color: burlywood;
-      display: flex;
-      //justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      //height: 35vh;
-      width: 100%;
-      justify-content: center;
-      //max-height: 250px;
-      //width: 50%;
-    //  max-width: 150px;
-     // min-height: 220px;
-    }
-    
-    .row{
-      margin-top: 20px;
-      width: 100%;
-      min-width: 210px;
-    // background-color: tomato;
-     display: flex;
-     //justify-content: center;
-     align-items: center;
-     justify-content: center;
-     flex-direction: column;
-      //flex-wrap:  wrap-reverse
-      //height: 400px;
-    }
-  
-  .card{
-      display: flex;
-      //flex-direction: column;
-      width: 98%;
-      height: 100px;
-      border: solid black 3px;
-      border-radius: 10px;
-      background-color: white;
+  background-color: White;
+  color: black;
+  justify-items: center;
+  align-items: center;
+}
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
   }
 
-  .card:active {
-    background-color: #7639bd  ;
+
+.headercontainer{
+  width: 100%;
+  height: 60px;
+  display: flex;
+}
+
+
+.back{
+    width: 20%;
+    height: 40px;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headertittle{
+ margin-top: 20px;
+  width: 60%;
+  height: 40px;
+  text-align: center;
+  color: black;
+}
+
+.headericon{
+  width: 20%;
+  height: 60px;
+  text-align: center;
+  color: black;
+}
+
+.icono{
+  margin-top: 10px;
+  width: 60%;
+  height: 60%;
+  color: black;
+}
+
+.iconoback{
+  margin-top: 10px;
+  width: 80%;
+  height: 80%;
+  color: black;
+}
+//--------------------------------------------------
+
+ion-content {
+  --background: var(--ion-color-secundary);
+ //--background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(8,7,42,1) 75%, rgb(8, 10, 63) 100%);
+ --ion-safe-area-top: 100px;
+ overflow-y: scroll !important;
+}
+
+.todo{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+   // justify-content: center;
+    align-items: center;
+   // background-color: blue;
+}
+
+.crear_comunicado{
+  width: 80%;
+  height: auto;
+  background-color:  rgba(229, 223, 236, 0.582);
+  display: flex;
+  //justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 30px;
+  border: solid black 1px;
+}
+
+.texto{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  //background-color: palevioletred;
+}
+
+.textodos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+ // background-color: red;
+}
+
+.textotres{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 10px;
+  color: blue;
+//  background-color: rgb(35, 35, 163);
+}
+
+.ver_comunicados{
+  margin-top: 40px;
+  width: 80%;
+  height: auto;
+  background-color:  rgba(175, 130, 226, 0.582);
+  display: flex;
+  //justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 30px;
+  border: solid black 1px;
+
+}
+
+
+
+.tituloavisos{
+    font-size: 30px;
+    display: flex;
+    //background-color: blue;
+    justify-content: center;
+  }
+
+  .formulario{
+    width: 80%;
+    height: 70px;
+    margin-top: 10px;
+    align-self: center;
+    position: relative;
+    left: 10%;
+    border-radius: 20px;
+}
+
+.formulariofinal{
+    width: 80%;
+    height: 200px;
+    margin-top: 10px;
+    align-self: center;
+    position: relative;
+    left: 10%;
+    border-radius: 20px;
+}
+
+.divform{
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    align-self: center;
+    text-align: center;
+    //background-color: yellow;
+}
+
+.submit{
+   margin-top: 20px;
+   margin-bottom: 30px;
+    width: 120px;
+    height: 40px; //100vh o 100vw wiewheight o viewwidth
     color: white;
+    max-width: 300px;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: rgb(112, 51, 204);;
+    border: 1px solid black;
+    border-radius: 40px;
+    box-shadow: 5 5px black ;
+  }
+  
+  .submit:active {
+    background-color: #374d83  ;
     box-shadow: 0 5px #666;
     transform: translateY(6px);
   }
-  
-//   .buttonpad:focus {
-//      background-color: #BB7D00 ; 
-//   }
 
-  .imagen{
-      width: 30%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  .avisos{
+    font-size: 20px;
+    display: flex;
+    align-self: center;
+    text-align: center;
+    //background-color: blue;
+    justify-content: center;
+    position: relative;
+    left: 5%;
+    width: 90%;
+} 
+
+//--------------------------------------------------------------------
+
+.grid{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+}
+
+.col{
+   // background-color: burlywood;
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    //height: 35vh;
+    width: 100%;
+    justify-content: center;
+    //max-height: 250px;
+    //width: 50%;
+  //  max-width: 150px;
+   // min-height: 220px;
+  }
+  
+  .row{
+    margin-top: 20px;
+    width: 100%;
+    min-width: 210px;
+  // background-color: tomato;
+   display: flex;
+   //justify-content: center;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+    //flex-wrap:  wrap-reverse
+    //height: 400px;
   }
 
-  .card-inner{
+.card{
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 60%;
+    //flex-direction: column;
+    width: 98%;
     height: auto;
-  //  border: solid black 3px;
-    //@debug: 10px;
-   // background-color: white;
+    border: solid black 3px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.imagen{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-inner{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+  height: 80%
+//  border: solid black 3px;
+  //@debug: 10px;
+ // background-color: white;
 }
 
 .descarga{
-    width: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .trash-icon{
-    width: 30px;
-    height: 30px;
-    // position: relative;
-    // top: 10%;
-    // left: 95%;
-  }
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+  color: rgb(250, 79, 0);
+  // position: relative;
+  // top: 10%;
+  // left: 95%;
+}
 
-  .img-icon{
-    width: 50px;
-    height: 50px;
-    // position: relative;
-    // top: 10%;
-    // left: 95%;
-  }
-  
-  
-  .top{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 30%;
-   // background-color: rgb(114, 149, 202);
-  }
-  
-  .titulo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70%;
-    height: 100%;
-   // background-color: rgb(139, 202, 114);
-  }
-  
-  .dia_hora{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 30%;
-    height: 80%;
-   // background-color: rgb(221, 161, 49);
-  }
-  
-  .dia{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 50%;
-    font-size: 2vw;
-    //background-color: rgb(219, 68, 68);
-  }
-  
-  .hora{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 50%;
-    font-size: 2vw;
-   // background-color: rgb(149, 202, 114);
-  }
-  
-   .tema{
-     margin-left: 10px;
-    display: flex;
-    width: 100%;
-    height: 15%;
-   // background-color: rgb(205, 169, 50);
-  }
-  .reporte{
-    margin-left: 10px;
-    display: flex;
-    width: 100%;
-    height: 55%;
-  //  background-color: rgb(216, 53, 216);
-  }
-  
-  
-  //--------------------------------------------------------------------------------------------------------------
+.img-icon{
+  width: 50px;
+  height: 50px;
+  // position: relative;
+  // top: 10%;
+  // left: 95%;
+}
+
+
+.top{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+ // background-color: rgb(114, 149, 202);
+}
+
+.titulo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 4vw;
+  //background-color: rgb(139, 202, 114);
+}
+
+.dia_hora{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 30%;
+  height: 80%;
+ // background-color: rgb(221, 161, 49);
+}
+
+.dia{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  font-size: 2vw;
+  //background-color: rgb(219, 68, 68);
+}
+
+.hora{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  font-size: 2vw;
+ // background-color: rgb(149, 202, 114);
+}
+
+ .tema{
+  //margin-left: 10px;
+  display: flex;
+  width: 100%;
+  height: 50%;
+  font-size: 2.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ // background-color: rgb(205, 169, 50);
+}
+.reporte{
+  margin-left: 10px;
+  display: flex;
+  width: 100%;
+  height: 55%;
+//  background-color: rgb(216, 53, 216);
+}
+
+
+//--------------------------------------------------------------------------------------------------------------

@@ -22,7 +22,7 @@
       <div class="time_picker">
         <!-- <ion-label>Inicio</ion-label> -->
         <ion-select placeholder="Proyecto" id="proyecto" class="ion-select-mes" [(ngModel)]="proyecto" (ngModelChange)="bring_passcode()">
-          <ion-select-option *ngFor="let proyecto of lista_proyectos" [value]="proyecto.id">
+          <ion-select-option style="background-color: transparent;" *ngFor="let proyecto of lista_proyectos" [value]="proyecto.id">
             {{proyecto.id}}
           </ion-select-option>
         </ion-select>
@@ -33,8 +33,8 @@
   </div>
 
   <div class="formulario">
-    <ion-item class="input_box">
-    <ion-label class="formulario__label" position="floating" >Escribe la contraseña de ingreso</ion-label>
+    <ion-item class="input_box" lines="none">
+    <ion-label style="background-color: transparent;" class="formulario__label" position="floating" >Escribe la contraseña de ingreso</ion-label>
     <ion-input id="key" name="servicio"></ion-input>
     </ion-item>
   </div>

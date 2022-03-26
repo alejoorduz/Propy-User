@@ -138,7 +138,11 @@ const routes: Routes = [
   {
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+  },  {
+    path: 'open-link',
+    loadChildren: () => import('./open-link/open-link.module').then( m => m.OpenLinkPageModule)
   }
+
 
 ];
 

@@ -1,52 +1,79 @@
-<!-- <ion-header class="header">
+<ion-header class="header">
   <ion-toolbar>
-
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
-  <div class="headercontainer">
+ <div class="headercontainer">
     <div class="back">
       <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
     </div>
     <div class="headertittle">
-      <ion-title > Autorizaciónes </ion-title>
+      <ion-title > Autorizaciones </ion-title>
     </div>
   </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
 
 <div class="todo">
+    <div class="crear_comunicado">
+        <h1 style="text-align:center;" class="tituloavisos">Genera nuevas Autorizaciones</h1>
+        <h2  class="avisos">Esta información le llegará a la administración y la celaduria</h2>
+      <div class="divform">
+        <!-- <ion-item class="formulario">
+          <ion-label position="floating" >Nombre Mascota</ion-label>
+          <ion-input type="text" id="nombres" placeholder="Ej: Nala" [(ngModel)]="nombres"></ion-input>
+        </ion-item> -->
+        <ion-item class="formulario">
+          <ion-label position="floating" >Torre y Apartamento</ion-label>
+          <ion-input type="text" id="apto" placeholder="Ej: Torre 2 - apto 08" [(ngModel)]="apto"></ion-input>
+        </ion-item><!--
+        <ion-item class="formulario">
+          <ion-label position="floating">Especie</ion-label>
+          <ion-input type="text" id="especie" required placeholder="Ej: Gato, Perro" [(ngModel)]="especie"></ion-input>
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="floating">Raza</ion-label>
+          <ion-input type="text" id="raza" required placeholder="Ej: Chihuahua" [(ngModel)]="raza"></ion-input>
+        </ion-item>
+         <ion-item class="formulario">
+          <ion-label position="foto">Foto Mascota</ion-label>
+        </ion-item>
+        <ion-item class="formulario">
+          <ion-label position="vacuna">Foto Vacunas</ion-label>
+        </ion-item> -->
+        <ion-item class="formulariofinal">
+          <ion-label position="floating" >Autorización</ion-label>
+          <ion-textarea rows="6" cols="20" id="reporte" placeholder="Ej: Autorizo el ingreso de Ernesto Perez" [(ngModel)]="reporte"></ion-textarea>
+        </ion-item>
+        <button class="submit" (click)="upload_publication()" expand="block">Enviar</button>
+      </div>
+    </div>
     <div class="ver_comunicados">
-            <h1 class="texto"><strong>{{this.proyecto}}</strong></h1>
-            <!-- <h1 class="texto"></h1> -->
+            <h1 class="texto">Mis Autorizaciones</h1>
             <ion-grid class="grid">
               <ion-col class="col">
                 <ion-row class="row" *ngFor="let comunicado of comunicados">
-                    <div class="card" (click)="modal_info(comunicado.url)">
-                      <div class="imagen">
-                        <ion-icon class="img-icon" [name]="comunicado.icon"></ion-icon>
-                      </div>
-                      <div class="card-inner">
+                    <div class="card">
                       <div class="top">
                         <div class="titulo">  
-                          <strong>{{ comunicado.titulo }}</strong>  
+                          <strong>{{ comunicado.data.nombre }}</strong>  
                         </div>
-                        <!-- <div class="dia_hora">  
+                        <div class="dia_hora">  
                           <div class="dia">
-                              {{ comunicado.subtitulo }}  
+                              {{ comunicado.data.dia }}  
                           </div>
                           <div class="hora">
-                            {{ comunicado.fecha }} 
-                          </div>
-                        </div> -->
+                            {{ comunicado.data.hora }} 
+                        </div>
+                        </div>
                     </div>
                       <div class="tema">
-                         {{comunicado.subtitulo}} 
+                        {{comunicado.data.apto}}
                       </div>
-                      <!-- <div class="reporte">
-                        {{comunicado.data.icono}} <ion-icon name="arrow-redo-outline"></ion-icon>
-                    </div> -->
+                      <div class="reporte">
+                        {{comunicado.data.reporte}}
                     </div>
-                      <div class="descarga"><ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="arrow-redo-outline"></ion-icon></div>
+                       <ion-icon slot="end" class="trash-icon" (click)="delete(comunicado.id)" name="trash-outline"></ion-icon>
                   </div>
                 </ion-row>
               </ion-col>

@@ -1,56 +1,62 @@
-<!-- <ion-header class="header">
+<ion-header class="header">
   <ion-toolbar>
-
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
-  <div class="headercontainer">
+ <div class="headercontainer">
     <div class="back">
       <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
     </div>
     <div class="headertittle">
-      <ion-title > Clasificados </ion-title>
+      <ion-title mode=ios> Clasificados </ion-title>
     </div>
   </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
 
 <div class="todo">
-    <div class="ver_comunicados">
-            <h1 class="texto"><strong>{{this.proyecto}}</strong></h1>
-            <!-- <h1 class="texto"></h1> -->
-            <ion-grid class="grid">
-              <ion-col class="col">
-                <ion-row class="row" *ngFor="let comunicado of comunicados">
-                    <div class="card" (click)="modal_info(comunicado.url)">
-                      <div class="imagen">
-                        <ion-icon class="img-icon" [name]="comunicado.icon"></ion-icon>
-                      </div>
-                      <div class="card-inner">
-                      <div class="top">
-                        <div class="titulo">  
-                          <strong>{{ comunicado.titulo }}</strong>  
-                        </div>
-                        <!-- <div class="dia_hora">  
-                          <div class="dia">
-                              {{ comunicado.subtitulo }}  
-                          </div>
-                          <div class="hora">
-                            {{ comunicado.fecha }} 
-                          </div>
-                        </div> -->
-                    </div>
-                      <div class="tema">
-                         {{comunicado.subtitulo}} 
-                      </div>
-                      <!-- <div class="reporte">
-                        {{comunicado.data.icono}} <ion-icon name="arrow-redo-outline"></ion-icon>
-                    </div> -->
-                    </div>
-                      <div class="descarga"><ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="arrow-redo-outline"></ion-icon></div>
-                  </div>
-                </ion-row>
-              </ion-col>
-            </ion-grid>
-    </div> 
+  <div class="todo">
+    <!-- <ion-card class="card">
+      <ion-card-header class="card_header">
+        <ion-card-subtitle style="text-align: center;">Agregar tarjetas de presentacion o imagenes publicitarias</ion-card-subtitle>
+      </ion-card-header>
+  
+      <ion-card-content class="card_content">
+        <form class="form" (submit)="addTodo()">
+          <ion-item class="card_item">
+            <ion-label class="card_content" position="stacked">Nombre</ion-label>
+            <ion-input class="card_content" name="todo" id="name" [(ngModel)]="newTodo" placeholder="Ej: Tienda Express"></ion-input>
+          </ion-item>
+          <ion-item class="card_item" lines="none">
+            <input type="file" name="inputFile" (change)="chooseFile($event)" required>
+          </ion-item>
+          <div class="card_content">
+          <ion-button type="submit">Agregar</ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+  
+    </ion-card> -->
+  
+    <ion-list>
+      <ion-item class="doc" *ngFor="let item of items | async" lines="none">
+        <div class="todito">
+          <div class="titulos">
+            <ion-label class="label"><strong>{{ item.title }}</strong></ion-label>
+            <!-- <ion-button class="trash_button" slot="end" fill="clear" color="danger" (click)="remove(item)"> 
+              <ion-icon class="icon" slot="icon-only" name="trash"></ion-icon>
+            </ion-button>-->
+          </div>
+
+        <div class="tarjeta">
+        <ion-thumbnail (click)="modal_info(item.imageUrl)" class="image" slot="start" *ngIf="item.imageUrl">
+          <img class="imagen" [src]="item.imageUrl" alt="">
+        </ion-thumbnail>
+        <h1 class="texto">Click en la imagen para verla completa</h1>
+        </div>
+      </div>
+      </ion-item>
+    </ion-list>
+  </div>
 </div>
 </ion-content>

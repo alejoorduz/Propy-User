@@ -3,6 +3,10 @@ import { FirestoreService } from '../firestore.service';
 import * as $ from "jquery";
 import { AlertController,ModalController } from '@ionic/angular';
 import { InfoPage } from "../info/info.page";
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-clasificados',
@@ -11,7 +15,25 @@ import { InfoPage } from "../info/info.page";
 })
 export class ClasificadosPage implements OnInit {
 
-  constructor(private fbs: FirestoreService,private modalCtrl: ModalController ,public alertController: AlertController) { }
+  constructor(
+    private loadingController: LoadingController,
+    private db: AngularFirestore,
+    private storage: AngularFireStorage, 
+    private fbs: FirestoreService,
+    private modalCtrl: ModalController,
+    public alertController: AlertController) { 
+
+    }
+
+  location = 'uploads/';
+  items: Observable<any[]>;
+
+  newTodo: string = '';
+  itemsRef: AngularFirestoreCollection;
+
+  selectedFile: any;
+  loading: HTMLIonLoadingElement;
+
   @Input() uid
   @Input() nombre
   @Input() proyecto
@@ -49,8 +71,81 @@ export class ClasificadosPage implements OnInit {
 
   ]
 
+  chooseFile (event) {
+    this.selectedFile = event.target.files
+  }
+  
+  addTodo(){
+    this.itemsRef.add({
+      title: this.newTodo
+    })
+    .then(async resp => {
+  
+      const imageUrl = await this.uploadFile(resp.id, this.selectedFile)
+  
+      this.itemsRef.doc(resp.id).update({
+        id: resp.id,
+        imageUrl: imageUrl || null
+      })
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+  
+  async uploadFile(id, file): Promise<any> {
+    if(file && file.length) {
+      try {
+        await this.presentLoading();
+        const task = await this.storage.ref(this.proyecto+'/clasificados').child(id).put(file[0])
+        this.loading.dismiss();
+        $('#name').val("");
+        return this.storage.ref(this.proyecto+`/clasificados/${id}`).getDownloadURL().toPromise();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+  
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Please wait...'
+    });
+    return this.loading.present();
+  }
+  
+  
+  
+  remove(item){
+    console.log(item);
+    if(item.imageUrl) {
+      this.storage.ref(`images/${item.id}`).delete()
+    }
+    this.itemsRef.doc(item.id).delete()
+  }
+  
+   async store_image(imageData: any){
+      try{
+        const imageName = "imagen.jpg";
+        return new Promise((resolve,rejects)=>{
+          const pictureRef = this.storage.ref(this.location+imageName);
+          pictureRef.put(imageData).then(function(){
+              pictureRef.getDownloadURL().subscribe((url:any)=>{
+                resolve(url);
+              })
+          })
+        });
+      }catch(e){
+        console.log('error',e)
+      }
+    }
+  
+
+
   ngOnInit() {
     console.log("aja: ", this.uid,this.nombre,this.proyecto)
+    this.itemsRef = this.db.collection('Proyectos/'+this.proyecto+'/clasificados')
+    this.items = this.itemsRef.valueChanges();
+    console.log("items",this.items)
    // this.get_comunicados();
   }
 

@@ -33,7 +33,7 @@ export class DirectorioPage implements OnInit {
 
     {"titulo":"Defensa Civil",
     "subtitulo":"144",
-    "icon":"call-outline"},
+    "icon":"call-outline"}, 
 
     {"titulo":"Bomberos",
     "subtitulo":"119",

@@ -18,7 +18,7 @@ export class TrasteosPage implements OnInit {
   @Input() proyecto
 
   
-  apto: number = 508;
+  apto: number;
   fecha: string
   myDate: Date;
 
@@ -58,6 +58,7 @@ export class TrasteosPage implements OnInit {
       };
 
      this.firestoreService.add("Proyectos/"+this.proyecto+"/mudanzas", mudanza );
+     $("#apto").val("")
      this.presentAlertdone();
   }
 

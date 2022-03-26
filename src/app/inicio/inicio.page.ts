@@ -86,112 +86,112 @@ name: any
  constructor(public alertController: AlertController,public  router: Router,private fbs: FirestoreService,private modalCtrl: ModalController ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) {
 }
 
-servicios = [ 
-  {"nombre":"Reservas",
-  "descripcion":"Gestiona tus reservas",
-  "icon":"calendar-outline",
-  "habilitado":true},
+  servicios = [ 
+    {"nombre":"Reservas",
+    "descripcion":"Gestiona tus reservas",
+    "icon":"calendar-outline",
+    "habilitado":true},
 
-  {"nombre":"AirCall",
-  "descripcion":"Controla el Ascensor",
-  icon:"keypad-outline",
-  "habilitado":true},
+    {"nombre":"AirCall",
+    "descripcion":"Controla el Ascensor",
+    icon:"keypad-outline",
+    "habilitado":true},
 
-  {"nombre":"Comunicados",
-  "descripcion":"Lee comunicados importantes",
-  icon:"newspaper-outline",
-  "habilitado":true},
+    {"nombre":"Comunicados",
+    "descripcion":"Lee comunicados importantes",
+    icon:"newspaper-outline",
+    "habilitado":true},
 
-  {"nombre":"Ingreso Mascotas",
-  "descripcion":"Temas relacionados con tu mascota",
-  icon:"paw-outline",
-  "habilitado":true},
+    {"nombre":"Ingreso Mascotas",
+    "descripcion":"Temas relacionados con tu mascota",
+    icon:"paw-outline",
+    "habilitado":true},
 
-  {"nombre":"Avisos de trasteo",
-  "descripcion":"Rellena el formulario de aviso para trasteos",
-  icon:"construct-outline",
-  "habilitado":true},
+    {"nombre":"Avisos de trasteo",
+    "descripcion":"Rellena el formulario de aviso para trasteos",
+    icon:"construct-outline",
+    "habilitado":true},
 
-  {"nombre":"Directorio",
-  "descripcion":"Directorio telefonico",
-  icon:"call-outline",
-  "habilitado":true},
+    {"nombre":"Directorio",
+    "descripcion":"Directorio telefonico",
+    icon:"call-outline",
+    "habilitado":true},
 
-  {"nombre":"Autorizaciones",
-  "descripcion":"Formulario para autorizaciones",
-  icon:"checkmark-outline",
-  "habilitado":true},
+    {"nombre":"Autorizaciones",
+    "descripcion":"Formulario para autorizaciones",
+    icon:"checkmark-outline",
+    "habilitado":true},
 
-  {"nombre":"Preguntas y Respuestas",
-  "descripcion":"Resuelve tus dudas",
-  icon:"information-outline",
-  "habilitado":true},
+    {"nombre":"Preguntas y Respuestas",
+    "descripcion":"Resuelve tus dudas",
+    icon:"information-outline",
+    "habilitado":true},
 
-  {"nombre":"Emergencias 24/7",
-  "descripcion":"Contacto directo con el Call-Center del ascensor",
-  icon:"alert-circle-outline",
-  "habilitado":true},
+    {"nombre":"Emergencias 24/7",
+    "descripcion":"Contacto directo con el Call-Center del ascensor",
+    icon:"alert-circle-outline",
+    "habilitado":true},
 
-  {"nombre":"Eventos",
-  "descripcion":"Revisa los proximos eventos del edificio",
-  icon:"calendar-number-outline",
-  "habilitado":true},
+    {"nombre":"Eventos",
+    "descripcion":"Revisa los proximos eventos del edificio",
+    icon:"calendar-number-outline",
+    "habilitado":true},
 
-  // {"nombre":"Usuarios",
-  // "descripcion":"Revisa que usuarios hacen parte del edificio",
-  // icon:"people-outline",
-  // "habilitado":false},
+    {"nombre":"Beneficios",
+    "descripcion":"Accede a beneficios",
+    icon:"diamond-outline",
+    "habilitado":true},
 
-  {"nombre":"Documentos",
-  "descripcion":"Descarga documentos importantes",
-  icon:"document-attach-outline",
-  "habilitado":true},
+    {"nombre":"Documentos",
+    "descripcion":"Descarga documentos importantes",
+    icon:"document-attach-outline",
+    "habilitado":true},
 
-  {"nombre":"Clasificados",
-  "descripcion":"Servicios externos adicionales",
-  icon:"storefront-outline",
-  "habilitado":true},
+    {"nombre":"Clasificados",
+    "descripcion":"Servicios externos adicionales",
+    icon:"storefront-outline",
+    "habilitado":true},
 
-  {"nombre":"Encuestas",
-  "descripcion":"Responde encuestas acerca del edificio",
-  icon:"clipboard-outline",
-  "habilitado":true},
+    {"nombre":"Encuestas",
+    "descripcion":"Responde encuestas acerca del edificio",
+    icon:"clipboard-outline",
+    "habilitado":true},
 
-  {"nombre":"Acceso",
-  "descripcion":"Utiliza el celular para ingresar a las torres",
-  icon:"id-card-outline",
-  "habilitado":true},
+    {"nombre":"Usuarios",
+    "descripcion":"Revisa que usuarios hacen parte del edificio",
+    icon:"people-outline",
+    "habilitado":true},
 
-  {"nombre": "Pagos",
-  "descripcion":"Accede al link de pago",
-  icon:"cash-outline",
-  "habilitado":true},
+    // {"nombre":"Acceso",
+    // "descripcion":"Utiliza el celular para ingresar a las torres",
+    // icon:"id-card-outline",
+    // "habilitado":true},
 
-  {"nombre":"Monitoreo",
-  "descripcion":"Monitorea en tiempo real datos obtenidos",
-  icon:"eye-outline",
-  "habilitado":true},
+    // {"nombre": "Pagos",
+    // "descripcion":"Accede al link de pago",
+    // icon:"cash-outline",
+    // "habilitado":true},
 
-  {"nombre":"Finanzas",
-  "descripcion":"Revisa los archivos de presupuestos",
-  icon:"bar-chart-outline",
-  "habilitado":true},
-  
-  {"nombre":"Beneficios",
-  "descripcion":"Accede a beneficios",
-  icon:"diamond-outline",
-  "habilitado":true},
+    // {"nombre":"Monitoreo",
+    // "descripcion":"Monitorea en tiempo real datos obtenidos",
+    // icon:"eye-outline",
+    // "habilitado":true},
 
-  {"nombre":"Seguridad",
-  "descripcion":"Revisa los temas de seguridad",
-  icon:"shield-half-outline",
-  "habilitado":true},
+    // {"nombre":"Finanzas",
+    // "descripcion":"Revisa los archivos de presupuestos",
+    // icon:"bar-chart-outline",
+    // "habilitado":true},
+    
+    // {"nombre":"Seguridad",
+    // "descripcion":"Revisa los temas de seguridad",
+    // icon:"shield-half-outline",
+    // "habilitado":true},
 
-  {"nombre":"Citofonia",
-  "descripcion":"Controla la entrada de visitantes",
-  icon:"volume-high-outline",
-  "habilitado":true}
-]
+    // {"nombre":"Citofonia",
+    // "descripcion":"Controla la entrada de visitantes",
+    // icon:"volume-high-outline",
+    // "habilitado":true}
+ ]
 
   ngOnInit() {
   }
@@ -225,6 +225,11 @@ servicios = [
           this.show_services = true;
           this.emergencia = true;
         }
+
+        // Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
+// Documentos, Clasificados, Encuestas, Controles de Acceso
+// Pagos, Monitoreo, Finanzas, Beneficios, Seguridad, Citofonia
+
         this.servicios[0].habilitado = this.proyect_services.data.reservas;
         this.servicios[1].habilitado = this.proyect_services.data.aircall;
         this.servicios[2].habilitado = this.proyect_services.data.comunicados;
@@ -235,19 +240,18 @@ servicios = [
         this.servicios[7].habilitado = this.proyect_services.data.preguntas;
         this.servicios[8].habilitado = this.proyect_services.data.emergencias;
         this.servicios[9].habilitado = this.proyect_services.data.eventos;
-        //this.servicios[10].habilitado = false;
-        this.servicios[10].habilitado = this.proyect_services.data.documentos;
-        this.servicios[11].habilitado = this.proyect_services.data.clasificados;
-        this.servicios[12].habilitado = this.proyect_services.data.encuestas;
-        this.servicios[13].habilitado = this.proyect_services.data.acceso;
-        this.servicios[14].habilitado = this.proyect_services.data.pagos;
-        this.servicios[15].habilitado = this.proyect_services.data.monitoreo;
-        this.servicios[16].habilitado = this.proyect_services.data.finanzas;
-        this.servicios[17].habilitado = this.proyect_services.data.beneficios;
-        this.servicios[18].habilitado = this.proyect_services.data.seguridad;
-        this.servicios[19].habilitado = this.proyect_services.data.citofonia;
-        // this.servicios[20].habilitado = this.proyect_services.data.autorizaciones;
-        // this.servicios[21].habilitado = this.proyect_services.data.autorizaciones;
+        this.servicios[10].habilitado = this.proyect_services.data.beneficios;
+        this.servicios[11].habilitado = this.proyect_services.data.documentos;
+        this.servicios[12].habilitado = this.proyect_services.data.clasificados;
+        this.servicios[13].habilitado = this.proyect_services.data.encuestas;
+        this.servicios[14].habilitado = false;
+        // this.servicios[15].habilitado = this.proyect_services.data.acceso;
+        // this.servicios[16].habilitado = this.proyect_services.data.pagos;
+        // this.servicios[17].habilitado = this.proyect_services.data.monitoreo;
+        // this.servicios[18].habilitado = this.proyect_services.data.finanzas;
+        // this.servicios[19].habilitado = this.proyect_services.data.seguridad;
+        // this.servicios[20].habilitado = this.proyect_services.data.citofonia;
+
         console.log("auth: ", this.servicios[13])
         console.log("auth: ", this.proyect_services.data)
         //this.emergencia = true;
