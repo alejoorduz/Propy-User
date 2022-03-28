@@ -88,7 +88,7 @@ export class AutorizacionesPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Listo!',
-      subHeader: 'Tu mascota ha sido guardada',
+      subHeader: 'Autorización guardada correctamente',
       message: 'Gracias.',
       buttons: ['OK']
     });
