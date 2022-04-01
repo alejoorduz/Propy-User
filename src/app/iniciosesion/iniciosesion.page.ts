@@ -34,7 +34,8 @@ async onlogin(email,password){
       }
     } catch (error) {
       //console.log("el error es: " + error);
-      
+      console.log("errorsito")
+      console.log(error)
       this.presentAlert(error)
     }
 }
@@ -42,7 +43,7 @@ async onlogin(email,password){
 async presentAlert(error) {
   const alert = await this.alertCtrl.create({
     cssClass: 'my-custom-class',
-    header: 'Error',
+    header: 'Errorsito',
     subHeader: 'Verifica el error',
     message: error,
     buttons: ['OK']

@@ -1,15 +1,20 @@
-<ion-content>
-  <div class="headercontainer">
-    <div class="back">
-      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+<ion-header class="header">
+  <ion-toolbar>
+      <div class="headercontainer">
+        <div class="back">
+          <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+        </div>
+    <div class="headertittle">
+      <ion-title >  </ion-title>
     </div>
-<div class="headertittle">
+    <!-- <div class="headericon">
+      <ion-icon class="icono"  name="person-circle-outline" (click)="this.getLocation()"></ion-icon>
+      </div> -->
+    </div>
+  </ion-toolbar>    
+</ion-header>
 
-</div>
-<!-- <div class="headericon">
-   <ion-icon class="icono"  name="person-circle-outline" (click)="this.getLocation()"></ion-icon>
-  </div> -->
-</div>
+<ion-content>
   <div class="todo">
     <h1 style="text-align:center;" class="tituloavisos">Perfil</h1>
     <!-- <h2  class="avisos">Editar perfil</h2> -->

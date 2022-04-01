@@ -30,7 +30,7 @@ export class TrasteosPage implements OnInit {
   }
 
   get_comunicados(){
-    this.fbs.consultar("/Proyectos/"+this.proyecto+"/mudanzas").subscribe((servicios) => {
+    this.fbs.consultar("/user/"+this.uid+"/proyectos/"+this.proyecto+"/mudanzas").subscribe((servicios) => {
       this.comunicados = [];
       servicios.forEach((datosTarea: any) => {
         this.comunicados.push({
@@ -56,8 +56,12 @@ export class TrasteosPage implements OnInit {
         // dia: dt,
         // hora: ti
       };
-
-     this.firestoreService.add("Proyectos/"+this.proyecto+"/mudanzas", mudanza );
+      var id = Math.floor(Math.random() * 3213546846468435454) + 1
+      console.log("random",id)
+      var sid = id.toString()
+     //this.firestoreService.add("Proyectos/"+this.proyecto+"/mudanzas", mudanza );
+     this.firestoreService.insertar("Proyectos/"+this.proyecto+"/mudanzas/", sid, mudanza )
+     this.firestoreService.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/mudanzas/", sid, mudanza )
      $("#apto").val("")
      this.presentAlertdone();
   }

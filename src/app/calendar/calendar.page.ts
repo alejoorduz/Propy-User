@@ -202,7 +202,7 @@ export class CalendarPage implements OnInit {
     this.viernes = parseInt(this.router.getCurrentNavigation().extras.state.viernes) 
     this.sabado = parseInt(this.router.getCurrentNavigation().extras.state.sabado) 
     this.domingo = parseInt(this.router.getCurrentNavigation().extras.state.domingo)  
-    console.log("hora restringida: ",this.horas_restringidas)
+    console.log("hora restringida: ",this.proyecto,this.servicio,this.horas_restringidas)
    }
 //, this.lunes,this.martes,this.miercoles,this.jueves,this.viernes,this.sabado,this.domingo
    ionViewWillEnter() {
@@ -373,6 +373,7 @@ addNewEvent() {
   }
 
   onTimeSelected(ev) {
+    console.log("hora seleccionada:" , ev)
     //this.calendar.mode  = "day";
   //  console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
   //     (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);

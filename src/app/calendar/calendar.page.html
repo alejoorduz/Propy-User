@@ -1,39 +1,27 @@
-<!-- <ion-header class="header">
+<ion-header class="header">
   <ion-toolbar>
-
+    <div class="headercontainer">
+        <div class="back">
+          <ion-icon name="business-outline" class="iconoback" (click)="dismiss()"></ion-icon>
+        </div>
+    <div class="headertittle">
+      Reservas
+    </div>
+    <div class="headericon">
+      <!-- <ion-icon class="icono"  name="person-circle-outline" (click)="this.getLocation()"></ion-icon> -->
+      </div>
+    </div>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content> 
-  <div class="headercontainer">
-    <div class="back">
-      <ion-icon name="business-outline" class="iconoback" (click)="dismiss()"></ion-icon>
-    </div>
-<div class="headertittle">
-   Reservas
-</div>
-<div class="headericon">
-   <!-- <ion-icon class="icono"  name="person-circle-outline" (click)="this.getLocation()"></ion-icon> -->
-  </div>
-</div>
 <img class="imagen" src="../../assets/images/calendar.png" alt="">
 <div class="todo">
   <h1 class="texto">Reservas de <strong>{{this.servicio}}</strong> en <strong>{{this.proyecto}}</strong>  </h1>
   <!-- <h1 class="texto" *ngIf="boton_dia">Para reservar, selecciona un dia y oprime el boton "Elegir Dia"  </h1> -->
 
   <div class="formularios" *ngIf="!reservas_full">
-  <div class="formulario" *ngIf="this.mostrar_add_event"> 
-    <h1 class="hora_seleccionada"><strong> {{ this.dia_seleccionado}} </strong> - <strong> {{ this.mes_seleccionado }} </strong> </h1>
-    <h1 class="hora_seleccionada" style="font-size: clamp(5px, 4.5vw, 20px);" *ngIf="boton_atras"> <strong> {{ this.hora_seleccionada }} </strong></h1>
-    <!-- a las <strong style="font-size: 20px;">{{this.hora_seleccionada}} </strong>   -->
-      <!-- <button class="boton_reservar" *ngIf="boton_atras" (click)="addNewEvent()">Reservar</button> -->
-  </div>
 
-  <div class="formulario_dia_bloqueado" *ngIf="!this.mostrar_add_event"> 
-    <h1 class="hora_seleccionada"><p *ngIf="!boton_atras"><strong>{{this.dia_seleccionado}} </strong> - <strong>{{this.mes_seleccionado}} Bloqueado</strong></p> <p *ngIf="boton_atras"><strong> {{ this.hora_seleccionada }} Hora Bloqueada</strong></p>  </h1>
-    <!-- a las <strong style="font-size: 20px;">{{this.hora_seleccionada}} </strong>   -->
-      <!-- <button class="boton_reservar" *ngIf="boton_atras" (click)="addNewEvent()">Reservar</button> -->
-  </div>  
  
 
   <ion-segment  *ngIf="this.mostrar_add_event" class="boton_segment">
@@ -58,6 +46,19 @@
 <div class="boton_reserva" *ngIf="boton_atras">
   <button class="boton_reservar" *ngIf="boton_reserva" (click)="addNewEvent()">Reservar</button>
 </div>
+
+<div class="formulario" *ngIf="this.mostrar_add_event"> 
+  <h1 class="hora_seleccionada"><strong> {{ this.dia_seleccionado}} </strong> - <strong> {{ this.mes_seleccionado }} </strong> </h1>
+  <h1 class="hora_seleccionada" style="font-size: clamp(5px, 4.5vw, 20px);" *ngIf="boton_atras"> <strong> {{ this.hora_seleccionada }} </strong></h1>
+  <!-- a las <strong style="font-size: 20px;">{{this.hora_seleccionada}} </strong>   -->
+    <!-- <button class="boton_reservar" *ngIf="boton_atras" (click)="addNewEvent()">Reservar</button> -->
+</div>
+
+<div class="formulario_dia_bloqueado" *ngIf="!this.mostrar_add_event"> 
+  <h1 class="hora_seleccionada"><p *ngIf="!boton_atras"><strong>{{this.dia_seleccionado}} </strong> - <strong>{{this.mes_seleccionado}} Bloqueado</strong></p> <p *ngIf="boton_atras"><strong> {{ this.hora_seleccionada }} Hora Bloqueada</strong></p>  </h1>
+  <!-- a las <strong style="font-size: 20px;">{{this.hora_seleccionada}} </strong>   -->
+    <!-- <button class="boton_reservar" *ngIf="boton_atras" (click)="addNewEvent()">Reservar</button> -->
+</div>  
 
   <div class="calendar_tittle">
     <h1>{{ viewTitle }}</h1>

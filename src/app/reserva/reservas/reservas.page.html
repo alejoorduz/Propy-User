@@ -1,17 +1,21 @@
-<ion-content>
-  <div class="headercontainer">
-    <div class="back">
-      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+<ion-header class="header">
+  <ion-toolbar>
+      <div class="headercontainer">
+        <div class="back">
+          <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+        </div>
+        <div class="headertittle">
+          Reservas
+        </div>
+        <!-- <div class="headericon">
+          <ion-icon class="icono_mas" name="add-outline" (click)="this.elegir_servicio(servicio)"></ion-icon>
+        </div> -->
     </div>
-    <div class="headertittle">
-      Reservas
-    </div>
-    <!-- <div class="headericon">
-      <ion-icon class="icono_mas" name="add-outline" (click)="this.elegir_servicio(servicio)"></ion-icon>
-    </div> -->
-</div>
-<img class="imagen" src="../../../assets/images/reservas.png" alt="">
+  </ion-toolbar>
+</ion-header>
 
+<ion-content>
+<img class="imagen" src="../../../assets/images/reservas.png" alt="">
 <div class="todo">
 
   <!-- <div class="parrafo">

@@ -78,6 +78,7 @@
 }
  
  .submit{
+  margin-bottom: 10px;
   width: 170px;
   height: 50px; //100vh o 100vw wiewheight o viewwidth
   color: white;
@@ -118,6 +119,8 @@
    border: solid rgb(91, 5, 148) 1px;
    width: 200px;
    border-radius: 20px;
+   --background: white;
+     --border-radius: 20px;
  }
  
  

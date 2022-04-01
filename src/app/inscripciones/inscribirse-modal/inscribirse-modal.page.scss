@@ -90,10 +90,20 @@ ion-content {
 }
 
 .input_box{
-    border-radius: 30px;
+    border-radius: 20px;
     border: solid 1px black;
-    background-color: rgb(167, 167, 167);
+    //background-color: rgb(167, 167, 167);
+    --background: white;
+   --border-radius: 20px;
 }
+
+// .label{
+//   background-color: red;
+// }
+
+// .input{
+//  //background-color: yellow;
+// }
 
 
 .week_selector{
@@ -174,6 +184,10 @@ ion-content {
     align-self: center;
     position: relative;
     color: black;
+    border-radius: 30px;
+    background-color: white;
+    --background: white;
+    --border-radius:20px;
     //left: 10%;
    // background-color: rebeccapurple;
 }

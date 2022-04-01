@@ -1,6 +1,6 @@
 //HEADER-------------------------------------------------
 ion-header{
-  background-color: var(--ion-color-primary);
+  background-color: white;
   color: black;
   justify-items: center;
   align-items: center;
@@ -234,6 +234,7 @@ ion-content {
 
   .slider{
     width: 100%;
+    height: 500px;
    // background-color: linear-gradient(180deg, rgb(252, 252, 252), rgb(184, 184, 184), #ffffff);;
   }
   
@@ -251,13 +252,16 @@ ion-content {
   //background-color: #c5c5c59f;
     //--background: linear-gradient(180deg, rgb(252, 252, 252), rgb(122, 122, 122), #ffffff);
  // }
-  
+ ion-card-title{
+    font-size: 22px;
+ }
+
   ion-card{
     background-color: white;
-    height: 80%;
+    height: 110%;
     width: 80%;
     border: double black 1px;
-    border-radius: 50%;
+    border-radius: 40%;
     box-shadow: -18px 15px rgb(153, 153, 153);
   }
 

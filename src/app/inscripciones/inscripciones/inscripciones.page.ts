@@ -13,6 +13,7 @@ import { Router, NavigationExtras } from "@angular/router";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import * as $ from "jquery";
 import { PerfilPage } from "../../perfil/perfil.page";
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-inscripciones',
@@ -49,9 +50,11 @@ export class InscripcionesPage implements OnInit {
   current_user_rol;
   current_user_activate;
   
-  constructor(private alertCtrl: AlertController,private geolocation: Geolocation, public  router: Router,private modalCtrl: ModalController,private storage: Storage,private fbs: FirestoreService ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) { }
+  constructor( private loadingController: LoadingController,private alertCtrl: AlertController,private geolocation: Geolocation, public  router: Router,private modalCtrl: ModalController,private storage: Storage,private fbs: FirestoreService ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) { }
 
   proyecto:string;
+
+  loading: HTMLIonLoadingElement;
 
   lat;
   long;
@@ -83,8 +86,14 @@ export class InscripcionesPage implements OnInit {
     // this.storage.get('servicio 1').then(res=>{
     //   console.log(res)
     // })
+    //console.log("Inicia la APP:",this.current_user_uid)
+    this.presentLoading();
+    setTimeout(() => {
+     this.loading.dismiss();
+    }, 2000);
     this.getuseruid();
     this.getLocation();
+
   }
 
   getLocation(){
@@ -160,9 +169,27 @@ export class InscripcionesPage implements OnInit {
   }
 
   async getuseruid(){
-    let uid = await (await this.afAuth.currentUser).uid
-    this.current_user_uid = uid
-    this.getName(uid);
+    try{
+
+      let uid = await (await this.afAuth.currentUser).uid
+      console.log(uid)
+      this.current_user_uid = uid
+      console.log("uid:",this.current_user_uid)
+      this.getName(uid);
+    }
+    catch(error){
+      console.log("Errorsuelo:",error)
+      this.router.navigate(["/iniciosesion"])
+      //this.presentAlert(error);
+    }
+    
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Por favor espere...'
+    });
+    return this.loading.present();
   }
   
   async getName(uid){
@@ -183,7 +210,7 @@ export class InscripcionesPage implements OnInit {
   }
 
   consultar_proyectos(){
-
+   // this.presentLoading();
     if (this.current_user_activate === false) {
       console.log("non activated false: ", this.current_user_activate)
       this.activate_account = false; 
@@ -192,6 +219,7 @@ export class InscripcionesPage implements OnInit {
       console.log("activated")
       this.activate_account = true; 
        console.log()
+      
       this.fbs.consultar("user/"+this.current_user_uid+"/proyectos").subscribe((servicios) => {
         this.lista_servicio = [];
         servicios.forEach((datosTarea: any) => {
@@ -200,16 +228,20 @@ export class InscripcionesPage implements OnInit {
             data: datosTarea.payload.doc.data()
           });
         })
+        
         console.log("lista de servicios: " , this.lista_servicio)
          if (this.lista_servicio.length === 0) { 
         console.log("usuario nuevo sin negocio")
         this.new_user = true;      
       } else {
         this.new_user = false;
-        console.log("usuario nuevo viejo")
+        console.log("usuario nuevito ")
+        
       }
       });
+      
     }
+    
     // this.fbs.consultar("user/"+this.current_user_uid+"/proyectos").subscribe((servicios) => {
     //   this.lista_proyectos = [];
     //   servicios.forEach((datosTarea: any) => {

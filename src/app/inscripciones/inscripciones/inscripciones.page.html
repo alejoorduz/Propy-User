@@ -1,16 +1,19 @@
-
-<ion-content>
-  <div class="headercontainer">
-  <div class="back">
-    <ion-icon name="exit-outline" class="iconoback" (click)="cerrarsesion()"></ion-icon>
+<ion-header class="header">
+  <ion-toolbar>
+    <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="exit-outline" class="iconoback" (click)="cerrarsesion()"></ion-icon>
+    </div>
+  <div class="headertittle">
+  <!-- <ion-title > MyAdmin Administrador </ion-title> -->
   </div>
-<div class="headertittle">
-<!-- <ion-title > MyAdmin Administrador </ion-title> -->
-</div>
-<div class="headericon" *ngIf="this.activate_account">
- <ion-icon class="icono_mas" name="add-outline" (click)="this.elegir_servicio()"></ion-icon>
-</div>
-</div>
+  <div class="headericon" *ngIf="this.activate_account">
+  <ion-icon class="icono_mas" name="add-outline" (click)="this.elegir_servicio()"></ion-icon>
+  </div>
+  </div>
+  </ion-toolbar>    
+</ion-header>
+<ion-content>
   <div class="parrafo">
       <div class="imagen_perfil"> 
            <ion-icon class="icono"  name="person-circle-outline" (click)="perfil()"></ion-icon>
