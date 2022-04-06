@@ -1,81 +1,119 @@
 <ion-header class="header">
   <ion-toolbar>
-    <div class="headercontainer">
-        <div class="back">
-          <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
-        </div>
-        <div class="headertittle">
-          <ion-title > Mascotas </ion-title>
-        </div>
-      </div>
+ <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title mode=ios> Mascotas </ion-title>
+    </div>
+  </div>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
+ 
+
 <div class="todo">
-    <div class="crear_comunicado">
-        <h1 style="text-align:center;" class="tituloavisos">Ingresa la información de tu Mascota</h1>
-        <h2  class="avisos">Asi será mas facil tener información en caso de accidentes o perdidas de la mascota</h2>
-      <div class="divform">
-        <ion-item class="formulario">
-          <ion-label position="floating" >Nombre Mascota</ion-label>
-          <ion-input type="text" id="nombres" placeholder="Ej: Nala" [(ngModel)]="nombres"></ion-input>
-        </ion-item>
-        <ion-item class="formulario">
-          <ion-label position="floating" >Torre y Apartamento</ion-label>
-          <ion-input type="text" id="apto" placeholder="Ej: Torre 2 - apto 08" [(ngModel)]="apto"></ion-input>
-        </ion-item>
-        <ion-item class="formulario">
-          <ion-label position="floating">Especie</ion-label>
-          <ion-input type="text" id="especie" required placeholder="Ej: Gato, Perro" [(ngModel)]="especie"></ion-input>
-        </ion-item>
-        <ion-item class="formulario">
-          <ion-label position="floating">Raza</ion-label>
-          <ion-input type="text" id="raza" required placeholder="Ej: Chihuahua" [(ngModel)]="raza"></ion-input>
-        </ion-item>
-        <!-- <ion-item class="formulario">
-          <ion-label position="foto">Foto Mascota</ion-label>
-        </ion-item>
-        <ion-item class="formulario">
-          <ion-label position="vacuna">Foto Vacunas</ion-label>
-        </ion-item> -->
-        <!-- <ion-item class="formulariofinal">
-          <ion-label position="floating" >Raza:</ion-label>
-          <ion-textarea rows="6" cols="20" id="reporte" placeholder="Ej: Chihuahua" [(ngModel)]="reporte"></ion-textarea>
-        </ion-item> -->
-        <button class="submit" (click)="upload_publication()" expand="block">Enviar</button>
+  <div class="todo">
+    <ion-card class="card">
+      <ion-card-header class="card_header">
+        <ion-card-subtitle style="text-align: center;">Registra tus mascotas con el fin de conocerlas mejor</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="card_content">
+        <form class="form" (submit)="addTodoUser()">
+          <ion-item class="card_item">
+            <ion-label class="card_content" position="stacked">Nombre Mascota</ion-label>
+            <ion-input class="card_contents" name="todo" id="nombre" [(ngModel)]="name" placeholder="Ej: Nala"></ion-input>
+          </ion-item>
+          <ion-item class="card_item">
+            <ion-label class="card_content" position="stacked">Torre y Apto</ion-label>
+            <ion-input class="card_contents" name="todo" id="apto" [(ngModel)]="apto" placeholder="Ej: Torre 1 - 508"></ion-input>
+          </ion-item>
+          <ion-item class="card_item">
+            <ion-label class="card_content" position="stacked">Especie</ion-label>
+            <ion-input class="card_contents" name="todo" id="especie" [(ngModel)]="especie" placeholder="Ej: Perro"></ion-input>
+          </ion-item>
+          <ion-item class="card_item">
+            <ion-label class="card_content" position="stacked">Raza</ion-label>
+            <ion-input class="card_contents" name="todo" id="raza" [(ngModel)]="raza" placeholder="Ej: Golden"></ion-input>
+          </ion-item>
+          <ion-item class="card_item" lines="none">
+            <ion-label  position="stacked">Foto Mascota</ion-label>
+            <input class="card_contents" id="foto" type="file" name="inputFile" (change)="chooseFile($event)" required>
+          </ion-item>
+          <div class="card_content">
+          <ion-button type="submit">Agregar</ion-button>
+          </div>
+        </form>
+      </ion-card-content>
+  
+    </ion-card>
+  
+    <ion-list>
+      <ion-item class="doc" *ngFor="let item of itemsUser | async" lines="none">
+        <div class="todito">
+            <div class="tarjeta">
+                <ion-thumbnail (click)="modal_info(item.imageUrl)" class="image" slot="start" *ngIf="item.imageUrl">
+                <img class="imagen" [src]="item.imageUrl" alt="">
+                </ion-thumbnail>
+            </div>
+
+        <div class="titulos">
+          <ion-label class="label"><strong>Nombre:{{ item.nombre }}</strong></ion-label>
+          <ion-label class="label"><strong>Especie:{{ item.especie }}</strong></ion-label>
+          <ion-label class="label"><strong>Raza:{{ item.raza }}</strong></ion-label>
+          <ion-label class="label"><strong>Casa: {{ item.apto }}</strong></ion-label>
+        </div>
+        
+        <div class="trash">
+          <ion-button class="trash_button" slot="end" fill="clear" color="danger" (click)="remove(item)">
+          <ion-icon class="icon" slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </div>
+        <!-- <h1 class="texto">Click en la imagen para verla completa</h1> -->
       </div>
-    </div>
-    <div class="ver_comunicados">
-            <h1 class="texto">Mis Mascotas</h1>
-            <ion-grid class="grid">
-              <ion-col class="col">
-                <ion-row class="row" *ngFor="let comunicado of comunicados">
-                    <div class="card">
-                      <div class="top">
-                        <div class="titulo">  
-                          <strong>{{ comunicado.data.nombre }}</strong>  
+      
+      </ion-item>
+    </ion-list>
+  
+     <!-- <div class="ver_comunicados">
+              <h1 class="texto"><strong>{{this.proyecto}}</strong></h1>
+               <h1 class="texto"></h1> 
+              <input type="file" (click)="store_image()" accept=".png,.jpg" multiple="true"/>
+              <ion-grid class="grid">
+                <ion-col class="col">
+                  <ion-row class="row" *ngFor="let comunicado of comunicados">
+                      <div class="card" (click)="modal_info()">
+                        <div class="imagen">
+                          <ion-icon class="img-icon" [name]="comunicado.icon"></ion-icon>
                         </div>
-                        <!-- <div class="dia_hora">  
-                          <div class="dia">
-                              {{ comunicado.data.dia }}  
-                          </div>
-                          <div class="hora">
-                            {{ comunicado.data.hora }} 
-                        </div>
-                        </div> -->
-                    </div>
-                      <div class="tema">
-                        {{comunicado.data.especie}} {{comunicado.data.raza}} 
+                        <div class="card-inner">
+                        <div class="top">
+                          <div class="titulo">  
+                            <strong>{{ comunicado.titulo }}</strong>  
+                          </div>-->
+                          <!-- <div class="dia_hora">  
+                            <div class="dia">
+                                {{ comunicado.subtitulo }}  
+                            </div>
+                            <div class="hora">
+                              {{ comunicado.fecha }} 
+                            </div>
+                          </div> 
                       </div>
-                      <div class="reporte">
-                        {{comunicado.data.apto}}
+                        <div class="tema">
+                           {{comunicado.subtitulo}} 
+                        </div>-->
+                        <!-- <div class="reporte">
+                          {{comunicado.data.icono}} 
+                      </div> 
+                      </div>
+                        <div class="descarga"><ion-icon class="trash-icon" (click)="store_image()" name="download-outline"></ion-icon></div>
                     </div>
-                       <ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="trash-outline"></ion-icon>
-                  </div>
-                </ion-row>
-              </ion-col>
-            </ion-grid>
-    </div> 
+                  </ion-row>
+                </ion-col>
+              </ion-grid>
+      </div> -->
+  </div>
 </div>
 </ion-content>

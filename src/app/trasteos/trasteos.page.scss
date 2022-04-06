@@ -79,6 +79,12 @@ ion-content {
    // background-color: blue;
 }
 
+ion-datetime{
+  --background: white;
+  --title-color: black;
+  --background-rgb: rgb(255, 255, 255);
+}
+
 .crear_comunicado{
   width: 80%;
   height: auto;
@@ -110,6 +116,10 @@ ion-content {
   border-radius: 30px;
   border: solid black 1px;
 
+}
+
+.calendario{
+  margin-top: 20px;
 }
 
 .trash-icon{

@@ -32,6 +32,9 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@awesome-cordova-plugins/file-transfer/ngx';
 //import { File } from '@awesome-cordova-plugins/file';
 
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,6 +52,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@awesome-co
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule],
   providers: [
+    OneSignal,
     File,
     FileOpener,
     FileTransfer,
