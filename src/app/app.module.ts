@@ -33,6 +33,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@awesome-co
 //import { File } from '@awesome-cordova-plugins/file';
 
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 
 
 
@@ -58,6 +59,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
     FileTransfer,
    // DocumentViewer,
     BLE,CallNumber,
+    Vibration,
     Geolocation,
     LocalNotifications,
     InAppBrowser,

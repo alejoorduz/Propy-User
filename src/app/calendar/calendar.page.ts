@@ -16,6 +16,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore,AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { LocalNotifications} from '@ionic-native/local-notifications/ngx'
 import { ELocalNotificationTriggerUnit } from '@awesome-cordova-plugins/local-notifications';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 
 
 
@@ -183,7 +184,7 @@ export class CalendarPage implements OnInit {
 
   selectedDate = new Date();
 
-  constructor(private alertCtrl: AlertController,private localNotifications: LocalNotifications, private storage: Storage, private router: Router,private fbs: FirestoreService ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) {
+  constructor(private vibration: Vibration, private alertCtrl: AlertController,private localNotifications: LocalNotifications, private storage: Storage, private router: Router,private fbs: FirestoreService ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) {
     // console.log(this.router.getCurrentNavigation().extras.state.periodo);
     // console.log(this.router.getCurrentNavigation().extras.state.hora_inicial);
     // console.log(this.router.getCurrentNavigation().extras.state.hora_final);
@@ -373,6 +374,13 @@ addNewEvent() {
   }
 
   onTimeSelected(ev) {
+      $(".formulario").css("background","green")
+      $(".hora_seleccionadita").css("color","red")
+      this.vibration.vibrate(100);
+    setTimeout(() => {
+      $(".formulario").css("background","rgb(201, 166, 224)")
+      $(".hora_seleccionadita").css("color","black")
+    }, 500);
     console.log("hora seleccionada:" , ev)
     //this.calendar.mode  = "day";
   //  console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +

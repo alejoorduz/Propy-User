@@ -57,7 +57,7 @@ setupPush () {
       this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
       this.oneSignal.handleNotificationReceived().subscribe((message) => {
           // do something when notification is received
-        this.showAlert("Cordova", "mensaje", "prueba que sirve")
+        //this.showAlert("Cordova", "mensaje", "prueba que sirve")
       });
       this.oneSignal.handleNotificationOpened().subscribe(() => {
           // do something when a notification is opened

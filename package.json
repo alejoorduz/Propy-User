@@ -23,6 +23,7 @@
     "@awesome-cordova-plugins/core": "^5.40.0",
     "@awesome-cordova-plugins/file-transfer": "^5.40.0",
     "@awesome-cordova-plugins/local-notifications": "^5.40.0",
+    "@awesome-cordova-plugins/vibration": "^5.41.0",
     "@ionic-native/ble": "^5.36.0",
     "@ionic-native/call-number": "^5.36.0",
     "@ionic-native/core": "^5.36.0",
@@ -77,6 +78,7 @@
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-vibration": "^3.1.1",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
@@ -119,7 +121,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-inappbrowser": {},
       "call-number": {},
-      "onesignal-cordova-plugin": {}
+      "onesignal-cordova-plugin": {},
+      "cordova-plugin-vibration": {}
     },
     "platforms": [
       "android",
