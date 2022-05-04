@@ -40,19 +40,25 @@
             <ion-card-title>{{servicio.id}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <div class="sercice__onoff"> 
-              Esta disponible desde las {{ servicio.data.horainicial }}:00 y las {{ servicio.data.horafinal }}:00
+            <div class="service__days"> 
+              Apertura: {{ servicio.data.horainicial }}:00 <br>
+              Cierre: {{ servicio.data.horafinal }}:00 <br>
+              Horas no disponibles: {{ servicio.data.hora_restringida }}
            </div>
            <!-- <div class="service__max"> - {{servicio.data.horareserva}} Hora por reserva </div> -->
-             <div class="service__days">Los dias  
-               <label *ngIf="servicio.data.lunes==true" > Lun </label>
-               <label *ngIf="servicio.data.martes==true" > Mar </label>
-               <label *ngIf="servicio.data.miercoles==true" > Mier </label>
-               <label *ngIf="servicio.data.jueves==true" > Juev </label>
-               <label *ngIf="servicio.data.viernes==true" > Vier </label>
-               <label *ngIf="servicio.data.sabado==true" > Sab </label>
-               <label *ngIf="servicio.data.domingo==true" > Dom </label>  
+             <div class="service__days">
+               Dias:    
+               <label class="service__days" *ngIf="servicio.data.lunes==true" > Lun </label>
+               <label class="service__days" *ngIf="servicio.data.martes==true" > Mar </label>
+               <label class="service__days" *ngIf="servicio.data.miercoles==true" > Mier </label>
+               <label class="service__days" *ngIf="servicio.data.jueves==true" > Juev </label>
+               <label class="service__days" *ngIf="servicio.data.viernes==true" > Vier </label>
+               <label class="service__days" *ngIf="servicio.data.sabado==true" > Sab </label>
+               <label class="service__days" *ngIf="servicio.data.domingo==true" > Dom </label>  
              </div>
+             <!-- <div class="service__days">Horas bloqueadas:   
+              <label> {{  servicio.data.hora_restringida  }}</label> 
+            </div> -->
           </ion-card-content>
         </ion-card>
        </ion-slide>

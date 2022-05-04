@@ -20,7 +20,6 @@ export class FirestoreService {
     return this.angularFirestore.collection(coleccion).doc(documentId).collection(col).doc(doc).set(datos)
   } 
 
-
   public update(coleccion, documentId,datos) {
     return this.angularFirestore.collection(coleccion).doc(documentId).update(datos);
   }

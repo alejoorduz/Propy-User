@@ -39,6 +39,8 @@ export class InscripcionesPage implements OnInit {
   lista_servicio = [];
   lista_proyectos = [];
   array_servicios_admin: string
+  account_config_ok: Boolean;
+  profile_image_yes: boolean;
 
   new_user: boolean;
   activate_account: boolean;
@@ -49,6 +51,8 @@ export class InscripcionesPage implements OnInit {
   current_user_email;
   current_user_rol;
   current_user_activate;
+  current_user_apto;
+  current_user_image;
   
   constructor( private loadingController: LoadingController,private alertCtrl: AlertController,private geolocation: Geolocation, public  router: Router,private modalCtrl: ModalController,private storage: Storage,private fbs: FirestoreService ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) { }
 
@@ -82,17 +86,76 @@ export class InscripcionesPage implements OnInit {
   }
 
     ionViewWillEnter() {
-    // this.storage.create();
-    // this.storage.get('servicio 1').then(res=>{
-    //   console.log(res)
-    // })
-    //console.log("Inicia la APP:",this.current_user_uid)
     this.presentLoading();
-    setTimeout(() => {
-     this.loading.dismiss();
-    }, 2000);
+    // setTimeout(() => {
+    //  this.loading.dismiss();
+    // }, 3500);
     this.getuseruid();
     this.getLocation();
+
+  }
+
+  async getuseruid(){
+    //try{
+      var user_uid = localStorage.getItem("uid");
+      //localStorage.clear();
+      // console.log("traido de minibd: ", user_uid)
+       if (!user_uid) {
+        // console.log("No habia ningun uid guardado")
+          var uid = await (await this.afAuth.currentUser).uid
+          localStorage.setItem("uid",uid);
+         // console.log("Se guardo el UID en la miniBD:)")
+         // console.log(uid)
+          this.current_user_uid = uid
+         // console.log("uid:",this.current_user_uid)
+          this.getName(uid);
+       }else{
+        // console.log("Ya habia valor gurdado y se uso ese")
+         this.current_user_uid = user_uid
+        //  console.log("uid:",this.current_user_uid)
+          this.getName(user_uid);
+       }
+   // }
+    // catch(error){
+    //   console.log("Errorsuelo:",error)
+    //   this.router.navigate(["/iniciosesion"])
+    //   //this.presentAlert(error);
+    // }
+  }
+
+  async getName(uid){
+    this.fbs.consultarPorId("user/", uid).subscribe((resultado) => {
+      if (resultado.payload.data() != null) {
+          this.user_info.id = resultado.payload.id;
+          this.user_info.data = resultado.payload.data();
+      }
+      this.current_user_name = this.user_info.data.nombre;
+      this.current_user_email = this.user_info.data.email;
+      this.current_user_rol = this.user_info.data.rol;
+      this.current_user_activate = this.user_info.data.habilitado;
+      this.current_user_apto = this.user_info.data.apto;
+      this.current_user_image = this.user_info.data.image_url;
+      //console.log("el usuario esta activado? :",this.current_user_activate)
+      //let edificio = this.user_info.data.proyecto
+      this.consultar_proyectos()
+      console.log("Apartamento, img url ",this.current_user_apto, this.current_user_image)
+
+        //this.current_user_apto = "4048"
+  if (this.current_user_apto) {
+    console.log("si hay algo en 'apto'")
+    this.account_config_ok = true;
+  }else{
+    console.log("No hay nada en 'apto'")
+    this.account_config_ok = false;
+  }
+  if (this.current_user_image) {
+    console.log("Si hay algo en 'image_url'")
+    this.profile_image_yes = true;
+  }else{
+    console.log("No hay nada en 'image_url'")
+    this.profile_image_yes = false;
+  }
+  });
 
   }
 
@@ -168,46 +231,16 @@ export class InscripcionesPage implements OnInit {
     }
   }
 
-  async getuseruid(){
-    try{
-
-      let uid = await (await this.afAuth.currentUser).uid
-      console.log(uid)
-      this.current_user_uid = uid
-      console.log("uid:",this.current_user_uid)
-      this.getName(uid);
-    }
-    catch(error){
-      console.log("Errorsuelo:",error)
-      this.router.navigate(["/iniciosesion"])
-      //this.presentAlert(error);
-    }
-    
-  }
+  
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      message: 'Por favor espere...'
+      message: 'Obteniendo datos, por favor espere...'
     });
     return this.loading.present();
   }
   
-  async getName(uid){
-    this.fbs.consultarPorId("user/", uid).subscribe((resultado) => {
-      if (resultado.payload.data() != null) {
-          this.user_info.id = resultado.payload.id;
-          this.user_info.data = resultado.payload.data();
-      }
-      this.current_user_name = this.user_info.data.displayName;
-      this.current_user_email = this.user_info.data.email;
-      this.current_user_rol = this.user_info.data.rol;
-      this.current_user_activate = this.user_info.data.habilitado
-      console.log("el usuario esta activado? :",this.current_user_activate)
-      //let edificio = this.user_info.data.proyecto
-      this.consultar_proyectos()
-      //console.log("usuario: ",name,email,this.proyecto)
-  });
-  }
+
 
   consultar_proyectos(){
    // this.presentLoading();
@@ -238,8 +271,10 @@ export class InscripcionesPage implements OnInit {
         console.log("usuario nuevito ")
         
       }
+       setTimeout(() => {
+        this.loading.dismiss();
+       }, 800);
       });
-      
     }
     
     // this.fbs.consultar("user/"+this.current_user_uid+"/proyectos").subscribe((servicios) => {
@@ -292,15 +327,22 @@ export class InscripcionesPage implements OnInit {
         uid: this.current_user_uid,
         nombre: this.current_user_name,
         email: this.current_user_email,
-        rol: this.current_user_rol
+        rol: this.current_user_rol,
+        apto: this.current_user_apto,
+        image_url: this.current_user_image
       }
     });
     modal.onDidDismiss()
     .then((data) => {
-        //   this.storage.forEach((value, key, index) => {
-        //   console.log(`ITEM - ${key} = ${value} [${index}]`);
-        // });
-      
+      console.log("esta es la data que devuelve el modal")
+      console.log(data)
+      var closing = data['data'];
+      if (closing) {
+        console.log("volvi de perfil con bandera en true",closing)
+       // this.modalCtrl.dismiss()
+      }else{
+        console.log("Volvi con bandera en false,", closing)
+      } 
   });
     return await modal.present();
   }
@@ -334,6 +376,7 @@ export class InscripcionesPage implements OnInit {
       componentProps: {
         uid: this.current_user_uid,
         nombre: this.current_user_name,
+        apto: this.current_user_apto,
         proyecto: id,
         reserva: reserva,
         pagos: pago,
@@ -355,6 +398,7 @@ export class InscripcionesPage implements OnInit {
   }
 
    cerrarsesion(){
+      localStorage.setItem("uid","")
       this.authSvc.logout();
       this.router.navigate(["/iniciosesion"])
     }

@@ -79,6 +79,12 @@ redirectUser(isverified:boolean){
   }
 }
 
+dismiss(){
+  console.log("cerrando modal de perfil")
+  //this.modalCtrl.dismiss();
+  this.router.navigate(['iniciosesion']);
+}
+
 inicio(){
   this.router.navigate(['iniciosesion']);
 }

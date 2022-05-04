@@ -16,14 +16,14 @@
     <div class="crear_comunicado">
         <h1 style="text-align:center;" class="tituloavisos">Formulario para aviso de mudanza</h1>
         <h2  class="avisos">De esta manera notificarás a la administración con anterioridad el dia de tu mudanza</h2>
-        <h2  class="avisos">Elige el dia que se hará la mudanza</h2>
+        <h2  class="avisos">¡Selecciona el dia y la hora en que se hará!</h2>
       <div class="divform">
-        <ion-item class="formulario">
+        <!-- <ion-item class="formulario">
           <ion-label position="floating" >Numero de Apartamento</ion-label>
           <ion-input type="text" id="apto" placeholder="Ej: Torre 2 - 508" [(ngModel)]="apto"></ion-input>
-        </ion-item>
+        </ion-item> -->
         <ion-item class="calendario">
-          <ion-label>MM DD YY</ion-label>
+          <!-- <ion-label>MM DD YY</ion-label> -->
           <ion-datetime class="datetime" displayFormat="MM DD YY" [(ngModel)]="myDate" placeholder="Select Date"></ion-datetime>
         </ion-item>
       <!--   <ion-item class="formulario">
@@ -71,7 +71,7 @@
                        Apartamento:  {{comunicado.data.apto}} 
                       </div>
                       <div class="reporte">
-                       El {{comunicado.data.fecha}} - {{comunicado.data.hora}} 
+                       El {{comunicado.data.fecha}} a las {{comunicado.data.hora}} 
                     </div>
                        <ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="trash-outline"></ion-icon>
                   </div>

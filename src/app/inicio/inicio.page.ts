@@ -40,7 +40,9 @@ export class InicioPage implements OnInit {
 
   @Input() uid
   @Input() nombre
+  @Input() apto
   @Input() proyecto
+
   // @Input() reserva
   // @Input() pagos
   // @Input() comunicado
@@ -263,110 +265,96 @@ name: any
 
 
 
-  elegir_servicio(servicio){
-   // console.log("Vamos a elegir que ventana abrir dependiendo del servicio oprimido, este es el servicio: " + servicio)
-    if (servicio == "Reservas") {
-     // console.log("reservas if")
-      this.modal_reservas();
-     // this.modalCtrl.dismiss();
+  elegir_servicio(servicio,habilitado){
+    if(!habilitado){
+      alert("Este servicio es para miembros GOLD, contactanos para activar tu plan (El administrador de este edificio no tiene activo este servicio)")
+    }else{
+      // console.log("Vamos a elegir que ventana abrir dependiendo del servicio oprimido, este es el servicio: " + servicio)
+        if (servicio == "Reservas") {
+        // console.log("reservas if")
+          this.modal_reservas();
+        // this.modalCtrl.dismiss();
+        }
+        if (servicio == "Pagos") {
+        // console.log("Pago admin if")
+          this.modal_pagos();
+        }
+        if (servicio == "Comunicados") {
+        // console.log("comunicados if")
+          this.modal_comunicados();
+        }
+        if (servicio == "Documentos") {
+          console.log("Documentos");
+          this.modal_documentos();
+        }
+        if (servicio == "AirCall") {
+          this.modal_aircall();
+        }
+        if (servicio == "Usuarios") {
+          this.modal_usuarios();
+        }
+        if (servicio == "Ingreso Mascotas") {
+          console.log("Mascotas");
+          this.modal_mascotas();
+        }
+        if (servicio == "Avisos de trasteo") {
+          console.log("Aviso trasteo");
+          this.modal_trasteos();
+        }
+        if (servicio == "Monitoreo") {
+          console.log("Monitoreo");
+          this.modal_monitoreo();
+        }
+        if (servicio == "Clasificados") {
+          console.log("Clasificados");
+          this.modal_clasificados();
+        }
+        if (servicio == "Directorio") {
+          console.log("Directorio");
+          this.modal_directorio();
+        }
+        if (servicio == "Finanzas") {
+          console.log("Finanzas");
+          this.modal_finanzas();
+        }
+        if (servicio == "Encuestas") {
+          console.log("Encuestas");
+          this.modal_encuestas();
+        }
+        if (servicio == "Beneficios") {
+          console.log("Beneficios");
+          this.modal_beneficios();
+        }
+        if (servicio == "Autorizaciones") {
+          console.log("Autorizar");
+          this.modal_autorizaciones();
+        }
+        if (servicio == "Seguridad") {
+          console.log("Seguridad");
+          this.modal_seguridad();
+        }
+        if (servicio == "Preguntas y Respuestas") {
+          console.log("QA");
+          this.modal_preguntas();
+        }
+        if (servicio == "Emergencias 24/7") {
+          this.modal_emergencias();
+        }
+        if (servicio == "Acceso") {
+          console.log("Acceso");
+          this.modal_acceso();
+        }
+        if (servicio == "Eventos") {
+          console.log("Eventos");
+          this.modal_eventos();
+        }
+        if (servicio == "Citofonia") {
+          console.log("Citofonia");
+          this.modal_citofonia();
+        }
     }
-    if (servicio == "Pagos") {
-     // console.log("Pago admin if")
-      this.modal_pagos();
-    }
-    if (servicio == "Comunicados") {
-     // console.log("comunicados if")
-      this.modal_comunicados();
-    }
-    if (servicio == "Documentos") {
-      console.log("Documentos");
-      this.modal_documentos();
-    }
-    if (servicio == "AirCall") {
-      this.modal_aircall();
-    }
-    if (servicio == "Usuarios") {
-      this.modal_usuarios();
-    }
-    if (servicio == "Ingreso Mascotas") {
-      console.log("Mascotas");
-      this.modal_mascotas();
-    }
-    if (servicio == "Avisos de trasteo") {
-      console.log("Aviso trasteo");
-      this.modal_trasteos();
-    }
-    if (servicio == "Monitoreo") {
-      console.log("Monitoreo");
-      this.modal_monitoreo();
-    }
-    if (servicio == "Clasificados") {
-      console.log("Clasificados");
-      this.modal_clasificados();
-    }
-    if (servicio == "Directorio") {
-      console.log("Directorio");
-      this.modal_directorio();
-    }
-    if (servicio == "Finanzas") {
-      console.log("Finanzas");
-      this.modal_finanzas();
-    }
-    if (servicio == "Encuestas") {
-      console.log("Encuestas");
-      this.modal_encuestas();
-    }
-    if (servicio == "Beneficios") {
-      console.log("Beneficios");
-      this.modal_beneficios();
-    }
-    if (servicio == "Autorizaciones") {
-      console.log("Autorizar");
-      this.modal_autorizaciones();
-    }
-    if (servicio == "Seguridad") {
-      console.log("Seguridad");
-      this.modal_seguridad();
-    }
-    if (servicio == "Preguntas y Respuestas") {
-      console.log("QA");
-      this.modal_preguntas();
-    }
-    if (servicio == "Emergencias 24/7") {
-      this.modal_emergencias();
-    }
-    if (servicio == "Acceso") {
-      console.log("Acceso");
-      this.modal_acceso();
-    }
-    if (servicio == "Eventos") {
-      console.log("Eventos");
-      this.modal_eventos();
-    }
-    if (servicio == "Citofonia") {
-      console.log("Citofonia");
-      this.modal_citofonia();
-    }
-  }
 
-  // async getuseruid(){
-  //   let uid = await (await this.afAuth.currentUser).uid
-  //   this.getName(uid);
-  // }
-  
-  
-  // async getName(uid){
-  //   this.fbs.consultarPorId("user/", uid).subscribe((resultado) => {
-  //     if (resultado.payload.data() != null) {
-  //         this.user_info.id = resultado.payload.id;
-  //         this.user_info.data = resultado.payload.data();
-  //     }
-  //     this.name = this.user_info.data.displayName;
-  //     let email = this.user_info.data.email;
-  //     let saldo = this.user_info.data.saldo;
-  //     console.log("usuario: ",this.name,email,saldo)
-  // });
-  // }
+  }
 
   async modal_emergencias(){
     const modal = await this.modalCtrl.create({
@@ -451,6 +439,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -476,6 +465,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -501,6 +491,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -526,6 +517,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -551,6 +543,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -576,6 +569,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -601,6 +595,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -626,6 +621,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -651,6 +647,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -676,6 +673,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -701,6 +699,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -726,6 +725,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -751,6 +751,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -776,6 +777,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -801,6 +803,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -826,6 +829,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -851,6 +855,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });
@@ -876,6 +881,7 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
+        apto: this.apto
         //reserva: this.reserva
       }
     });

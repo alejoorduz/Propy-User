@@ -33,7 +33,7 @@ export class CalendarPage implements OnInit {
   hora_final:number;
   max_reserva:number;
   horas_restringidas = [];
-  hora_restringida: number;
+ // hora_restringida: number;
   periodo:number;
   lunes:number;
   martes:number;
@@ -52,9 +52,11 @@ export class CalendarPage implements OnInit {
   hora_bloqueada:boolean;
   dia_seleccionado: string;
   mes_seleccionado: string;
+  numero_mes;
   hora_seleccionada: string;
   has_events: boolean;
-
+  day;
+  mes;
   mostrar_add_event: boolean;
 
   lista_eventos = [];
@@ -72,6 +74,7 @@ export class CalendarPage implements OnInit {
 
   current_user_uid;
   current_user_name;
+  current_user_apto;
 
   user_info: any = {
     id: "",
@@ -83,16 +86,16 @@ export class CalendarPage implements OnInit {
     var someDate = moment(current).format('D')
     var somemonth = moment(current).format('M')
     var someHour = moment(current).format('h')
-    var day = parseInt(someDate)
-    var mes = parseInt(somemonth)
+     this.day = parseInt(someDate)
+     this.mes = parseInt(somemonth)
     var hora = parseInt(someHour)
-    console.log("horas restringidas: ",this.horas_restringidas[0],this.horas_restringidas[1],this.horas_restringidas[2])
-    var ti = day + this.periodo; 
+    console.log("horas restringidas: ",this.horas_restringidas[0],this.horas_restringidas[1],this.horas_restringidas[2],this.horas_restringidas[3],this.horas_restringidas[4],this.horas_restringidas[5])
+    var ti = this.day + this.periodo; 
     if (this.periodo < 32 ) {
-      return  (date.getDate()>ti || date.getDate() < day) || date.getDay()==this.lunes || date.getDay()==this.martes
+      console.log("el calendario es menor a 32")
+      return  date.getDate()>ti  || date.getDay()==this.lunes || date.getDay()==this.martes
       || date.getDay()==this.miercoles || date.getDay()==this.jueves || date.getDay()==this.viernes || date.getDay()==this.sabado
-      || date.getDay()==this.domingo 
-      || date.getMonth() > mes-1
+      || date.getDay()==this.domingo || date.getMonth() > this.mes-1 || date.getMonth() < this.mes-1
       || date.getHours()==parseInt(this.horas_restringidas[0]) 
       || date.getHours()==parseInt(this.horas_restringidas[1]) 
       || date.getHours()==parseInt(this.horas_restringidas[2]) 
@@ -119,10 +122,12 @@ export class CalendarPage implements OnInit {
       || date.getHours()==parseInt(this.horas_restringidas[23])
       
     }
+    //date.getDate() < day ||
     if(this.periodo === 62){
-      return  date.getDate() < day || date.getHours()< hora || date.getDay()==this.lunes || date.getDay()==this.martes
+      console.log("el calendario es igual a 62",this.mes)
+      return  date.getDay()==this.lunes || date.getDay()==this.martes
       || date.getDay()==this.miercoles || date.getDay()==this.jueves || date.getDay()==this.viernes || date.getDay()==this.sabado
-      || date.getDay()==this.domingo || date.getMonth() > mes
+      || date.getDay()==this.domingo || date.getMonth() > this.mes || date.getMonth() < this.mes-1
       || date.getHours()==parseInt(this.horas_restringidas[0]) 
       || date.getHours()==parseInt(this.horas_restringidas[1]) 
       || date.getHours()==parseInt(this.horas_restringidas[2]) 
@@ -149,9 +154,10 @@ export class CalendarPage implements OnInit {
       || date.getHours()==parseInt(this.horas_restringidas[23]);
     }
     if(this.periodo === 183){
-      return  date.getDate() < day || date.getHours()< hora  || date.getDay()==this.lunes || date.getDay()==this.martes
+      console.log("el calendario es igual a 183")
+      return  date.getDay()==this.lunes || date.getDay()==this.martes
       || date.getDay()==this.miercoles || date.getDay()==this.jueves || date.getDay()==this.viernes || date.getDay()==this.sabado
-      || date.getDay()==this.domingo || date.getMonth() > mes+4
+      || date.getDay()==this.domingo || date.getMonth() > this.mes+4 || date.getMonth() < this.mes-1
       || date.getHours()==parseInt(this.horas_restringidas[0]) 
       || date.getHours()==parseInt(this.horas_restringidas[1]) 
       || date.getHours()==parseInt(this.horas_restringidas[2]) 
@@ -193,7 +199,7 @@ export class CalendarPage implements OnInit {
     this.periodo = parseInt(this.router.getCurrentNavigation().extras.state.periodo) 
     this.hora_inicial = parseInt(this.router.getCurrentNavigation().extras.state.hora_inicial) 
     this.hora_final = parseInt(this.router.getCurrentNavigation().extras.state.hora_final) 
-    this.hora_restringida = parseInt(this.router.getCurrentNavigation().extras.state.hora_restringida) 
+   // this.hora_restringida = parseInt(this.router.getCurrentNavigation().extras.state.hora_restringida) 
     this.horas_restringidas  = this.router.getCurrentNavigation().extras.state.hora_restringida
     this.max_reserva = parseInt(this.router.getCurrentNavigation().extras.state.max_reserva) 
     this.lunes = parseInt(this.router.getCurrentNavigation().extras.state.lunes) 
@@ -203,7 +209,7 @@ export class CalendarPage implements OnInit {
     this.viernes = parseInt(this.router.getCurrentNavigation().extras.state.viernes) 
     this.sabado = parseInt(this.router.getCurrentNavigation().extras.state.sabado) 
     this.domingo = parseInt(this.router.getCurrentNavigation().extras.state.domingo)  
-    console.log("hora restringida: ",this.proyecto,this.servicio,this.horas_restringidas)
+    console.log("datos: ",this.hora_inicial,this.lunes,this.martes,this.miercoles,this.jueves, this.viernes, this.domingo,this.proyecto,this.servicio,this.horas_restringidas)
    }
 //, this.lunes,this.martes,this.miercoles,this.jueves,this.viernes,this.sabado,this.domingo
    ionViewWillEnter() {
@@ -215,10 +221,15 @@ export class CalendarPage implements OnInit {
   }
 
   show_button(){
+    console.log("ms",this.mes_seleccionado,this.mes)
+    if (this.dia_seleccionado < this.day && this.numero_mes <= this.mes) {
+      alert("No puedes elegir un dia anterior al dia de hoy")
+    }else{
     this.calendar.mode = "day";
     this.boton_atras = true;
     this.boton_dia = false;
     this.boton_reserva = true;
+    }
   }
 
   hide_button(){
@@ -262,8 +273,9 @@ export class CalendarPage implements OnInit {
           this.user_info.id = resultado.payload.id;
           this.user_info.data = resultado.payload.data();
       }
-      this.current_user_name = this.user_info.data.displayName;
+      this.current_user_name = this.user_info.data.nombre;
       let email = this.user_info.data.email;
+      this.current_user_apto = this.user_info.data.apto;
       //let edificio = this.user_info.data.proyecto
       //console.log("usuario: ",name,email,this.proyecto)
   });
@@ -330,6 +342,9 @@ export class CalendarPage implements OnInit {
   }
 
 addNewEvent() {
+  if (!this.current_user_apto) {
+    this.presentAlertBlock("Usuario sin apartamento ","Ve a tu perfil y rellena tu apartamento para poder hacer reservas")
+  } else {
   if (this.has_events) {
     //console.log("no puedes reservas a esta hora")
     this.presentAlertBlock("Esta hora ya tiene una reserva","Solo se admite 1 reserva por hora")
@@ -358,7 +373,7 @@ addNewEvent() {
             var endTime = new Date(selectedYear, selectedMonth, selectedDay, selectHour+1)
             console.log(startTime,endTime)
             let event = {
-              title: this.current_user_name,
+              title: this.current_user_apto,
               startTime: startTime,
               endTime: endTime,
               allDay: false,
@@ -370,7 +385,7 @@ addNewEvent() {
            
       }
   }
-      
+}   
   }
 
   onTimeSelected(ev) {
@@ -391,39 +406,51 @@ addNewEvent() {
       var mes_ingles = day_hour_string.toString().slice(4,7);
       if (mes_ingles === 'Jan') {
         this.mes_seleccionado = 'Enero'
+        this.numero_mes = 1;
       }
       if (mes_ingles === 'Feb') {
         this.mes_seleccionado = 'Febrero'
+        this.numero_mes = 2;
       }
       if (mes_ingles === 'Mar') {
         this.mes_seleccionado = 'Marzo'
+        this.numero_mes = 3;
       }
       if (mes_ingles === 'Apr') {
         this.mes_seleccionado = 'Abril'
+        this.numero_mes = 4;
       }
       if (mes_ingles === 'May') {
         this.mes_seleccionado = 'Mayo'
+        this.numero_mes = 5;
       }
       if (mes_ingles === 'Jun') {
         this.mes_seleccionado = 'Junio'
+        this.numero_mes = 6;
       }
       if (mes_ingles === 'Jul') {
         this.mes_seleccionado = 'Julio'
+        this.numero_mes = 7;
       }
       if (mes_ingles === 'Aug') {
         this.mes_seleccionado = 'Agosto'
+        this.numero_mes = 8;
       }
       if (mes_ingles === 'Sep') {
         this.mes_seleccionado = 'Septiembre'
+        this.numero_mes = 9;
       }
       if (mes_ingles === 'Oct') {
         this.mes_seleccionado = 'Octubre'
+        this.numero_mes = 10;
       }
       if (mes_ingles === 'Nov') {
         this.mes_seleccionado = 'Noviembre'
+        this.numero_mes = 11;
       }
       if (mes_ingles === 'Dec') {
         this.mes_seleccionado = 'Diciembre'
+        this.numero_mes = 12;
       }
       this.hora_seleccionada = day_hour_string.toString().slice(16,24);
       if ((ev.events !== undefined && ev.events.length !== 0)) {
@@ -534,7 +561,7 @@ addNewEvent() {
             this.fbs.insertar("Proyectos/"+this.proyecto+"/Servicios/"+ this.servicio+"/reservas", id, event)
             this.fbs.insertar("user/"+this.current_user_uid+"/proyectos/"+ this.proyecto+"/servicios/"+this.servicio+"/reservas", id, evento)
             this.update_notification(selectedYear,selectedMonth,selectedDay,selectHour);
-            this.router.navigate(["inscripciones"])
+            //this.router.navigate(["inscripciones"])
           }
         }
       ]

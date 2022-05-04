@@ -32,7 +32,6 @@ export class MascotasPage implements OnInit {
   itemsUser: Observable<any[]>;
 
   name: string = '';
-  apto: string = '';
   especie: string = '';
   raza: string = '';
 
@@ -45,6 +44,7 @@ export class MascotasPage implements OnInit {
   @Input() uid
   @Input() nombre
   @Input() proyecto
+  @Input() apto
  
 
   chooseFile (event) {
@@ -52,6 +52,9 @@ export class MascotasPage implements OnInit {
   }
   
  async addTodoUser(){
+   if (!this.apto) {
+    this.presentAlertBlock("Usuario sin apartamento ","Ve a tu perfil y rellena tu apartamento para poder hacer reservas")
+   } else {
     await this.presentLoading();
     this.itemsRefUser.add({
       nombre: this.name,
@@ -65,25 +68,23 @@ export class MascotasPage implements OnInit {
         id: resp.id,
         imageUrl: imageUrl || null
       })
-      this.addTodo();
+      this.addTodo(imageUrl,resp.id);
     }).catch(error => {
       console.log(error);
     })
   }
+}
 
- async addTodo(){
-    this.itemsRef.add({
-      nombre: this.name,
-      apto: this.apto,
-      especie: this.especie,
-      raza: this.raza
-    })
-    .then(async resp => {
-      const imageUrl = await this.uploadFile(resp.id, this.selectedFile)
-      this.itemsRef.doc(resp.id).update({
-        id: resp.id,
-        imageUrl: imageUrl || null
-      })
+ async addTodo(imageurl,id){
+   var mascot = {
+    nombre: this.name,
+    apto: this.apto,
+    especie: this.especie,
+    raza: this.raza,
+    id: id,
+    imageUrl: imageurl
+   }
+  this.fbs.insertar("Proyectos/"+this.proyecto+"/mascotas/", id, mascot )
       $('#nombre').val("");
       $('#apto').val("");
       $('#especie').val("");
@@ -91,17 +92,15 @@ export class MascotasPage implements OnInit {
       $('#foto').val("");
       this.loading.dismiss();
      // this.addMyPet(resp.id,imageUrl);
-    }).catch(error => {
-      console.log(error);
-    })
+    // }).catch(error => {
+    //   console.log(error);
+    // })
   }
   
   async uploadFile(id, file): Promise<any> {
     if(file && file.length) {
       try {
-        
         const task = await this.storage.ref(this.proyecto+'/mascotas').child(id).put(file[0])
-        
         $('#name').val("");
         return this.storage.ref(this.proyecto+`/mascotas/${id}`).getDownloadURL().toPromise();
       } catch (error) {
@@ -112,18 +111,21 @@ export class MascotasPage implements OnInit {
   
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      message: 'Porfavor espere...'
+      message: 'Guardando, por favor espere...'
     });
     return this.loading.present();
   }
   
   remove(item){
-    console.log(item);
-    this.itemsRef.doc(item.id).delete()
+    const res = confirm("Estas seguro que quieres eliminar esta mascota?");
+  if(res){
+   console.log(item);
     this.itemsRefUser.doc(item.id).delete()
     if(item.imageUrl) {
       this.storage.ref(this.proyecto+`/mascotas/${item.id}`).delete()
     }
+    this.itemsRef.doc(item.id).delete()
+  }
   }
   
    async store_image(imageData: any){
@@ -166,6 +168,21 @@ export class MascotasPage implements OnInit {
 //       console.log(this.comunicados)
 //     });
 // }
+
+async presentAlertBlock(header,text) {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Alerta!',
+    subHeader: header,
+    message: text,
+    buttons: ['OK']
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+  console.log('onDidDismiss resolved with role', role);
+}
 
   async presentAlertdone() {
     const alert = await this.alertController.create({

@@ -16,8 +16,8 @@ export class AutorizacionesPage implements OnInit {
   @Input() uid
   @Input() nombre
   @Input() proyecto
+  @Input() apto
 
-  apto: string
   reporte: string
  
   comunicados = [];
@@ -42,31 +42,54 @@ export class AutorizacionesPage implements OnInit {
     });
 }
 
+async presentAlertBlock(header,text) {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: 'Alerta!',
+    subHeader: header,
+    message: text,
+    buttons: ['OK']
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+  console.log('onDidDismiss resolved with role', role);
+}
+
   upload_publication(){
+    if (!this.apto) {
+      this.presentAlertBlock("Usuario sin apartamento ","Ve a tu perfil y rellena tu apartamento para poder hacer reservas")
+     } else {
     if ($("#apto").val() == "" || $("#reporte").val() == "") {
       this.presentAlert("Debes rellenar todos los espacios")
     } else {
-       var timei = new Date(Date.now());
-      var ti = moment(timei).format('h:mm:ss a'); 
-      var dt = moment(timei).format('DD-MM-YYYY'); 
-      let comunicado = {
-          nombre: this.nombre,
-          apto: this.apto,
-          reporte: this.reporte,
-          dia: dt,
-          hora: ti
-       };
-    var id = Math.floor(Math.random() * 3213546846468435454) + 1
-    console.log("random",id)
-    var sid = id.toString()
-    this.firestoreService.insertar("Proyectos/"+this.proyecto+"/autorizaciones/", sid, comunicado )
-    this.firestoreService.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/autorizaciones/", sid, comunicado )
-    $("#apto").val("")
-    $("#nombres").val("")
-    $("#especie").val("")
-    $("#reporte").val("")
-    this.presentAlertdone();
+      const res = confirm("Estas seguro que quieres agregar esta autorización?");
+      if(res){
+          var timei = new Date(Date.now());
+          var ti = moment(timei).format('h:mm:ss a'); 
+          var dt = moment(timei).format('DD-MM-YYYY'); 
+          let comunicado = {
+              nombre: this.nombre,
+              apto: this.apto,
+              reporte: this.reporte,
+              dia: dt,
+              hora: ti
+          };
+        var id = Math.floor(Math.random() * 3213546846468435454) + 1
+        console.log("random",id)
+        var sid = id.toString()
+        this.firestoreService.insertar("Proyectos/"+this.proyecto+"/autorizaciones/", sid, comunicado )
+        this.firestoreService.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/autorizaciones/", sid, comunicado )
+        $("#apto").val("")
+        $("#nombres").val("")
+        $("#especie").val("")
+        $("#reporte").val("")
+        this.presentAlertdone();
+      }
+       
     }
+  }
   }
 
   async presentAlert(mensaje) {

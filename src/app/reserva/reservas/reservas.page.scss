@@ -199,11 +199,11 @@ ion-content {
 
   .service__days{
     width: 100%;
-    font-size: clamp(10px, 2.5vw, 20px);
+    font-size: clamp(12px, 2.5vw, 20px);
     color: black;
-    text-align: left;
+    text-align: center;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
   }
 
@@ -244,7 +244,7 @@ ion-content {
     align-items: center;
     flex-direction: column;
     //background-color: rgba(255, 171, 93, 0.39);
-    height: 240px;
+    height: 340px;
     width: 80%;
   }
   
@@ -270,6 +270,22 @@ ion-content {
     box-shadow: 0 5px #666;
     transform: translateY(15px);
     color: white;
+  }
+
+  ion-card-header{
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  ion-card-content{
+    height: 60%;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
   }
   
   .imagen{

@@ -5,6 +5,8 @@ import { Router, NavigationExtras } from "@angular/router";
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { ToastController, AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-iniciosesion',
@@ -15,15 +17,38 @@ export class IniciosesionPage implements OnInit {
 
   contra_escrita: String;
   
-  user: any = {};
+  user;
+  password;
 
   constructor(private alertCtrl: AlertController,public router: Router,private authSvc: AuthService) { }
 
   ngOnInit() {
+    this.user =localStorage.getItem("user")
+    this.password = localStorage.getItem("password")
+    console.log("credentials: ",this.user,this.password)
+    $("#email").val(this.user);
+    $("#password").val(this.password);
+    if (this.user) {
+      $("#basico").prop("checked",true)
+    }
+  }
+
+  checkbasic(){
+    console.log("Plan basico")
+    console.log($("#basico").prop("checked"))
+    if ($("#basico").prop("checked") === false) {
+      var usr = $("#email").val();
+      var pswrd = $("#password").val();
+      console.log("cedentials in checkbox: ", usr, pswrd)
+      localStorage.setItem("user",usr)
+      localStorage.setItem("password",pswrd)
+    }else{
+      localStorage.clear();
+    }
   }
 
 async onlogin(email,password){
-      console.log("iniciando sesion o error")
+      //console.log("iniciando sesion o error")
     try {
       const user = await this.authSvc.login(email.value,password.value);
       if (user){

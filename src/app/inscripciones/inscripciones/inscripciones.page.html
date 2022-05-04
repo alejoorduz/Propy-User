@@ -16,11 +16,15 @@
 <ion-content>
   <div class="parrafo">
       <div class="imagen_perfil"> 
-           <ion-icon class="icono"  name="person-circle-outline" (click)="perfil()"></ion-icon>
+            <ion-thumbnail *ngIf="profile_image_yes" (click)="perfil()" class="imagePerfil" slot="start">
+            <img *ngIf="profile_image_yes" class="imagenPerfil" [src]="this.current_user_image" alt="">
+          </ion-thumbnail>
+           <ion-icon *ngIf="!profile_image_yes" class="icono"  name="person-circle-outline" (click)="perfil()"></ion-icon>
       </div>
       <div class="resumen_perfil">
          <h1 class="resumen__nombre"> {{this.current_user_name}}</h1>
-         <h1 class="resumen__datos">Usuario</h1>
+         <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">Apartamento: {{this.current_user_apto}}</h1>
+         <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="perfil()">¡Agrega tu apartamento!<ion-icon name="arrow-redo-outline"></ion-icon></h1>
         
          <div class="divWeatherMain_bottom">
           <div class="weatherWidgetRow_bottom" >
@@ -44,6 +48,7 @@
       </div>
       </div>
   <!-- <h2 class="parrafo__texto">Por ejemplo: </h2> -->
+  <ion-icon (click)="perfil()" name="create-outline"></ion-icon>
   </div>
 
 <div class="todo">

@@ -48,7 +48,7 @@
         </ion-card-content>
       </ion-card>
      </ion-slide>
-  </ion-slides>
+  </ion-slides>*ngIf="servicio.habilitado==true"
   </div> -->
 
   <div class="position-keypad">
@@ -56,7 +56,7 @@
         <ion-grid class="grid" >
           <ion-row class="row" >
               <div class="col" *ngFor="let servicio of servicios">
-                <ion-card *ngIf="servicio.habilitado==true" (click)="this.elegir_servicio(servicio.nombre)">
+                <ion-card [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
                   <ion-card-header>
                     <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
                     <ion-card-title>{{servicio.nombre}}</ion-card-title>

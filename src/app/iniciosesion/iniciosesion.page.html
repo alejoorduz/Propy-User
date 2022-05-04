@@ -25,7 +25,7 @@
     <div class="div_email">
       <ion-item  class="email" lines="none">
         <ion-label position="floating">Email</ion-label>
-        <ion-input class="input" type="text" #email required></ion-input>
+        <ion-input class="input" type="text" id="email" #email required></ion-input>
       </ion-item>
     </div>
 
@@ -38,7 +38,7 @@
   <div class="div_contra">
         <ion-item class="contra" lines="none">
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" #password required></ion-input>
+          <ion-input type="password" id="password" #password required></ion-input>
        </ion-item>
   </div>
 
@@ -48,6 +48,12 @@
     </p>
   </div>
 
+  <div class="olvides">
+    <p class="ubicars">
+      Recordarme
+    </p>
+    <ion-checkbox color="primary" id="basico" (click)="checkbasic()"></ion-checkbox>
+  </div>
   
     <div class="div_logins">
     <ion-row>

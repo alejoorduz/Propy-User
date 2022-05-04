@@ -26,6 +26,7 @@ export class ReservasPage implements OnInit {
   @Input() uid
   @Input() nombre
   @Input() proyecto
+  @Input() apto
 
   servicio: string;
   hora_inicial:number;

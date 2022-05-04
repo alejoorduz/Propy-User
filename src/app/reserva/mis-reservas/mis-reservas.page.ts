@@ -53,17 +53,19 @@ export class MisReservasPage implements OnInit {
 }
 
 delete(reserva){
-  console.log("este es el id a borrar: " , reserva)
-  this.fbs.delete_doc("/user/"+this.uid+"/proyectos/"+this.proyecto+"/servicios/"+this.servicio+"/reservas", reserva).then(() => {
-  })
+  const res = confirm("Estas seguro que quieres eliminar esta reserva?");
+  if(res){
+    this.fbs.delete_doc("/user/"+this.uid+"/proyectos/"+this.proyecto+"/servicios/"+this.servicio+"/reservas", reserva).then(() => {
+      })
 
-  this.fbs.delete_doc("/Proyectos/"+this.proyecto+"/Servicios/"+this.servicio+"/reservas",reserva).then(() => {
-    // Actualizar la lista completa
-   // this.consultar_lista_servicios();
-    // Limpiar datos de pantalla
-    //this.tareaEditando = {} as Tarea;
-  })
-  
+      this.fbs.delete_doc("/Proyectos/"+this.proyecto+"/Servicios/"+this.servicio+"/reservas",reserva).then(() => {
+        // Actualizar la lista completa
+      // this.consultar_lista_servicios();
+        // Limpiar datos de pantalla
+        //this.tareaEditando = {} as Tarea;
+      })
+  }
+  console.log("este es el id a borrar: " , reserva)
 }
 
   async presentAlertdone() {

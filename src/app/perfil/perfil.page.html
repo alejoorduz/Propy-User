@@ -18,26 +18,53 @@
   <div class="todo">
     <h1 style="text-align:center;" class="tituloavisos">Perfil</h1>
     <!-- <h2  class="avisos">Editar perfil</h2> -->
-    <div class="divform">
 
-      <div class="formulario" style="height: 150px;">
-        <div class="imagen_perfil"> 
+    <div *ngIf="profile_image_yes" class="tarjeta">
+      <ion-thumbnail (click)="modal_info(image_url)" class="image" slot="start" *ngIf="image_url">
+      <img class="imagen" [src]="image_url" alt="">
+      </ion-thumbnail>
+  </div>
+  <ion-icon style="margin-top: 10px;" *ngIf="profile_image_yes" (click)="delete_image()" class="trash-icon"  name="trash-outline"></ion-icon>
+
+  
+    <div class="divform">
+      <div class="formulario" *ngIf="!profile_image_yes" style="height: 150px;">
+        <div class="imagen_perfil" > 
           <ion-icon class="icono" name="person-circle-outline" (click)="perfil()"></ion-icon>
-     </div>
+        </div>
       </div>
 
+    <input class="card_contents" id="foto" type="file" name="inputFile" (change)="chooseFile($event)" required>
+
+
+      <!-- <ion-item class="card_item" lines="none">
+        <ion-label  position="stacked">Foto Mascota</ion-label>
+        <input class="card_contents" id="foto" type="file" name="inputFile" (change)="chooseFile($event)" required>
+      </ion-item> -->
+
         <div class="formulario">
-            <ion-label class="label">{{this.nombre}}</ion-label>
+          <ion-label class="label">
+            <div class="labely">
+          <ion-input type="text" position="floating" id="nombre" placeholder="'Mi Nombre'" [(ngModel)]="this.nombre"></ion-input>
+          <ion-icon (click)="del_name()" name="close-circle-outline"></ion-icon>
+      </div>
+        </ion-label>
+            <!-- <ion-label class="label">{{this.nombre}}</ion-label> -->
             <!-- <ion-input type="text" id="tittle" placeholder="Ej: Junta Extraodinaria" [(ngModel)]="tittle"></ion-input> -->
         </div>
         <div class="formulario">
             <ion-label class="label">{{this.email}}</ion-label>
             <!-- <ion-input type="text" id="tema" required placeholder="Ej: Reunion del lunes" [(ngModel)]="tema"></ion-input> -->
         </div>
-        <!-- <div class="formulario">
-            <ion-label class="label">{{this.rol}}</ion-label>
-        </div> -->
+        <div class="formulario">
+            <ion-label id="config" class="label">
+              <div class="labely">
+            <ion-input type="text" position="floating" id="apto" placeholder="'Mi Apartamento'" [(ngModel)]="this.apto"></ion-input>
+            <ion-icon (click)="del_apto()" name="close-circle-outline"></ion-icon>
+        </div>
+          </ion-label>
+          </div>
     </div>
-    <!-- <button class="submit" (click)="upload_publication()" expand="block">Enviar</button> -->
+    <button class="submit" (click)="addUserInfo()" expand="block">Guardar</button>
   </div>
 </ion-content>
