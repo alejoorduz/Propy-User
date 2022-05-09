@@ -17,6 +17,7 @@ export class AutorizacionesPage implements OnInit {
   @Input() nombre
   @Input() proyecto
   @Input() apto
+  @Input() torre
 
   reporte: string
  
@@ -71,6 +72,7 @@ async presentAlertBlock(header,text) {
           var dt = moment(timei).format('DD-MM-YYYY'); 
           let comunicado = {
               nombre: this.nombre,
+              torre: this.torre,
               apto: this.apto,
               reporte: this.reporte,
               dia: dt,

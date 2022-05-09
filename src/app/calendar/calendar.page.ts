@@ -59,6 +59,10 @@ export class CalendarPage implements OnInit {
   mes;
   mostrar_add_event: boolean;
 
+  evento_tittle;
+  evento_id;
+  eliminar_evento: boolean;
+
   lista_eventos = [];
   lista_reservas = [];
 
@@ -75,6 +79,9 @@ export class CalendarPage implements OnInit {
   current_user_uid;
   current_user_name;
   current_user_apto;
+  current_user_torre;
+  apto;
+  torre:string;
 
   user_info: any = {
     id: "",
@@ -208,8 +215,10 @@ export class CalendarPage implements OnInit {
     this.jueves = parseInt(this.router.getCurrentNavigation().extras.state.jueves)
     this.viernes = parseInt(this.router.getCurrentNavigation().extras.state.viernes) 
     this.sabado = parseInt(this.router.getCurrentNavigation().extras.state.sabado) 
-    this.domingo = parseInt(this.router.getCurrentNavigation().extras.state.domingo)  
-    console.log("datos: ",this.hora_inicial,this.lunes,this.martes,this.miercoles,this.jueves, this.viernes, this.domingo,this.proyecto,this.servicio,this.horas_restringidas)
+    this.domingo = parseInt(this.router.getCurrentNavigation().extras.state.domingo)
+    this.apto = parseInt(this.router.getCurrentNavigation().extras.state.apto)
+    this.torre = this.router.getCurrentNavigation().extras.state.torre  
+    console.log("datos: ",this.torre, this.apto, this.hora_inicial,this.lunes,this.martes,this.miercoles,this.jueves, this.viernes, this.domingo,this.proyecto,this.servicio,this.horas_restringidas)
    }
 //, this.lunes,this.martes,this.miercoles,this.jueves,this.viernes,this.sabado,this.domingo
    ionViewWillEnter() {
@@ -239,6 +248,22 @@ export class CalendarPage implements OnInit {
     this.boton_reserva = false;
   }
 
+  delete_past(){
+    const res = confirm("Estas seguro que quieres eliminar esta reserva?");
+    if(res){
+      this.fbs.delete_doc("/user/"+this.current_user_uid+"/proyectos/"+this.proyecto+"/servicios/"+this.servicio+"/reservas", this.evento_id).then(() => {
+        })
+  
+        this.fbs.delete_doc("/Proyectos/"+this.proyecto+"/Servicios/"+this.servicio+"/reservas",this.evento_id).then(() => {
+          // Actualizar la lista completa
+        // this.consultar_lista_servicios();
+          // Limpiar datos de pantalla
+          //this.tareaEditando = {} as Tarea;
+        })
+    }
+    console.log("este es el id a borrar: " , this.evento_id)
+  }
+
   consultar_lista_eventos(){
    // console.log(this.current_user_uid, this.current_user_name,this.proyecto)
     this.fbs.consultar("Proyectos/"+this.proyecto+"/Servicios/"+this.servicio+"/reservas").subscribe((lista) => {
@@ -248,8 +273,17 @@ export class CalendarPage implements OnInit {
         event.id = ev.payload.doc.id;
         event.startTime = event.startTime.toDate();
         event.endTime = event.endTime.toDate();
-        console.log(event);
+        console.log("Esta es la hora final de cada evento: ", event.endTime);
         this.eventSource.push(event);
+        // if (event.endTime ) {
+        //   var current = new Date();
+        //   var someDate = moment(current).format('D')
+        //   var somemonth = moment(current).format('M')
+        //   var someHour = moment(current).format('h')
+        //    this.day = parseInt(someDate)
+        //    this.mes = parseInt(somemonth)
+        //   var hora = parseInt(someHour)
+        // }
         // this.lista_eventos.push({
         //   id: ev.payload.doc.id,
         //   data: ev.payload.doc.data()
@@ -296,6 +330,10 @@ export class CalendarPage implements OnInit {
      if (this.lista_reservas.length === this.max_reserva ) {
      //  console.log("Ya tienes suficientes reservas para este servicio")
        this.reservas_full = true
+       this.boton_reserva = true;
+       this.boton_atras = false;
+       this.boton_dia = true;
+       this.calendar.mode = "month";
      } else {
        var resta = this.max_reserva - this.lista_reservas.length
      //  console.log("te quedan reservas: " , resta)
@@ -303,6 +341,8 @@ export class CalendarPage implements OnInit {
      }
     });
   }
+  
+
   
   ngOnInit() {
   //   this.storage.create();
@@ -338,7 +378,33 @@ export class CalendarPage implements OnInit {
   }
 
   onEventSelected(event) {
-    console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+    if (event.title === this.torre + " - " + this.apto) {
+     this.vibration.vibrate(100); 
+       console.log('Event selected:' + event.id + '-' + event.startTime + '-' + event.endTime + ',' + event.title);
+    this.evento_id = event.id;
+    this.eliminar_evento = true;
+    //this.boton_atras = false;
+    var day_hour_string = event.startTime;
+    var dia_selec = day_hour_string.toString().slice(16,21);
+    this.evento_tittle = "Reserva de " + event.title + "a las " + dia_selec; // + " - " + event.startTime + ' - ' + event.endTime;
+    console.log("titulo evento_ " , this.evento_tittle)  
+    }
+  }
+
+  delete(){
+    const res = confirm("Estas seguro que quieres eliminar esta reserva?");
+    if(res){
+      this.fbs.delete_doc("/user/"+this.current_user_uid+"/proyectos/"+this.proyecto+"/servicios/"+this.servicio+"/reservas", this.evento_id).then(() => {
+        })
+  
+        this.fbs.delete_doc("/Proyectos/"+this.proyecto+"/Servicios/"+this.servicio+"/reservas",this.evento_id).then(() => {
+          // Actualizar la lista completa
+        // this.consultar_lista_servicios();
+          // Limpiar datos de pantalla
+          //this.tareaEditando = {} as Tarea;
+        })
+    }
+    console.log("este es el id a borrar: " , this.evento_id)
   }
 
 addNewEvent() {
@@ -373,7 +439,7 @@ addNewEvent() {
             var endTime = new Date(selectedYear, selectedMonth, selectedDay, selectHour+1)
             console.log(startTime,endTime)
             let event = {
-              title: this.current_user_apto,
+              title: this.torre + " - " + this.apto,
               startTime: startTime,
               endTime: endTime,
               allDay: false,
@@ -389,6 +455,7 @@ addNewEvent() {
   }
 
   onTimeSelected(ev) {
+    this.eliminar_evento = false;
       $(".formulario").css("background","green")
       $(".hora_seleccionadita").css("color","red")
       this.vibration.vibrate(100);

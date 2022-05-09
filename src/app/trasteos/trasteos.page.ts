@@ -17,7 +17,7 @@ export class TrasteosPage implements OnInit {
   @Input() nombre
   @Input() proyecto
   @Input() apto
-
+  @Input() torre
   
   fecha: string
   myDate: Date;
@@ -73,6 +73,7 @@ async presentAlertBlock(header,text) {
             let mudanza = {
             nombre: this.nombre,
             apto: this.apto,
+            torre: this.torre,
             fecha: dt,
             hora: ti
                 // dia: dt,

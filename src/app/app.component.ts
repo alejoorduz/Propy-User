@@ -2,15 +2,21 @@ import { Component } from '@angular/core';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 //import OneSignal from 'onesignal-cordova-plugin';
 import { AlertController, Platform} from '@ionic/angular';
-
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
+
 export class AppComponent {
+
+  lat;
+  long;
+
   constructor(
+    private geolocation: Geolocation,
     private platform: Platform,
     private alertCtrl: AlertController,
     private oneSignal: OneSignal
@@ -46,9 +52,27 @@ initializeApp() {
     if (this.platform.is('cordova')) {
       console.log("this is cordova")
       this.setupPush();
+      this.getLocation();
     }
   })
 };
+
+getLocation(){
+  this.geolocation.getCurrentPosition().then((resp) => {
+     this.lat = resp.coords.latitude;
+     this.long = resp.coords.longitude;
+     console.log("lat: " + this.lat + "   long: " + this.long)
+    // setTimeout(()=>{
+      //-------this.getWeatherData();
+    // },2000)
+   }).catch((error) => {
+     console.log('Error getting location', error);
+   });
+   
+   let watch = this.geolocation.watchPosition();
+   watch.subscribe((data) => {
+   });
+}
 
 setupPush () {
   console.log("configuring push notifications")

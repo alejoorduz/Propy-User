@@ -83,6 +83,7 @@ export class InscripcionesPage implements OnInit {
 };
 
   ngOnInit() {
+      this.getLocation();
   }
 
     ionViewWillEnter() {
@@ -91,7 +92,7 @@ export class InscripcionesPage implements OnInit {
     //  this.loading.dismiss();
     // }, 3500);
     this.getuseruid();
-    this.getLocation();
+   // this.getLocation();
 
   }
 
@@ -376,7 +377,7 @@ export class InscripcionesPage implements OnInit {
       componentProps: {
         uid: this.current_user_uid,
         nombre: this.current_user_name,
-        apto: this.current_user_apto,
+        imageURL: this.current_user_image,
         proyecto: id,
         reserva: reserva,
         pagos: pago,

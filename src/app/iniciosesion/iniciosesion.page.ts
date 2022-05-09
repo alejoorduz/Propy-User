@@ -54,7 +54,6 @@ async onlogin(email,password){
       if (user){
         console.log("y aca?")
         const isverified = this.authSvc.isEmailVerified(user);
-        console.log("entre sisass perro" + user)
         this.redirectUser(isverified)
       }
     } catch (error) {

@@ -21,9 +21,6 @@
   <!-- <h1 class="texto" *ngIf="boton_dia">Para reservar, selecciona un dia y oprime el boton "Elegir Dia"  </h1> -->
 
   <div class="formularios" *ngIf="!reservas_full">
-
- 
-
   <ion-segment  *ngIf="this.mostrar_add_event" class="boton_segment">
     <ion-segment-button class="boton" *ngIf="boton_atras" (click)="hide_button()">
       <ion-label>Atrás</ion-label>
@@ -42,7 +39,8 @@
 </div>
 
  <h1 class="reservas_full" *ngIf="reservas_full">Completaste tu número máximo de reservas ({{ this.max_reserva }})</h1>
- <h1 class="reservas_full" *ngIf="reservas_full">Para gestionarlas dirigete a la sección de "Mis Reservas" de {{this.servicio}}</h1>
+ <h1 class="reservas_full" *ngIf="reservas_full">Puedes eliminar las que no necesites oprimiendo tu reserva en el cuadro inferior de esta página donde se muestran las reservas diarias</h1>
+ <h1 class="reservas_full" *ngIf="reservas_full">Tambien puedes gestionarlas desde a la sección de "Mis Reservas" de {{this.servicio}}</h1>
 
 <div class="boton_reserva" *ngIf="boton_atras">
   <button class="boton_reservar" *ngIf="boton_reserva" (click)="addNewEvent()">Reservar</button>
@@ -60,6 +58,11 @@
   <!-- a las <strong style="font-size: 20px;">{{this.hora_seleccionada}} </strong>   -->
     <!-- <button class="boton_reservar" *ngIf="boton_atras" (click)="addNewEvent()">Reservar</button> -->
 </div>  
+
+<div class="eliminar_evento" *ngIf="this.eliminar_evento">
+  <div class="evento">{{this.evento_tittle}}  </div>
+  <div class="icono"> <ion-icon class="trash-icon" (click)="delete()" name="trash-outline"></ion-icon></div>
+</div>
 
   <div class="calendar_tittle">
     <h1>{{ viewTitle }}</h1>

@@ -23,9 +23,9 @@
       </div>
       <div class="resumen_perfil">
          <h1 class="resumen__nombre"> {{this.current_user_name}}</h1>
-         <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">Apartamento: {{this.current_user_apto}}</h1>
+         <!-- <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">Apartamento: {{this.current_user_apto}}</h1>
          <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="perfil()">¡Agrega tu apartamento!<ion-icon name="arrow-redo-outline"></ion-icon></h1>
-        
+         -->
          <div class="divWeatherMain_bottom">
           <div class="weatherWidgetRow_bottom" >
             <div class="h1" style="font-size: clamp(15px, 4vw, 20px); margin-top: 10px;">{{WeatherData.temp_celcius}}°</div>

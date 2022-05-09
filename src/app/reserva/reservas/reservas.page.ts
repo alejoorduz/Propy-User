@@ -27,6 +27,7 @@ export class ReservasPage implements OnInit {
   @Input() nombre
   @Input() proyecto
   @Input() apto
+  @Input() torre
 
   servicio: string;
   hora_inicial:number;
@@ -55,6 +56,7 @@ export class ReservasPage implements OnInit {
   constructor(public router: Router, private modalCtrl: ModalController,private storage: Storage,private firestoreService: FirestoreService) { }
 
   ngOnInit() {
+    console.log("torre: ", this.torre)
   }
 
    ionViewWillEnter() {
@@ -67,7 +69,7 @@ export class ReservasPage implements OnInit {
   }
 
   consultar_lista_servicios(){
-    console.log(this.uid, this.nombre,this.proyecto)
+    console.log("mas datros---< ", this.uid, this.nombre,this.proyecto,this.torre)
     this.firestoreService.consultar("Proyectos/"+this.proyecto+"/Servicios").subscribe((lista) => {
       this.lista_servicio = [];
       lista.forEach((datosTarea: any) => {
@@ -76,7 +78,7 @@ export class ReservasPage implements OnInit {
           data: datosTarea.payload.doc.data()
         });
       })
-      console.log(this.lista_servicio)
+      //console.log(this.lista_servicio)
     });
   }
 
@@ -167,7 +169,9 @@ export class ReservasPage implements OnInit {
          jueves: this.juev,
          viernes: this.vier,
          sabado: this.sab,
-         domingo: this.dom
+         domingo: this.dom,
+         apto: this.apto,
+         torre: this.torre
       }
    });
     this.modalCtrl.dismiss(true)

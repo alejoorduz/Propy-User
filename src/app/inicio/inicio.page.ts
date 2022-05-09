@@ -30,6 +30,7 @@ import { AccesoPage } from "../acceso/acceso.page";
 import { EventosPage } from "../eventos/eventos.page";
 import { CitofoniaPage } from "../citofonia/citofonia.page";
 import { AlertController } from '@ionic/angular';
+import { InfoPage } from "../info/info.page";
 
 @Component({
   selector: 'app-inicio',
@@ -40,9 +41,9 @@ export class InicioPage implements OnInit {
 
   @Input() uid
   @Input() nombre
-  @Input() apto
+  @Input() imageURL
   @Input() proyecto
-
+  
   // @Input() reserva
   // @Input() pagos
   // @Input() comunicado
@@ -58,6 +59,9 @@ export class InicioPage implements OnInit {
   aircall: boolean
   emergencia: boolean 
 
+  profile_image_yes: boolean;
+  account_config_ok: Boolean;
+
 //   emergencias:boolean = true;
 
   // reservas:string;
@@ -70,6 +74,28 @@ export class InicioPage implements OnInit {
     id: "",
     data: {}
 };
+
+app: any = {
+  id: "",
+  data: {}
+};
+
+// torres: any = {
+//   id: "",
+//   data: {}
+// }
+torres = [];
+torre: any = {
+  id: "",
+  data: {}
+};
+tower;
+torr;
+apt;
+aptos = [];
+apto;
+setApt: Boolean;
+inquilino
 
 option = {
   slidesPerView: 1.4,
@@ -196,6 +222,10 @@ name: any
  ]
 
   ngOnInit() {
+   // this.current_user_image = this.imageURL
+   this.account_config_ok = true;
+   this.profile_image_yes = true;
+    console.log(this.imageURL)
   }
 
   ionViewDidEnter() {
@@ -205,11 +235,103 @@ name: any
     //console.log(this.uid,this.nombre,this.proyecto,this.reserva,this.pagos,this.documento,this.comunicado,this.emergencia)
    // console.log(this.uid,this.nombre,this.proyecto)
    // console.log(this.proyect_services)
+   this.get_torre()
+   this.setApt = false;
     this.get_proyect_services()
     //this.getuseruid();
     //this.setStatus('¡Bienvenido! Escoge el carro');
     //this.className = 'clase1';
     console.log("Pruyeba de ver servisios y descrp: ", this.servicios)
+  }
+
+  get_torre(){
+    console.log("trayendo la torre!!")
+    this.fbs.consultarPorId("user/"+this.uid+"/proyectos/", this.proyecto).subscribe((resultado) => {
+      if (resultado.payload.data() != null) {
+          this.torre.id = resultado.payload.id;
+          this.torre.data = resultado.payload.data();
+      }
+      this.tower = this.torre.data.torre
+      this.apto = this.torre.data.apto
+      console.log("this.torre ",this.torre)
+      if (this.apto) {
+        this.account_config_ok = true
+      }else{
+        this.account_config_ok = false
+      }
+    })
+  }
+
+  get_torres(){
+    this.fbs.consultar("Proyectos/"+this.proyecto+"/apartamentos").subscribe((servicios) => {
+            servicios.forEach((datosTarea: any) => {
+              this.torres.push({
+                id: datosTarea.payload.doc.id,
+                data: datosTarea.payload.doc.data()
+              });
+            })
+            //this.password = this.lista_proyectos.data.key
+            console.log("traigamos la lista de torres")
+            console.log(this.torres)
+          });
+  }
+
+  get_aptos(){
+    this.fbs.consultar("Proyectos/"+this.proyecto+"/apartamentos/"+this.torr+"/aptos").subscribe((servicios) => {
+      servicios.forEach((datosTarea: any) => {
+        this.aptos.push({
+          id: datosTarea.payload.doc.id,
+          data: datosTarea.payload.doc.data()
+        });
+      })
+      //this.password = this.lista_proyectos.data.key
+      console.log("traigamos la lista de aptos e inquilino")
+      console.log(this.aptos,this.inquilino)
+    });
+  }
+
+  set_apt(){
+    console.log("open apto setting")
+    this.get_torres();
+      this.setApt = true;
+  }
+
+  close_timepicker(){
+    this.setApt = false;
+    this.torres = [];
+    this.aptos = [];
+  }
+
+  set_apto(){
+    this.fbs.consultarPorId("Proyectos/"+this.proyecto+"/apartamentos/"+this.torr+"/aptos", this.apt).subscribe((resultado) => {
+      if (resultado.payload.data() != null) {
+          this.app.id = resultado.payload.id;
+          this.app.data = resultado.payload.data();
+      }
+      this.inquilino = this.app.data.inquilino;
+      console.log("pude armar al inquilino., ", this.inquilino)
+    })
+    
+  }
+
+  save_apto(){
+    if (this.inquilino === this.nombre) {
+      const res = confirm("¿Guardar este apartamento: "+ this.tower + " " + this.apto + "?");
+    if(res){
+      this.tower = this.torr;
+      this.apto = this.apt;
+      console.log("esta torre y apto:---> ",  this.torre , this.apto)
+      this.fbs.update("user/"+this.uid+"/proyectos/",this.proyecto,{"torre": this.tower})
+      this.fbs.update("user/"+this.uid+"/proyectos/",this.proyecto,{"apto": this.apto})
+      this.setApt = false;
+      this.account_config_ok = true
+      this.aptos = [];
+      this.torres = [];
+      this.close_timepicker();
+    }
+    } else {
+      alert("Tu nombre no esta registrado como inquilino de este apartamento, asegurate de elegir el tuyo")
+    }
   }
 
   get_proyect_services(){
@@ -263,6 +385,32 @@ name: any
     });
   }
 
+  async modal_info(url){
+    const modal = await this.modalCtrl.create({
+      component: InfoPage,
+      cssClass: 'info_modal',
+      componentProps: {
+        uid: this.uid,
+        nombre: this.nombre,
+        //proyecto: this.proyecto,
+        url: url,
+        modaly: "clasificados"
+        //reserva: this.reserva
+      }
+    });
+    modal.onDidDismiss()
+    .then((data) => {
+      console.log("esta es la data que devuelve el modal")
+      console.log(data)
+      var closing = data['data'];
+      if (closing) {
+        this.modalCtrl.dismiss()
+      }else{
+        console.log("no me cierro")
+      } 
+  });
+    return await modal.present();
+  }
 
 
   elegir_servicio(servicio,habilitado){
@@ -439,7 +587,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -465,7 +614,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -491,7 +641,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -517,7 +668,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -543,7 +695,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -569,7 +722,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -595,7 +749,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -621,7 +776,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -647,7 +803,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -673,7 +830,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -699,7 +857,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -725,7 +884,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -751,7 +911,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -777,7 +938,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -803,7 +965,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -829,7 +992,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -855,7 +1019,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });
@@ -881,7 +1046,8 @@ name: any
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        apto: this.apto
+        apto: this.apto,
+        torre: this.tower
         //reserva: this.reserva
       }
     });

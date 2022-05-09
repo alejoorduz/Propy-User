@@ -45,6 +45,7 @@ export class MascotasPage implements OnInit {
   @Input() nombre
   @Input() proyecto
   @Input() apto
+  @Input() torre
  
 
   chooseFile (event) {
