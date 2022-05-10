@@ -59,6 +59,7 @@ export class MascotasPage implements OnInit {
     await this.presentLoading();
     this.itemsRefUser.add({
       nombre: this.name,
+      torre: this.torre,
       apto: this.apto,
       especie: this.especie,
       raza: this.raza
@@ -79,6 +80,7 @@ export class MascotasPage implements OnInit {
  async addTodo(imageurl,id){
    var mascot = {
     nombre: this.name,
+    torre: this.torre,
     apto: this.apto,
     especie: this.especie,
     raza: this.raza,
