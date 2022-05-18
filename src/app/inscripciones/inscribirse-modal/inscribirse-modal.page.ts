@@ -100,23 +100,23 @@ export class InscribirseModalPage implements OnInit {
     var passcode = $("#key").val();
     if (passcode == "") {
       console.log("vacioo")
-      this.presentAlert("Constraseña vacia","Debes escribir la contraseña")
+      this.presentAlert('Alerta!',"Constraseña vacia","Debes escribir la contraseña")
     }else{
     if (passcode == this.password) {
       console.log("Contraseña correcta")
       this.upload_project_to_user()
       //this.return_flag();
     }else{
-      this.presentAlert("Constraseña incorrecta","Asegurate de escribir bien la contraseña de ingreso")
+      this.presentAlert('Alerta!',"Constraseña incorrecta","Asegurate de escribir bien la contraseña de ingreso")
       console.log("contraseña incorrecta")
     }
     }
   }
 
-  async presentAlert(header,text) {
+  async presentAlert(tittle,header,text) {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
-      header: 'Alerta!',
+      header: tittle,
       subHeader: header,
       message: text,
       buttons: ['OK']
@@ -135,9 +135,14 @@ export class InscribirseModalPage implements OnInit {
   }
 
   upload_project_to_user(){
+    var data = {
+      "id":this.uid,
+      "habilitado": false
+    }
     this.firestoreService.insertardos("user",this.uid,"proyectos", this.proyecto, {"config": "configs"} )
-    this.firestoreService.insertardos("Proyectos", this.proyecto, "usuarios", this.nombre, {"id": this.uid} )
+    this.firestoreService.insertardos("Proyectos", this.proyecto, "usuarios", this.nombre, data )
     //this.firestoreService.updatedos("Proyectos",this.proyecto,"usuarios", this.nombre,  {"email": this.email} )
+    this.presentAlert('¡Listo!',"Te inscribiste a " + this.proyecto +".","Por temas de seguridad, debes contactar a tu administrador para que verifique tu usuario y te asigne tu apartamento")
     this.modalCtrl.dismiss();
     // .then(() => {
     //   console.log('Datos subidos correctamente!');

@@ -23,6 +23,11 @@
 <ion-content padding>
   <img class="imagen" src="../../assets/images/security.png" alt="">
   <div class="todo">
+    <div *ngIf="!habilitado"  class="aviso_habilitado">
+      <h1 class="habilitado"> Cuenta deshabilitada
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      </h1>
+    </div>
 
     <div class="parrafo">
       <div class="imagen_perfil"> 
@@ -39,7 +44,7 @@
             <ion-icon *ngIf="account_config_ok" (click)="set_apt()" name="create-outline"></ion-icon>
         </h1>
          
-         <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="set_apt()">¡Agrega tu apartamento!<ion-icon name="arrow-redo-outline"></ion-icon></h1>
+         <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="set_apt()">¡Envia tus datos!<ion-icon name="arrow-redo-outline"></ion-icon></h1>
        </div>
     </div>
   <!-- <h2 class="parrafo__texto">Por ejemplo: </h2> -->

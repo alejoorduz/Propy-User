@@ -643,3 +643,21 @@ ion-grid{
       font-size: clamp(5px, 3vw, 20px);
       color: rgb(255, 0, 0);
     }
+
+    .aviso_habilitado{
+      height: 30px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .habilitado{
+      width: 80%;
+      background-color: red;
+      border: solid black 1px;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }

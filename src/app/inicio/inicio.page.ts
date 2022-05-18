@@ -5,7 +5,7 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore,AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { FirestoreService } from "../firestore.service";
 import { ModalController } from "@ionic/angular";
-
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { ReservasPage  } from "../reserva/reservas/reservas.page";
 import { ComunicadosPage } from "../comunicados/comunicados.page";
 import { PagoadminPage } from "../pagoadmin/pagoadmin.page";
@@ -31,6 +31,8 @@ import { EventosPage } from "../eventos/eventos.page";
 import { CitofoniaPage } from "../citofonia/citofonia.page";
 import { AlertController } from '@ionic/angular';
 import { InfoPage } from "../info/info.page";
+import { VotacionesPage } from "../votaciones/votaciones.page";
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-inicio',
@@ -41,6 +43,7 @@ export class InicioPage implements OnInit {
 
   @Input() uid
   @Input() nombre
+  @Input() email
   @Input() imageURL
   @Input() proyecto
   
@@ -61,6 +64,9 @@ export class InicioPage implements OnInit {
 
   profile_image_yes: boolean;
   account_config_ok: Boolean;
+
+admin_email;
+admin_name;
 
 //   emergencias:boolean = true;
 
@@ -96,6 +102,7 @@ aptos = [];
 apto;
 setApt: Boolean;
 inquilino
+habilitado: Boolean = true;
 
 option = {
   slidesPerView: 1.4,
@@ -109,9 +116,11 @@ show: boolean
 show_services: boolean
 
 name: any 
+
+
  // Servicios_np : any = this.Servicios_np
 
- constructor(public alertController: AlertController,public  router: Router,private fbs: FirestoreService,private modalCtrl: ModalController ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) {
+ constructor(private emailComposer: EmailComposer,public alertController: AlertController,public  router: Router,private fbs: FirestoreService,private modalCtrl: ModalController ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) {
 }
 
   servicios = [ 
@@ -128,6 +137,11 @@ name: any
     {"nombre":"Comunicados",
     "descripcion":"Lee comunicados importantes",
     icon:"newspaper-outline",
+    "habilitado":true},
+
+    {"nombre":"Votaciones",
+    "descripcion":"Votaciones de los usuarios",
+    icon:"pie-chart-outline",
     "habilitado":true},
 
     {"nombre":"Ingreso Mascotas",
@@ -185,11 +199,6 @@ name: any
     icon:"clipboard-outline",
     "habilitado":true},
 
-    {"nombre":"Usuarios",
-    "descripcion":"Revisa que usuarios hacen parte del edificio",
-    icon:"people-outline",
-    "habilitado":true},
-
     {"nombre":"Acceso",
     "descripcion":"Utiliza el celular para ingresar a las torres",
     icon:"id-card-outline",
@@ -218,7 +227,12 @@ name: any
     {"nombre":"Citofonia",
     "descripcion":"Controla la entrada de visitantes",
     icon:"volume-high-outline",
-    "habilitado":true}
+    "habilitado":true},
+
+    // {"nombre":"Usuarios",
+    // "descripcion":"Revisa que usuarios hacen parte del edificio",
+    // icon:"people-outline",
+    // "habilitado":true},
  ]
 
   ngOnInit() {
@@ -244,20 +258,85 @@ name: any
     console.log("Pruyeba de ver servisios y descrp: ", this.servicios)
   }
 
+  async presentAlert(tittle,header,text) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: tittle,
+      subHeader: header,
+      message: text,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Avisar',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
+             let email = {
+              app: "PROPY",
+              from: this.email,
+              to: this.admin_email,
+              cc: '',
+              subject: 'Rellena la información y envia este correo',
+              body: 'Hola ' + this.nombre + '. <br><br> Por temas de seguridad, solicitamos a los administradores que verifiquen la información de los usuarios antes de asignarles su apartamento.<br><br> Para esto, necesitamos que llenes la siguiente información: <br><br> - Cédula propietario: <br> - Apartamento: <br> - Integrantes del apto (para inscribirlos también)<br><br> Una vez rellenes todos los datos envia este correo.',
+              isHtml: true
+            }
+            this.emailComposer.open(email);
+            //this.router.navigate(["inscripciones"])
+          }
+        }
+      ]
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+  return_flag(){
+    this.modalCtrl.dismiss({
+        activated: true
+      })
+  }
+
+  // get_torre(){
+  //   console.log("trayendo la torre!!")
+  //   this.fbs.consultarPorId("user/"+this.uid+"/proyectos/", this.proyecto).subscribe((resultado) => {
+  //     if (resultado.payload.data() != null) {
+  //         this.torre.id = resultado.payload.id;
+  //         this.torre.data = resultado.payload.data();
+  //     }
+  //     this.tower = this.torre.data.torre
+  //     this.apto = this.torre.data.apto
+  //     console.log("this.torre ",this.torre)
+  //     if(this.apto){
+  //       this.account_config_ok = true
+  //     }else{
+  //       this.account_config_ok = false;
+  //     }
+  //   })
+  // }
+
   get_torre(){
     console.log("trayendo la torre!!")
-    this.fbs.consultarPorId("user/"+this.uid+"/proyectos/", this.proyecto).subscribe((resultado) => {
+    this.fbs.consultarPorId("Proyectos/"+this.proyecto+"/usuarios/", this.nombre).subscribe((resultado) => {
       if (resultado.payload.data() != null) {
           this.torre.id = resultado.payload.id;
           this.torre.data = resultado.payload.data();
       }
       this.tower = this.torre.data.torre
       this.apto = this.torre.data.apto
-      console.log("this.torre ",this.torre)
-      if (this.apto) {
+      this.habilitado = this.torre.data.habilitado
+      console.log("this.habilitado ",this.habilitado)
+      if(this.apto){
         this.account_config_ok = true
       }else{
-        this.account_config_ok = false
+        this.account_config_ok = false;
       }
     })
   }
@@ -316,18 +395,24 @@ name: any
 
   save_apto(){
     if (this.inquilino === this.nombre) {
-      const res = confirm("¿Guardar este apartamento: "+ this.tower + " " + this.apto + "?");
+      const res = confirm("Enviar este apartamento: "+ this.torr + " " + this.apt + "?");
     if(res){
       this.tower = this.torr;
       this.apto = this.apt;
       console.log("esta torre y apto:---> ",  this.torre , this.apto)
+      this.fbs.insertar("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/"+this.apto+"/habitantes/",this.nombre,{"nombre": this.nombre})
+      this.fbs.insertar("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/"+this.apto+"/habitantes/",this.nombre,{"habilitado": false})
+      this.fbs.update("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/",this.apto,{"torre": this.tower})
+      this.fbs.update("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/",this.apto,{"apto": this.apto})
+      
       this.fbs.update("user/"+this.uid+"/proyectos/",this.proyecto,{"torre": this.tower})
       this.fbs.update("user/"+this.uid+"/proyectos/",this.proyecto,{"apto": this.apto})
       this.setApt = false;
-      this.account_config_ok = true
+      this.account_config_ok = false;
       this.aptos = [];
       this.torres = [];
       this.close_timepicker();
+     this.presentAlert('Enviar Email de Aviso',"El administrador debe habilitar tu cuenta","¿Enviar solicitud al administrador para que me asigne mi apartamento basado en los datos que daré a continuación?")
     }
     } else {
       alert("Tu nombre no esta registrado como inquilino de este apartamento, asegurate de elegir el tuyo")
@@ -349,7 +434,6 @@ name: any
           this.show_services = true;
           this.emergencia = true;
         }
-
         // Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
 // Documentos, Clasificados, Encuestas, Controles de Acceso
 // Pagos, Monitoreo, Finanzas, Beneficios, Seguridad, Citofonia
@@ -357,25 +441,27 @@ name: any
         this.servicios[0].habilitado = this.proyect_services.data.reservas;
         this.servicios[1].habilitado = this.proyect_services.data.aircall;
         this.servicios[2].habilitado = this.proyect_services.data.comunicados;
-        this.servicios[3].habilitado = this.proyect_services.data.mascotas;
-        this.servicios[4].habilitado = this.proyect_services.data.trasteo;
-        this.servicios[5].habilitado = this.proyect_services.data.directorio;
-        this.servicios[6].habilitado = this.proyect_services.data.autorizaciones;
-        this.servicios[7].habilitado = this.proyect_services.data.preguntas;
-        this.servicios[8].habilitado = this.proyect_services.data.emergencias;
-        this.servicios[9].habilitado = this.proyect_services.data.eventos;
-        this.servicios[10].habilitado = this.proyect_services.data.beneficios;
-        this.servicios[11].habilitado = this.proyect_services.data.documentos;
-        this.servicios[12].habilitado = this.proyect_services.data.clasificados;
-        this.servicios[13].habilitado = this.proyect_services.data.encuestas;
-        this.servicios[14].habilitado = false;
+        this.servicios[3].habilitado = this.proyect_services.data.comunicados;
+        this.servicios[4].habilitado = this.proyect_services.data.mascotas;
+        this.servicios[5].habilitado = this.proyect_services.data.trasteo;
+        this.servicios[6].habilitado = this.proyect_services.data.directorio;
+        this.servicios[7].habilitado = this.proyect_services.data.autorizaciones;
+        this.servicios[8].habilitado = this.proyect_services.data.preguntas;
+        this.servicios[9].habilitado = this.proyect_services.data.emergencias;
+        this.servicios[10].habilitado = this.proyect_services.data.eventos;
+        this.servicios[11].habilitado = this.proyect_services.data.beneficios;
+        this.servicios[12].habilitado = this.proyect_services.data.documentos;
+        this.servicios[13].habilitado = this.proyect_services.data.clasificados;
+        this.servicios[14].habilitado = this.proyect_services.data.encuestas;
+       // this.servicios14].habilitado = false;
         this.servicios[15].habilitado = this.proyect_services.data.acceso;
         this.servicios[16].habilitado = this.proyect_services.data.pagos;
         this.servicios[17].habilitado = this.proyect_services.data.monitoreo;
         this.servicios[18].habilitado = this.proyect_services.data.finanzas;
         this.servicios[19].habilitado = this.proyect_services.data.seguridad;
         this.servicios[20].habilitado = this.proyect_services.data.citofonia;
-
+        this.admin_email = this.proyect_services.data.admin_email;
+        this.admin_name = this.proyect_services.data.admin_name;
         console.log("auth: ", this.servicios[13])
         console.log("auth: ", this.proyect_services.data)
         //this.emergencia = true;
@@ -414,6 +500,13 @@ name: any
 
 
   elegir_servicio(servicio,habilitado){
+    if (!this.habilitado) {
+      alert("No estás habilitado para utilizar la APP, contacta a tu Administrador para mas información")
+    }else{
+
+    if (!this.apto) {
+      alert("Debes estar inscrito a un apartamento para comenzar a usar los servicios, si todavia no tienes asignado un apartamento contacta al administrador")
+    }else{
     if(!habilitado){
       alert("Este servicio es para miembros GOLD, contactanos para activar tu plan (El administrador de este edificio no tiene activo este servicio)")
     }else{
@@ -431,6 +524,10 @@ name: any
         // console.log("comunicados if")
           this.modal_comunicados();
         }
+        if (servicio == "Votaciones") {
+          // console.log("comunicados if")
+           this.modal_votaciones();
+         }
         if (servicio == "Documentos") {
           console.log("Documentos");
           this.modal_documentos();
@@ -501,7 +598,8 @@ name: any
           this.modal_citofonia();
         }
     }
-
+  }
+   }
   }
 
   async modal_emergencias(){
@@ -643,6 +741,31 @@ name: any
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
+        //reserva: this.reserva
+      }
+    });
+    modal.onDidDismiss()
+    .then((data) => {
+      console.log("esta es la data que devuelve el modal")
+      console.log(data)
+      var closing = data['data'];
+      if (closing) {
+        this.modalCtrl.dismiss()
+      }else{
+        console.log("no me cierro")
+      } 
+  });
+    return await modal.present();
+  }
+
+  async modal_votaciones(){
+    const modal = await this.modalCtrl.create({
+      component: VotacionesPage,
+      cssClass: 'adding_modal',
+      componentProps: {
+        uid: this.uid,
+        nombre: this.nombre,
+        proyecto: this.proyecto,
         //reserva: this.reserva
       }
     });

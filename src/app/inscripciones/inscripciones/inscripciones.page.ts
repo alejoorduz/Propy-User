@@ -377,6 +377,7 @@ export class InscripcionesPage implements OnInit {
       componentProps: {
         uid: this.current_user_uid,
         nombre: this.current_user_name,
+        email: this.current_user_email,
         imageURL: this.current_user_image,
         proyecto: id,
         reserva: reserva,

@@ -29,7 +29,7 @@
                 <ion-input type="text" id="numero" required placeholder="" [(ngModel)]="numero"></ion-input>
               </ion-item>
              <button class="submit" (click)="upload_publication()" expand="block">Guardar</button>
-            </div>
+            </div>(click)="modal_info(numero.data.numero)"
     </div>  -->
     <div class="ver_comunicados">
       <h1 class="texto"><strong>{{this.proyecto}}</strong></h1>
@@ -37,7 +37,7 @@
       <ion-grid class="grid">
         <ion-col class="col">
           <ion-row class="row" *ngFor="let numero of numeros">
-            <div class="card" tabindex="1" (click)="modal_info(numero.data.numero)">
+            <div class="card" tabindex="1" (click)="GoToURL(numero.data.numero)">
               <div class="imagen">
                 <ion-icon class="img-icon" name="help-circle-outline"></ion-icon>
               </div>
