@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.propy.usuario" version="6.2.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.propy.usuario" version="6.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Propy</name>
     <description>An awesome app made by Innova Group of Soluciones Verticales SAS</description>
     <author email="aorduz@solucionesverticales.com.co" href="http://ionicframework.com/">Innovation and Development Team</author>

@@ -19,7 +19,9 @@ export class VotacionesPage implements OnInit {
   pregunta;
   numero;
  
-  votaciones= [];
+  votaciones = [];
+  votaciones_res = [];
+  voted = [];
   
   ngOnInit() {
     console.log("aja: ", this.uid,this.nombre,this.proyecto)
@@ -64,15 +66,41 @@ export class VotacionesPage implements OnInit {
     this.fbs.consultar("/Proyectos/"+this.proyecto+"/votaciones").subscribe((servicios) => {
       this.votaciones = [];
       servicios.forEach((datosTarea: any) => {
-        this.votaciones.push({
+        var porcentajey = (datosTarea.payload.doc.data().si*100)/(datosTarea.payload.doc.data().si+datosTarea.payload.doc.data().no); 
+        var porcentajex = (datosTarea.payload.doc.data().no*100)/(datosTarea.payload.doc.data().si+datosTarea.payload.doc.data().no);    
+        this.votaciones.push(
+          {
           id: datosTarea.payload.doc.id,
-          data: datosTarea.payload.doc.data()
+          data: datosTarea.payload.doc.data(),
+          py: porcentajey.toFixed(1),
+          pn: porcentajex.toFixed(1)
         });
+        $("#si").css("height","80%");
+        $("#no").css("height","20%");
       })
       //this.password = this.lista_proyectos.data.key
       console.log("traigamos la lista de votaciones")
       console.log(this.votaciones)
+     this.get_if_answered()
     });
+}
+
+get_if_answered(){
+  this.fbs.consultar("user/"+this.uid+"/proyectos/"+this.proyecto+"/votaciones/").subscribe((servicios) => {
+   this.voted = [];
+    servicios.forEach((datosTarea: any) => {
+      this.voted.push({
+       // id: datosTarea.payload.doc.id,
+        voted: datosTarea.payload.doc.data()
+      });
+    })
+  console.log(this.votaciones.length) 
+  for(var i = 0; i < this.votaciones.length ; i++){
+      this.votaciones[i].voted = this.voted[i].voted
+  }
+ console.log("concatenada ")
+  console.log(this.votaciones,)
+  });
 }
 
   async presentAlertdone() {
@@ -112,8 +140,34 @@ export class VotacionesPage implements OnInit {
       const resp = confirm("Seguro que quieres votar " + res + " ?")
       if (resp) {
         this.fbs.insertar("Proyectos/"+this.proyecto+"/votaciones/"+id+"/"+res, this.nombre , {"voto": res} )
-        this.fbs.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/votaciones/", id , {"voto": true} )
+        this.fbs.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/votaciones/", id , {"voto": false} )
       }
+      this.refresh_votes(res,id);
+   }
+
+   refresh_votes(res,id){
+    this.fbs.consultar("/Proyectos/"+this.proyecto+"/votaciones/"+id+"/"+res).subscribe((servicios) => {
+      this.votaciones_res = [];
+      servicios.forEach((datosTarea: any) => {
+        this.votaciones_res.push({
+          id: datosTarea.payload.doc.id,
+          data: datosTarea.payload.doc.data()
+        });
+      })
+      //this.password = this.lista_proyectos.data.key
+      console.log("traigamos la lista de votaciones de la respuesta", res)
+      console.log(this.votaciones_res)
+      console.log("esta seria entonces la cantidad de votos")
+      console.log(this.votaciones_res.length)
+      var votes = this.votaciones_res.length;
+    console.log("queda con estos votos: ", votes)
+    if (res === "si") {
+      this.fbs.update("Proyectos/"+this.proyecto+"/votaciones/", id, {si: votes} )
+    }
+    if (res === "no") {
+      this.fbs.update("Proyectos/"+this.proyecto+"/votaciones/", id, {no: votes} )
+    }
+    });
    }
 }
 

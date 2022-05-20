@@ -39,39 +39,8 @@ export class FinanzasPage implements OnInit {
     "subtitulo":"Ene. 2022",
     "icon":"document-text-outline",
     "url":"../../assets/images/presupuesto.jpg",
-    "fecha":"12/10/2021"},
-
-    {"titulo":"Reporte Junta",
-    "subtitulo":"Dic. 2021",
-    "icon":"document-text-outline",
-    "url":"../../assets/images/presupuesto.jpg",
-    "fecha":"18/08/2021"},
-
-
-    {"titulo":"Reporte Junta",
-    "subtitulo":"Nov. 2021",
-    "icon":"document-text-outline",
-    "url":"../../assets/images/presupuesto.jpg",
-    "fecha":"15/01/2022"},
-
-    {"titulo":"Reporte Junta",
-    "subtitulo":"Oct. 2021",
-    "icon":"document-text-outline",
-    "url":"../../assets/images/presupuesto.jpg",
-    "fecha":"31/11/2021"},
-
-    {"titulo":"Reporte Junta ",
-    "subtitulo":"Sep. 2021",
-    "icon":"document-text-outline",
-    "url":"../../assets/images/presupuesto.jpg",
-    "fecha":"12/10/2021"},
-
-    {"titulo":"Reporte Junta",
-    "subtitulo":"Ago. 2021",
-    "icon":"document-text-outline",
-    "url":"../../assets/images/presupuesto.jpg",
-    "fecha":"18/08/2021"},
-
+    "fecha":"12/10/2021"}
+  
   ]
 
   ngOnInit() {

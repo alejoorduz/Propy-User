@@ -129,9 +129,9 @@ name: any
     "icon":"calendar-outline",
     "habilitado":true},
 
-    {"nombre":"AirCall",
-    "descripcion":"Controla el Ascensor",
-    icon:"keypad-outline",
+    {"nombre":"Votaciones",
+    "descripcion":"Votaciones de los usuarios",
+    icon:"pie-chart-outline",
     "habilitado":true},
 
     {"nombre":"Comunicados",
@@ -139,39 +139,14 @@ name: any
     icon:"newspaper-outline",
     "habilitado":true},
 
-    {"nombre":"Votaciones",
-    "descripcion":"Votaciones de los usuarios",
-    icon:"pie-chart-outline",
-    "habilitado":true},
-
-    {"nombre":"Ingreso Mascotas",
-    "descripcion":"Temas relacionados con tu mascota",
-    icon:"paw-outline",
-    "habilitado":true},
-
-    {"nombre":"Avisos de trasteo",
-    "descripcion":"Rellena el formulario de aviso para trasteos",
-    icon:"construct-outline",
-    "habilitado":true},
-
     {"nombre":"Directorio",
     "descripcion":"Directorio telefonico",
     icon:"call-outline",
     "habilitado":true},
 
-    {"nombre":"Autorizaciones",
-    "descripcion":"Formulario para autorizaciones",
-    icon:"checkmark-outline",
-    "habilitado":true},
-
     {"nombre":"Preguntas y Respuestas",
     "descripcion":"Resuelve tus dudas",
     icon:"information-outline",
-    "habilitado":true},
-
-    {"nombre":"Emergencias 24/7",
-    "descripcion":"Contacto directo con el Call-Center del ascensor",
-    icon:"alert-circle-outline",
     "habilitado":true},
 
     {"nombre":"Eventos",
@@ -199,9 +174,9 @@ name: any
     icon:"clipboard-outline",
     "habilitado":true},
 
-    {"nombre":"Acceso",
-    "descripcion":"Utiliza el celular para ingresar a las torres",
-    icon:"id-card-outline",
+    {"nombre":"Finanzas",
+    "descripcion":"Revisa los archivos de presupuestos",
+    icon:"bar-chart-outline",
     "habilitado":true},
 
     {"nombre": "Pagos",
@@ -209,14 +184,39 @@ name: any
     icon:"cash-outline",
     "habilitado":true},
 
+    {"nombre":"Emergencias 24/7",
+    "descripcion":"Contacto directo con el Call-Center del ascensor",
+    icon:"alert-circle-outline",
+    "habilitado":true},
+
+    {"nombre":"Acceso",
+    "descripcion":"Utiliza el celular para ingresar a las torres",
+    icon:"id-card-outline",
+    "habilitado":true},
+
+    {"nombre":"AirCall",
+    "descripcion":"Controla el Ascensor",
+    icon:"keypad-outline",
+    "habilitado":true},
+
+    {"nombre":"Autorizaciones",
+    "descripcion":"Formulario para autorizaciones",
+    icon:"checkmark-outline",
+    "habilitado":true},
+
+    {"nombre":"Ingreso Mascotas",
+    "descripcion":"Temas relacionados con tu mascota",
+    icon:"paw-outline",
+    "habilitado":true},
+
+    {"nombre":"Avisos de trasteo",
+    "descripcion":"Rellena el formulario de aviso para trasteos",
+    icon:"construct-outline",
+    "habilitado":true},
+
     {"nombre":"Monitoreo",
     "descripcion":"Monitorea en tiempo real datos obtenidos",
     icon:"eye-outline",
-    "habilitado":true},
-
-    {"nombre":"Finanzas",
-    "descripcion":"Revisa los archivos de presupuestos",
-    icon:"bar-chart-outline",
     "habilitado":true},
     
     {"nombre":"Seguridad",
@@ -434,30 +434,38 @@ name: any
           this.show_services = true;
           this.emergencia = true;
         }
+        console.log("dataa larga: ")
+        console.log(this.proyect_services)
         // Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
 // Documentos, Clasificados, Encuestas, Controles de Acceso
 // Pagos, Monitoreo, Finanzas, Beneficios, Seguridad, Citofonia
 
+for (let i = 0; i < this.servicios.length; i++) {
+  var name = this.servicios[i].nombre
+  
+   this.servicios[i].habilitado = this.proyect_services.data.name;
+}
+
         this.servicios[0].habilitado = this.proyect_services.data.reservas;
-        this.servicios[1].habilitado = this.proyect_services.data.aircall;
+        this.servicios[1].habilitado = this.proyect_services.data.votaciones;
         this.servicios[2].habilitado = this.proyect_services.data.comunicados;
-        this.servicios[3].habilitado = this.proyect_services.data.comunicados;
-        this.servicios[4].habilitado = this.proyect_services.data.mascotas;
-        this.servicios[5].habilitado = this.proyect_services.data.trasteo;
-        this.servicios[6].habilitado = this.proyect_services.data.directorio;
-        this.servicios[7].habilitado = this.proyect_services.data.autorizaciones;
-        this.servicios[8].habilitado = this.proyect_services.data.preguntas;
-        this.servicios[9].habilitado = this.proyect_services.data.emergencias;
-        this.servicios[10].habilitado = this.proyect_services.data.eventos;
-        this.servicios[11].habilitado = this.proyect_services.data.beneficios;
-        this.servicios[12].habilitado = this.proyect_services.data.documentos;
-        this.servicios[13].habilitado = this.proyect_services.data.clasificados;
-        this.servicios[14].habilitado = this.proyect_services.data.encuestas;
+        this.servicios[3].habilitado = this.proyect_services.data.directorio;
+        this.servicios[4].habilitado = this.proyect_services.data.preguntas;
+        this.servicios[5].habilitado = this.proyect_services.data.eventos;
+        this.servicios[6].habilitado = this.proyect_services.data.beneficios;
+        this.servicios[7].habilitado = this.proyect_services.data.documentos;
+        this.servicios[8].habilitado = this.proyect_services.data.clasificados;
+        this.servicios[9].habilitado = this.proyect_services.data.encuestas;
+        this.servicios[10].habilitado = this.proyect_services.data.finanzas;
+        this.servicios[11].habilitado = this.proyect_services.data.pagos;
+        this.servicios[12].habilitado = this.proyect_services.data.emergencias;
+        this.servicios[13].habilitado = this.proyect_services.data.acceso;
+        this.servicios[14].habilitado = this.proyect_services.data.aircall;
        // this.servicios14].habilitado = false;
-        this.servicios[15].habilitado = this.proyect_services.data.acceso;
-        this.servicios[16].habilitado = this.proyect_services.data.pagos;
-        this.servicios[17].habilitado = this.proyect_services.data.monitoreo;
-        this.servicios[18].habilitado = this.proyect_services.data.finanzas;
+        this.servicios[15].habilitado = this.proyect_services.data.autorizaciones;
+        this.servicios[16].habilitado = this.proyect_services.data.mascotas;
+        this.servicios[17].habilitado = this.proyect_services.data.trasteo;
+        this.servicios[18].habilitado = this.proyect_services.data.monitoreo;
         this.servicios[19].habilitado = this.proyect_services.data.seguridad;
         this.servicios[20].habilitado = this.proyect_services.data.citofonia;
         this.admin_email = this.proyect_services.data.admin_email;

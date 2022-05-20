@@ -16,23 +16,31 @@ export class SeguridadPage implements OnInit {
   @Input() nombre
   @Input() proyecto
  
+
+
+
   comunicados  = [
-    {"titulo":"Celaduria",
-    "url":"../../assets/images/celaduria.png",
-    // "subtitulo":"325 251 7895",
-    "icon":"person-outline"},
-    {"titulo":"Sensores Edificio",
-    "url":"../../assets/images/sensores.png",
-    // "subtitulo":"321 458 9874",
-    "icon":"business-outline"},
-    {"titulo":"Cámaras",
-    "url":"../../assets/images/sec_cam.png",
-    // "subtitulo":"321 524 8955",
-    "icon":"videocam-outline"},
-    {"titulo":"Carro",
+    
+   {"titulo":"Car",
     "url":"../../assets/images/park.png",
     // "subtitulo":"321 525 7895",
     "icon":"car-sport-outline"},
+
+    {"titulo":"DoorMan",
+    "url":"../../assets/images/celaduria.png",
+    // "subtitulo":"325 251 7895",
+    "icon":"person-outline"},
+
+    {"titulo":"Movement Sensor",
+    "url":"../../assets/images/sensores.png",
+    // "subtitulo":"321 458 9874",
+    "icon":"business-outline"},
+
+    {"titulo":"Cameras",
+    "url":"../../assets/images/sec_cam.png",
+    // "subtitulo":"321 524 8955",
+    "icon":"videocam-outline"},
+  
   ]
 
   ngOnInit() {

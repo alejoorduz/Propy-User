@@ -30,26 +30,7 @@ export class CitofoniaPage implements OnInit {
 
     {"titulo":"Llamada porteria",
     "subtitulo":"27/02/2022 - 09:20 am",
-    "icon":"barcode-outline"},
-
-    {"titulo":"Llamada porteria",
-     "subtitulo":"26/02/2022 - 07:20 am",
-    "icon":"barcode-outline"},
-
-
-    {"titulo":"Llamada puerta principal",
-    "subtitulo":"26/02/2022 - 05:40 am",
-    "icon":"barcode-outline"},
-
-    {"titulo":"Llamada porteria",
-     "subtitulo":"25/02/2022 - 12:20 pm",
-    "icon":"barcode-outline"},
-
-    {"titulo":"Llamada puerta principal",
-    "subtitulo":"24/02/2022 - 10:50 am",
-    "icon":"barcode-outline"},
-
-
+    "icon":"barcode-outline"}
   ]
 
   ngOnInit() {

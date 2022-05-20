@@ -17,35 +17,29 @@ export class AccesoPage implements OnInit {
   @Input() proyecto
  
   comunicados  = [
-    {"titulo":"Entrada principal",
+    {"titulo":"Main Entrance",
     // "subtitulo":"Decreto 148",
     "icon":"wifi-outline",
     // "fecha":"28/02/2022"
   },
+
+   {"titulo":"GYM",
+    // "subtitulo":"Aviso importante",
+    "icon":"wifi-outline",
+    // "fecha":"31/11/2021"
+  },
  
-    {"titulo":"Torre 1",
+    {"titulo":"Car Door",
     // "subtitulo":"Calleja B4",
     "icon":"wifi-outline",
     // "fecha":"15/01/2022"
   },
 
-    {"titulo":"Torre 2",
-    // "subtitulo":"Aviso importante",
-    "icon":"wifi-outline",
-    // "fecha":"31/11/2021"
-  },
-
-    {"titulo":"Portón",
+    {"titulo":"Door 2",
     // "subtitulo":"Reunion Anual",
     "icon":"wifi-outline",
     // "fecha":"12/10/2021"
-  },
-
-    {"titulo":"Puerta Sótano",
-    // "subtitulo":"Información",
-    "icon":"wifi-outline",
-    // "fecha":"18/08/2021"
-  },
+  }
 
   ]
 
@@ -70,18 +64,18 @@ export class AccesoPage implements OnInit {
 // }
 
   async presentAlertdone() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Listo!',
-      subHeader: 'Se concedio el acceso',
-      message: 'Gracias.',
-      buttons: ['OK']
-    });
+    // const alert = await this.alertController.create({
+    //   cssClass: 'my-custom-class',
+    //   header: 'Listo!',
+    //   subHeader: 'Se concedio el acceso',
+    //   message: 'Gracias.',
+    //   buttons: ['OK']
+    // });
   
-    await alert.present();
+    // await alert.present();
   
-    const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+    // const { role } = await alert.onDidDismiss();
+    // console.log('onDidDismiss resolved with role', role);
   }
 
   dismiss(){

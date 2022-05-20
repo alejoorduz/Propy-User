@@ -21,7 +21,7 @@
       <ion-grid class="grid">
         <ion-col class="col">
           <ion-row class="row" *ngFor="let numero of votaciones">
-            <div class="card" tabindex="1" >
+            <div class="card" tabindex="1" [class.blur]="!numero.voted.voto"  >
               <!-- <div class="imagen">
                 <ion-icon class="img-icon" name="call-outline" (click)="llamar(numero.data.numero)" ></ion-icon>
               </div> -->
@@ -44,11 +44,19 @@
               </div>-->
                <div class="reporte">
                 <!-- <div class="si"> -->
-                  <ion-label class="votes" (click)="add_vote('si',numero.id)">
-                    Si
+                  <ion-label class="vote_label">
+                    {{ numero.data.si }}
+                    {{ numero.py }}%
                   </ion-label>
-                  <ion-label class="votes" (click)="add_vote('no',numero.id)">
-                    No
+                  <button [disabled]="!numero.voted.voto" id="si" class="votes" (click)="add_vote('si',numero.id)">
+                    SI
+                  </button>
+                  <button [disabled]="!numero.voted.voto" class="votes" id="no" (click)="add_vote('no',numero.id)">
+                    NO
+                  </button>
+                  <ion-label class="vote_label">
+                    {{ numero.data.no }}
+                    {{ numero.pn }}%
                   </ion-label>
                 <!-- </div>  -->
             </div> 

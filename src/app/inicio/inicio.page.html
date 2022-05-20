@@ -34,7 +34,7 @@
             <ion-thumbnail *ngIf="profile_image_yes" (click)="modal_info(imageURL)" class="imagePerfil" slot="start">
             <img *ngIf="profile_image_yes" class="imagenPerfil" [src]="this.imageURL" alt="">
           </ion-thumbnail>
-           <ion-icon *ngIf="!profile_image_yes" class="icono"  name="person-circle-outline" (click)="perfil()"></ion-icon>
+           <ion-icon *ngIf="!profile_image_yes" class="icono"  name="person-circle-outline"></ion-icon>
       </div>
       <div class="resumen_perfil">
         
