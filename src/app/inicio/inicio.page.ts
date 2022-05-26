@@ -105,11 +105,19 @@ inquilino
 habilitado: Boolean = true;
 
 option = {
-  slidesPerView: 1.4,
+  slidesPerView: 1.2,
   centeredSlides: true,
   loop: false,
-  spaceBetween: 10,
-  autoplay:true,
+  spaceBetween: 5,
+  autoplay:false,
+}
+
+option_big = {
+  slidesPerView: 1.2,
+  centeredSlides: true,
+  loop: true,
+  spaceBetween: 5,
+  autoplay:false,
 }
 
 show: boolean
@@ -123,8 +131,8 @@ name: any
  constructor(private emailComposer: EmailComposer,public alertController: AlertController,public  router: Router,private fbs: FirestoreService,private modalCtrl: ModalController ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) {
 }
 
-  servicios = [ 
-    {"nombre":"Reservas",
+admin = [
+ {"nombre":"Reservas",
     "descripcion":"Gestiona tus reservas",
     "icon":"calendar-outline",
     "habilitado":true},
@@ -188,18 +196,22 @@ name: any
     "descripcion":"Contacto directo con el Call-Center del ascensor",
     icon:"alert-circle-outline",
     "habilitado":true},
+]
 
-    {"nombre":"Acceso",
-    "descripcion":"Utiliza el celular para ingresar a las torres",
-    icon:"id-card-outline",
-    "habilitado":true},
+control = [
+  {"nombre":"Acceso",
+      "descripcion":"Utiliza el celular para ingresar a las torres",
+      icon:"id-card-outline",
+      "habilitado":true},
 
-    {"nombre":"AirCall",
-    "descripcion":"Controla el Ascensor",
-    icon:"keypad-outline",
-    "habilitado":true},
+      {"nombre":"AirCall",
+      "descripcion":"Controla el Ascensor",
+      icon:"keypad-outline",
+      "habilitado":true},
+]
 
-    {"nombre":"Autorizaciones",
+personal = [
+  {"nombre":"Autorizaciones",
     "descripcion":"Formulario para autorizaciones",
     icon:"checkmark-outline",
     "habilitado":true},
@@ -213,7 +225,9 @@ name: any
     "descripcion":"Rellena el formulario de aviso para trasteos",
     icon:"construct-outline",
     "habilitado":true},
+] 
 
+  monitor = [ 
     {"nombre":"Monitoreo",
     "descripcion":"Monitorea en tiempo real datos obtenidos",
     icon:"eye-outline",
@@ -228,11 +242,6 @@ name: any
     "descripcion":"Controla la entrada de visitantes",
     icon:"volume-high-outline",
     "habilitado":true},
-
-    // {"nombre":"Usuarios",
-    // "descripcion":"Revisa que usuarios hacen parte del edificio",
-    // icon:"people-outline",
-    // "habilitado":true},
  ]
 
   ngOnInit() {
@@ -255,7 +264,7 @@ name: any
     //this.getuseruid();
     //this.setStatus('¡Bienvenido! Escoge el carro');
     //this.className = 'clase1';
-    console.log("Pruyeba de ver servisios y descrp: ", this.servicios)
+    //console.log("Pruyeba de ver servisios y descrp: ", this.servicios)
   }
 
   async presentAlert(tittle,header,text) {
@@ -439,38 +448,31 @@ name: any
         // Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
 // Documentos, Clasificados, Encuestas, Controles de Acceso
 // Pagos, Monitoreo, Finanzas, Beneficios, Seguridad, Citofonia
-
-for (let i = 0; i < this.servicios.length; i++) {
-  var name = this.servicios[i].nombre
-  
-   this.servicios[i].habilitado = this.proyect_services.data.name;
-}
-
-        this.servicios[0].habilitado = this.proyect_services.data.reservas;
-        this.servicios[1].habilitado = this.proyect_services.data.votaciones;
-        this.servicios[2].habilitado = this.proyect_services.data.comunicados;
-        this.servicios[3].habilitado = this.proyect_services.data.directorio;
-        this.servicios[4].habilitado = this.proyect_services.data.preguntas;
-        this.servicios[5].habilitado = this.proyect_services.data.eventos;
-        this.servicios[6].habilitado = this.proyect_services.data.beneficios;
-        this.servicios[7].habilitado = this.proyect_services.data.documentos;
-        this.servicios[8].habilitado = this.proyect_services.data.clasificados;
-        this.servicios[9].habilitado = this.proyect_services.data.encuestas;
-        this.servicios[10].habilitado = this.proyect_services.data.finanzas;
-        this.servicios[11].habilitado = this.proyect_services.data.pagos;
-        this.servicios[12].habilitado = this.proyect_services.data.emergencias;
-        this.servicios[13].habilitado = this.proyect_services.data.acceso;
-        this.servicios[14].habilitado = this.proyect_services.data.aircall;
-       // this.servicios14].habilitado = false;
-        this.servicios[15].habilitado = this.proyect_services.data.autorizaciones;
-        this.servicios[16].habilitado = this.proyect_services.data.mascotas;
-        this.servicios[17].habilitado = this.proyect_services.data.trasteo;
-        this.servicios[18].habilitado = this.proyect_services.data.monitoreo;
-        this.servicios[19].habilitado = this.proyect_services.data.seguridad;
-        this.servicios[20].habilitado = this.proyect_services.data.citofonia;
-        this.admin_email = this.proyect_services.data.admin_email;
-        this.admin_name = this.proyect_services.data.admin_name;
-        console.log("auth: ", this.servicios[13])
+      //   this.servicios[0].habilitado = this.proyect_services.data.reservas;
+      //   this.servicios[1].habilitado = this.proyect_services.data.votaciones;
+      //   this.servicios[2].habilitado = this.proyect_services.data.comunicados;
+      //   this.servicios[3].habilitado = this.proyect_services.data.directorio;
+      //   this.servicios[4].habilitado = this.proyect_services.data.preguntas;
+      //   this.servicios[5].habilitado = this.proyect_services.data.eventos;
+      //   this.servicios[6].habilitado = this.proyect_services.data.beneficios;
+      //   this.servicios[7].habilitado = this.proyect_services.data.documentos;
+      //   this.servicios[8].habilitado = this.proyect_services.data.clasificados;
+      //   this.servicios[9].habilitado = this.proyect_services.data.encuestas;
+      //   this.servicios[10].habilitado = this.proyect_services.data.finanzas;
+      //   this.servicios[11].habilitado = this.proyect_services.data.pagos;
+      //   this.servicios[12].habilitado = this.proyect_services.data.emergencias;
+      //   this.servicios[13].habilitado = this.proyect_services.data.acceso;
+      //   this.servicios[14].habilitado = this.proyect_services.data.aircall;
+      //  // this.servicios14].habilitado = false;
+      //   this.servicios[15].habilitado = this.proyect_services.data.autorizaciones;
+      //   this.servicios[16].habilitado = this.proyect_services.data.mascotas;
+      //   this.servicios[17].habilitado = this.proyect_services.data.trasteo;
+      //   this.servicios[18].habilitado = this.proyect_services.data.monitoreo;
+      //   this.servicios[19].habilitado = this.proyect_services.data.seguridad;
+      //   this.servicios[20].habilitado = this.proyect_services.data.citofonia;
+      //   this.admin_email = this.proyect_services.data.admin_email;
+      //   this.admin_name = this.proyect_services.data.admin_name;
+      //   console.log("auth: ", this.servicios[13])
         console.log("auth: ", this.proyect_services.data)
         //this.emergencia = true;
        // console.log(this.uid,this.nombre,this.proyecto,this.reserva,this.pagos,this.documento,this.comunicado,this.aircall,this.emergencia)
