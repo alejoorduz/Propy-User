@@ -67,8 +67,8 @@ async onlogin(email,password){
 async presentAlert(error) {
   const alert = await this.alertCtrl.create({
     cssClass: 'my-custom-class',
-    header: 'Errorsito',
-    subHeader: 'Verifica el error',
+    header: 'Ocurrio un problema',
+    subHeader: 'No se pudo iniciar sesión por el siguiente problema',
     message: error,
     buttons: ['OK']
   });
@@ -84,7 +84,8 @@ redirectUser(isverified:boolean = true){
   if(isverified){
     this.router.navigate(['inscripciones']);
   }else{
-    //console.log("verificar email")
+    console.log("verificar email")
+    this.presentAlert("Debes verificar tu cuenta desde el correo electronico (verifica en la bandeja de SPAM)")
   }
 }
 

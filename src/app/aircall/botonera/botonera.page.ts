@@ -27,6 +27,7 @@ const AIRCALL_SERVICE = '';
 const BLE_SERVICE = "ffe0";
 const BLE_CHARACTERISTIC = "ffe1";
 //____________________________________________________________
+
 @Component({
   selector: 'app-botonera',
   templateUrl: './botonera.page.html',
@@ -250,7 +251,7 @@ export class BotoneraPage {
     if(this.selected_floors == null || this.selected_floors == "" ){
       console.log("Aviso de nuevos usuaddddrios")
       this.setStatus('Introducción');
-     this.pageTop.scrollToPoint(110,65,1000);
+    // this.pageTop.scrollToPoint(110,65,1000);
       $(".content_tiempo").css("display","none");
       $(".center_bottom_card").css("display","none");
       $(".card").css("display","none");
@@ -262,7 +263,7 @@ export class BotoneraPage {
       $(".iconPM").css("bottom","200px")
     }else{
      this.setStatus('Bienvenid@');
-     this.pageTop.scrollToPoint(110,65,1000);
+    // this.pageTop.scrollToPoint(110,65,1000);
       $(".logofondo").css("display","block");
       $(".content_tiempo").css("display","flex");
       $(".center_bottom_card").css("display","flex");
@@ -615,7 +616,19 @@ Disconnect(uuid){
 
 
 dismiss(){
-  this.modalCtrl.dismiss(false);
+  this.modalCtrl.dismiss();
+  $(".card").css("filter","blur(0px)")
+  $(".textocentral").css("filter","blur(0px)")
+  $(".textocentral").css("width","100%")
+  $(".textocentral").css("margin-left","0%")
+  $(".align-center").css("filter","blur(0px)")
+  $(".align-center").css("width","100%")
+  $(".align-center").css("margin-left","0%")
+  // $(".logofondo").css("display","block")
+  // $(".logofondo").css("z-index","1")
+  $(".iconPM").css("bottom","200px")
+  $(".iconPM").css("transform","rotate(0deg)")
+  //this.activeconfig = true;
 }
 
 

@@ -31,7 +31,7 @@ import { EventosPage } from "../eventos/eventos.page";
 import { CitofoniaPage } from "../citofonia/citofonia.page";
 import { AlertController } from '@ionic/angular';
 import { InfoPage } from "../info/info.page";
-import { VotacionesPage } from "../votaciones/votaciones.page";
+import { VotacionesPage } from "../voting/votaciones/votaciones.page";
 import { flatMap } from 'rxjs/operators';
 
 @Component({
@@ -776,7 +776,8 @@ personal = [
         uid: this.uid,
         nombre: this.nombre,
         proyecto: this.proyecto,
-        //reserva: this.reserva
+        apto: this.apto,
+        torre: this.tower
       }
     });
     modal.onDidDismiss()

@@ -1,0 +1,91 @@
+<ion-header class="header">
+  <ion-toolbar>
+ <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title> Votaciones </ion-title>
+    </div>
+  </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+
+<div class="todo">
+    <div class="ver_comunicados">
+      <h1 class="texto"><strong>{{this.pregunta}}</strong></h1>
+      <!-- <h1 class="texto"></h1> -->
+      <ion-grid class="grid">
+        <ion-col class="col">
+          <ion-row class="row">
+            <div class="card" tabindex="1"   >
+              <!-- <div class="imagen">
+                <ion-icon class="img-icon" name="call-outline" (click)="llamar(numero.data.numero)" ></ion-icon> ////////class.blur]="!numero.voted.voto"
+              </div> -->
+              <div class="card-inner">
+              <div class="top">
+                <div class="titulo">  
+                   <strong>Responde oprimiendo en alguna de las opciones de abajo, solo tienes una oportunidad de votar</strong>  
+                </div>
+                <!-- <div class="dia_hora">  
+                  <div class="dia">
+                      {{ comunicado.subtitulo }}  
+                  </div>
+                  <div class="hora">
+                    {{ comunicado.fecha }} 
+                  </div>
+                </div> -->
+            </div>
+             <!-- <div class="tema">
+                 {{numero.data.numero}} 
+              </div>--> 
+               <div class="reporte">
+                <!-- <div class="si"> ///////////[disabled]="!numero.voted.voto" --> 
+                  <ion-label *ngIf="this.voted" class="vote_label">
+                    SI <br>
+                    Votos: {{ this.votos_si }}<br>
+                    {{ this.py }}%
+                  </ion-label>
+                  <button *ngIf="!this.voted"   id="si" class="votes" (click)="add_vote('si')">
+                    SI
+                  </button>
+                  <button *ngIf="!this.voted"  id="no" class="votes"  (click)="add_vote('no')">
+                    NO
+                  </button>
+                  <ion-label *ngIf="this.voted" class="vote_label">
+                      NO<br>
+                    Votos: {{ this.votos_no }}<br>
+                    {{ this.pn }}%
+                  </ion-label>
+                <!-- </div>  -->
+            </div> 
+            <!-- <div *ngIf="this.voted"  class="chart"> -->
+              <canvas id="myChart" width="auto" height="auto"></canvas>
+            <!-- </div> -->
+            
+            </div>
+              <!-- <div class="descarga"><ion-icon class="trash-icon" (click)="delete(numero.id)" name="trash-outline"></ion-icon></div> -->
+          </div>
+          
+        <!--      <div class="container">
+            <br />
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+             Chart.js Canvas Tag -->
+                
+              <!-- </div>
+              <div class="col-md-1"></div>
+            </div>
+          </div> -->
+
+
+        </ion-row>
+       </ion-col>
+      </ion-grid>
+</div> 
+</div>
+</ion-content>

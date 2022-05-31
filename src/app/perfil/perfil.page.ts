@@ -107,7 +107,7 @@ bring_user_info(){
   
  async addUserInfo(){
     await this.presentLoading();
-    this.fbs.update("user/",this.uid,{"apto": this.apto})
+   // this.fbs.update("user/",this.uid,{"apto": this.apto})
     this.fbs.update("user/",this.uid,{"nombre": this.nombre})
     // this.UserInfoRef.add({
     //  // nombre: this.nombre,

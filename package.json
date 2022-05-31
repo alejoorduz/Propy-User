@@ -38,6 +38,7 @@
     "@ionic/angular": "^6.0.0",
     "@ionic/cordova-builders": "^6.1.0",
     "@ionic/storage-angular": "^3.0.6",
+    "chart.js": "^3.8.0",
     "firebase": "^9.6.8",
     "ionic2-calendar": "^0.6.9",
     "jquery": "^3.6.0",

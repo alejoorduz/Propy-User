@@ -27,15 +27,15 @@
             <!-- <h1 class="texto"></h1> -->
             <ion-grid class="grid">
               <ion-col class="col">
-                <ion-row class="row" *ngFor="let comunicado of comunicados">
-                    <div class="card" tabindex="1" (click)="presentAlertdone()">
+                <ion-row class="row" *ngFor="let tarjetero of tarjeteros">
+                    <div class="card" tabindex="1" (click)="Connected(tarjetero.data.nombre,tarjetero.data.uid)">
                       <div class="imagen">
-                        <ion-icon class="img-icon" [name]="comunicado.icon"></ion-icon>
+                        <ion-icon class="img-icon" name="wifi-outline"></ion-icon>
                       </div>
                       <div class="card-inner">
                       <div class="top">
                         <div class="titulo">  
-                          <strong>{{ comunicado.titulo }}</strong>  
+                          <strong>{{ tarjetero.data.nombre }}</strong>  
                         </div>
                         <!-- <div class="dia_hora">  
                           <div class="dia">

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FirestoreService } from '../firestore.service';
+import { FirestoreService } from '../../firestore.service';
 import * as $ from "jquery";
 import { AlertController,ModalController } from '@ionic/angular';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import {  VoteInfoPage} from "../vote-info/vote-info.page";
 
 @Component({
   selector: 'app-votaciones',
@@ -15,6 +16,8 @@ export class VotacionesPage implements OnInit {
   @Input() uid
   @Input() nombre
   @Input() proyecto
+  @Input() apto
+  @Input() torre
 
   pregunta;
   numero;
@@ -75,8 +78,8 @@ export class VotacionesPage implements OnInit {
           py: porcentajey.toFixed(1),
           pn: porcentajex.toFixed(1)
         });
-        $("#si").css("height","80%");
-        $("#no").css("height","20%");
+        $("#si").css("height","90%");
+        $("#no").css("height","10%");
       })
       //this.password = this.lista_proyectos.data.key
       console.log("traigamos la lista de votaciones")
@@ -86,21 +89,21 @@ export class VotacionesPage implements OnInit {
 }
 
 get_if_answered(){
-  this.fbs.consultar("user/"+this.uid+"/proyectos/"+this.proyecto+"/votaciones/").subscribe((servicios) => {
-   this.voted = [];
-    servicios.forEach((datosTarea: any) => {
-      this.voted.push({
-       // id: datosTarea.payload.doc.id,
-        voted: datosTarea.payload.doc.data()
-      });
-    })
-  console.log(this.votaciones.length) 
-  for(var i = 0; i < this.votaciones.length ; i++){
-      this.votaciones[i].voted = this.voted[i].voted
-  }
- console.log("concatenada ")
-  console.log(this.votaciones,)
-  });
+//   this.fbs.consultar("user/"+this.uid+"/proyectos/"+this.proyecto+"/votaciones/").subscribe((servicios) => {
+//    this.voted = [];
+//     servicios.forEach((datosTarea: any) => {
+//       this.voted.push({
+//        // id: datosTarea.payload.doc.id,
+//         voted: datosTarea.payload.doc.data()
+//       });
+//     })
+//   console.log(this.votaciones.length) 
+//   // for(var i = 0; i < this.votaciones.length ; i++){
+//   //     this.votaciones[i].voted = this.voted[i].voted
+//   // }
+//  console.log("concatenada ")
+//   console.log(this.votaciones)
+//   });
 }
 
   async presentAlertdone() {
@@ -140,7 +143,7 @@ get_if_answered(){
       const resp = confirm("Seguro que quieres votar " + res + " ?")
       if (resp) {
         this.fbs.insertar("Proyectos/"+this.proyecto+"/votaciones/"+id+"/"+res, this.nombre , {"voto": res} )
-        this.fbs.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/votaciones/", id , {"voto": false} )
+        this.fbs.insertar("user/"+this.uid+"/proyectos/"+this.proyecto+"/votaciones/", id , {"voto": true} )
       }
       this.refresh_votes(res,id);
    }
@@ -169,5 +172,32 @@ get_if_answered(){
     }
     });
    }
+
+   async modal_votes(id){
+    const modal = await this.modalCtrl.create({
+      component: VoteInfoPage,
+      cssClass: 'adding_modal',
+      componentProps: {
+        id: id,
+        uid: this.uid,
+        nombre: this.nombre,
+        proyecto: this.proyecto,
+        apto: this.apto,
+        torre: this.torre
+      }
+    });
+    modal.onDidDismiss()
+    .then((data) => {
+      console.log("esta es la data que devuelve el modal")
+      console.log(data)
+      var closing = data['data'];
+      if (closing) {
+        this.modalCtrl.dismiss()
+      }else{
+        console.log("no me deberia estar cierrando")
+      } 
+  });
+    return await modal.present();
+  }
 }
 

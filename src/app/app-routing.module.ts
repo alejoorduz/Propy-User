@@ -138,14 +138,20 @@ const routes: Routes = [
   {
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
-  },  {
+  },
+  {
     path: 'open-link',
     loadChildren: () => import('./open-link/open-link.module').then( m => m.OpenLinkPageModule)
   },
   {
     path: 'votaciones',
-    loadChildren: () => import('./votaciones/votaciones.module').then( m => m.VotacionesPageModule)
+    loadChildren: () => import('./voting/votaciones/votaciones.module').then( m => m.VotacionesPageModule)
+  },
+  {
+    path: 'vote-info',
+    loadChildren: () => import('./voting/vote-info/vote-info.module').then( m => m.VoteInfoPageModule)
   }
+
 
 
 ];

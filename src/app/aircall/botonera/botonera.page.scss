@@ -74,6 +74,7 @@ details {
   box-sizing: border-box;
   //margin-top: 5px;
   background: #4f8599;//rgb(85, 85, 85);
+  color: black;
   //border:grey 1px solid;
 }
 
@@ -134,19 +135,22 @@ details[open] summary::before {
 
 .selector{
   color: black;
+ // border: solid black 1px;
   background-color: transparent;
   //height: 100%;
 }
 
 
 .select_label{
+ // border: solid black 1px;
   background-color: transparent;
-  color: grey;
+  color: black;
   //height: 80%;
 }
 
 .select_item{
-  --ion-item-background:#ffffffd5;
+  //--ion-item-background:#ffffffd5;
+  border: solid black 1px;
   border-radius: 15px;
   width: 60%;
   align-self: flex-end;
@@ -820,6 +824,7 @@ details[open] summary::before {
 
 .todo{
   //background-color: blue;
+  //margin-top: 70px;
   width: 100%;
   height: 95%;
   z-index: 10;

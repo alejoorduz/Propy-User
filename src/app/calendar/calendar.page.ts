@@ -408,7 +408,7 @@ export class CalendarPage implements OnInit {
   }
 
 addNewEvent() {
-  if (!this.current_user_apto) {
+  if (!this.apto) {
     this.presentAlertBlock("Usuario sin apartamento ","Ve a tu perfil y rellena tu apartamento para poder hacer reservas")
   } else {
   if (this.has_events) {
