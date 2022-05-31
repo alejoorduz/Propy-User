@@ -73,7 +73,7 @@
       <div class="divlista">
       <ion-list class="lista"> 
        <button ion-item class="device" *ngFor="let device of devices" (click)="deviceSelected(device)">
-         <h2 class="device_selected">{{ device.name || 'Unnamed' }}</h2><br>
+         <h2 class="device_selected">{{ device.name || 'Unnamed' }} </h2><br>
          <p>{{ device.id }}</p>
         <!--    <p>RSSI: {{ device.rssi }}</p> -->
        </button>  
