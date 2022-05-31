@@ -333,5 +333,13 @@ ion-content {
 //  background-color: rgb(216, 53, 216);
 }
 
-
+ion-footer{
+  display: flex;
+  color: white;
+  height: 50px;
+  font-size: 20px;
+  justify-items: center;
+  align-items: center;
+  --background: rgb(220, 161, 26);
+}
 //--------------------------------------------------------------------------------------------------------------

@@ -132,8 +132,8 @@ export class AccesoPage implements OnInit {
      //console.log("el piso que oprimi fue: " + piso)
      this.Scan();
      setTimeout(() => {
-     console.log('INTENTANDO CONECTAR a: ' + uid);
-     this.Connect(nombre,uid,"SV")
+      console.log('INTENTANDO CONECTAR a: ' + uid);
+      this.Connect(nombre,uid,"SV")
      }, 1000)
       // this.cancelado = true;
      }

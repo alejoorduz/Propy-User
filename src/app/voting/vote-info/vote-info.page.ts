@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone} from '@angular/core';
 import { FirestoreService } from '../../firestore.service';
 import * as $ from "jquery";
 import { AlertController,ModalController } from '@ionic/angular';
@@ -15,7 +15,7 @@ import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 
 export class VoteInfoPage implements OnInit {
 
-  constructor(private fbs: FirestoreService,private callNumber: CallNumber,private modalCtrl: ModalController ,public alertController: AlertController) { }
+  constructor(private fbs: FirestoreService,private ngZone: NgZone,private callNumber: CallNumber,private modalCtrl: ModalController ,public alertController: AlertController) { }
   
   @Input() id
   @Input() uid
@@ -32,7 +32,7 @@ export class VoteInfoPage implements OnInit {
   pregunta;
   votos_si;
   votos_no;
- 
+  statusMessage: string;
   votaciones = [];
   votaciones_res = [];
   voted;
