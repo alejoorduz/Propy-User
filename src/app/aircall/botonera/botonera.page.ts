@@ -389,7 +389,7 @@ Connect(piso,valor,viajenum){
 BleWrite(piso,valor,viajenum,uuid) {
   var data = new Uint8Array(1);
   data[0] = piso;
-  this.ble.writeWithoutResponse(
+  this.ble.write(
           uuid, 
           BLE_SERVICE,
           BLE_CHARACTERISTIC,

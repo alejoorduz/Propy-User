@@ -24,6 +24,8 @@ export class AccesoPage implements OnInit {
   @Input() nombre
   @Input() proyecto
  
+uuid;
+  //test in aircall :  a8a7e679-3a55-1702-464c-c1dc2d0dd6ea
   // comunicados  = [
   //   {"titulo":"Main Entrance",
   //   // "subtitulo":"Decreto 148",
@@ -73,19 +75,19 @@ export class AccesoPage implements OnInit {
     });
 }
 
-  async open_door() {
-    // const alert = await this.alertController.create({
-    //   cssClass: 'my-custom-class',
-    //   header: 'Listo!',
-    //   subHeader: 'Se concedio el acceso',
-    //   message: 'Gracias.',
-    //   buttons: ['OK']
-    // });
+  async alert(header,subHeader,message) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
   
-    // await alert.present();
+    await alert.present();
   
-    // const { role } = await alert.onDidDismiss();
-    // console.log('onDidDismiss resolved with role', role);
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
   Scan(){
@@ -106,8 +108,8 @@ export class AccesoPage implements OnInit {
       this.devices.push(device)
       console.log(device)
     })
-    if(device.name === 'AIRCALL SV' || device.name === 'CARAPP PRUEBA BLE'){
-     // this.uuid = device.id;
+    if(device.name === 'AIRCALL SV'){
+      this.uuid = device.id;
     }
   }
 
@@ -123,6 +125,7 @@ export class AccesoPage implements OnInit {
   }
 
   Connected(nombre,uid){
+    this.check_ble_configs()
    // this.use_connect = localStorage.getItem("use_connect")
    // this.uuidconnect =  localStorage.getItem("uuid");
   console.log("Abriendo ",nombre," con este uid: ", uid)
@@ -130,10 +133,10 @@ export class AccesoPage implements OnInit {
       $(".buttonpad").css("background-color","#e39774")
      // $(".buttonpad").css("background-color","rgb(255, 153,81)");
      //console.log("el piso que oprimi fue: " + piso)
-     this.Scan();
+    // this.Scan();
      setTimeout(() => {
       console.log('INTENTANDO CONECTAR a: ' + uid);
-      this.Connect(nombre,uid,"SV")
+   //   this.Connect(nombre,uid,"1")
      }, 1000)
       // this.cancelado = true;
      }
@@ -142,14 +145,17 @@ export class AccesoPage implements OnInit {
   Connect(nombre,uid,mensaje){
       localStorage.setItem("use_connect","0");
       //this.setStatus('uuid: ' + this.uuid + typeof(this.uuid));
-     this.setStatus('Comando en cola, esperando...');       
-    (<any>window).ble.connect(uid, device => {
-      this.setStatus('Enviando comando...');
+     this.setStatus('Comando en cola, esperando...');    
+    //7C:9E:BD:45:52:8E  
+    //a8a7e679-3a55-1702-464c-c1dc2d0dd6ea
+    //A8A7E679-3A55-1702-464C-C1DC2D0DD6EA
+    (<any>window).ble.connect(this.uuid, device => {
+      this.setStatus('Conectado.....'+this.uuid);
       console.log('Connected', device);
-      this.BleWrite(nombre,uid,mensaje);
-      //   setTimeout(() => {
-      //   this.Disconnect();
-      //  }, 350)
+        setTimeout(() => {
+      this.BleWrite(nombre,this.uuid,"2");
+       // this.Disconnect();
+       }, 500)
     }, error => {
       console.log('Disconnected', error);
       //this.cancelado = false;
@@ -159,21 +165,23 @@ export class AccesoPage implements OnInit {
   
   BleWrite(nombre,uid,mensaje) {
     var data = new Uint8Array(1);
-    data[0] = mensaje;
-    this.ble.writeWithoutResponse(
-            uid, 
+    data[0] = 1;
+    this.ble.write(
+            this.uuid,
             BLE_SERVICE,
             BLE_CHARACTERISTIC,
-            data.buffer
+            data.buffer,
+            // this.succes(),
+            // this.failure()
         )
         .then(
             data => {
                 debugger;   
                 console.log(data);
                 //this.insertarpiso(piso,valor,viajenum)
-                this.setStatus('Piso Marcado!');
+                this.setStatus('Piso Marcado!'+data+data.buffer)
                 setTimeout(() => {
-                  this.Disconnect(uid);
+                  this.Disconnect(this.uuid);
                  }, 500)
             },
             err => {
@@ -194,6 +202,28 @@ export class AccesoPage implements OnInit {
        }, 1000)
     
   });
+  }
+
+  check_ble_configs(){
+   this.ble.isEnabled().then(
+    data => {
+       // this.alert("Error","Problema con el Bluetooth","Debes tener el Bluetooth encendido")
+        this.ble.isLocationEnabled().then(
+            data => {
+                //this.insertarpiso(piso,valor,viajenum)
+                this.setStatus('CONFIG OK')
+                   },
+            err => {
+                console.log(err);
+                this.alert("Error","Problema con la ubicación","Debes tener la ubicacion prendida para utilizar BLE-ACCESS")
+                   }
+           );
+    },
+    err => {
+        console.log(err);
+        this.alert("Error","Problema con el Bluetooth","Debes tener el Bluetooth encendido")
+    }
+);
   }
 
   setStatus(message) {
