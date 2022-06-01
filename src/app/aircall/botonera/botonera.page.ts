@@ -421,7 +421,6 @@ Disconnect(uuid){
      setTimeout(() => {
      this.setStatus('Bienvenid@');
      }, 1000)
-  
 });
 }
 

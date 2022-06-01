@@ -90,25 +90,26 @@ uuid;
     console.log('onDidDismiss resolved with role', role);
   }
 
-  Scan(){
-    this.setStatus('Escaneando Ascensor');
+  Scan(clave){
+    this.setStatus('Escaneando Entrada: ' + clave);
     this.devices = [];  // clear list
 
-    this.ble.scan([], 5).subscribe(
-      device => this.onDeviceDiscovered(device), 
+    this.ble.scan([], 1).subscribe(
+      device => this.onDeviceDiscovered(device,clave), 
       error => this.scanError(error)
     );
 
-    setTimeout(this.setStatus.bind(this), 5000, '');
+    setTimeout(this.setStatus.bind(this), 1000, '');
   }
 
-  onDeviceDiscovered(device){
+  onDeviceDiscovered(device,clave){
     console.log('Discovered' + JSON.stringify(device,null,2));
     this.ngZone.run(()=>{
       this.devices.push(device)
       console.log(device)
     })
-    if(device.name === 'AIRCALL SV'){
+    if(device.name === clave){
+      this.setStatus("se encontro el device " + clave)
       this.uuid = device.id;
     }
   }
@@ -124,19 +125,19 @@ uuid;
     toast.present();
   }
 
-  Connected(nombre,uid){
+  Connected(nombre,uid,clave){
     this.check_ble_configs()
    // this.use_connect = localStorage.getItem("use_connect")
    // this.uuidconnect =  localStorage.getItem("uuid");
-  console.log("Abriendo ",nombre," con este uid: ", uid)
-      this.setStatus('conexion con scan');
+    console.log("Abriendo ",nombre," con este uid: ", uid)
+     // this.setStatus('conexion con scan');
       $(".buttonpad").css("background-color","#e39774")
      // $(".buttonpad").css("background-color","rgb(255, 153,81)");
      //console.log("el piso que oprimi fue: " + piso)
-    // this.Scan();
+     this.Scan(clave);
      setTimeout(() => {
       console.log('INTENTANDO CONECTAR a: ' + uid);
-   //   this.Connect(nombre,uid,"1")
+      this.Connect(nombre,uid,"1")
      }, 1000)
       // this.cancelado = true;
      }
@@ -150,7 +151,7 @@ uuid;
     //a8a7e679-3a55-1702-464c-c1dc2d0dd6ea
     //A8A7E679-3A55-1702-464C-C1DC2D0DD6EA
     (<any>window).ble.connect(this.uuid, device => {
-      this.setStatus('Conectado.....'+this.uuid);
+      this.setStatus('Conectado.....');
       console.log('Connected', device);
         setTimeout(() => {
       this.BleWrite(nombre,this.uuid,"2");
@@ -165,7 +166,7 @@ uuid;
   
   BleWrite(nombre,uid,mensaje) {
     var data = new Uint8Array(1);
-    data[0] = 1;
+    data[0] = 0x31;
     this.ble.write(
             this.uuid,
             BLE_SERVICE,
@@ -179,14 +180,14 @@ uuid;
                 debugger;   
                 console.log(data);
                 //this.insertarpiso(piso,valor,viajenum)
-                this.setStatus('Piso Marcado!'+data+data.buffer)
+                this.setStatus('Puerta abierta')
                 setTimeout(() => {
                   this.Disconnect(this.uuid);
                  }, 500)
             },
             err => {
                 console.log(err);
-                this.setStatus('Error: Intenta de nuevo');
+                this.setStatus('El mensaje no llego, asegúrate de estar cerca a la puerta');
             }
         );
   }
@@ -194,11 +195,12 @@ uuid;
   Disconnect(uuid){
     this.ble.disconnect(uuid)
     .then(data => {
+      this.uuid = "";
     console.log("disconnected good");
     //this.cancelado = false;
     this.setStatus('¡Listo!'); 
        setTimeout(() => {
-       this.setStatus('Bienvenid@');
+       this.setStatus('Bienvenid@ ' + this.nombre);
        }, 1000)
     
   });
@@ -211,7 +213,7 @@ uuid;
         this.ble.isLocationEnabled().then(
             data => {
                 //this.insertarpiso(piso,valor,viajenum)
-                this.setStatus('CONFIG OK')
+                //this.setStatus('CONFIG OK')
                    },
             err => {
                 console.log(err);

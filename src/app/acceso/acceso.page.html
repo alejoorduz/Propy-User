@@ -28,7 +28,7 @@
             <ion-grid class="grid">
               <ion-col class="col">
                 <ion-row class="row" *ngFor="let tarjetero of tarjeteros">
-                    <div class="card" tabindex="1" (click)="Connected(tarjetero.data.nombre,tarjetero.data.uid)">
+                    <div class="card" tabindex="1" (click)="Connected(tarjetero.data.nombre,tarjetero.data.uid,tarjetero.data.clave)">
                       <div class="imagen">
                         <ion-icon class="img-icon" name="wifi-outline"></ion-icon>
                       </div>
