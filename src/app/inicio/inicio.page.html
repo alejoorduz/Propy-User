@@ -24,8 +24,8 @@
   <!-- <img class="imagen" src="../../assets/images/security.png" alt=""> -->
   <div class="todo">
     <div *ngIf="!habilitado"  class="aviso_habilitado">
-      <h1 class="habilitado"> Cuenta deshabilitada
-      <ion-icon name="alert-circle-outline"></ion-icon>
+      <h1 class="habilitado" (click)="send_email()"> Cuenta deshabilitada
+      <ion-icon  name="alert-circle-outline"></ion-icon>
       </h1>
     </div>
 
@@ -41,7 +41,7 @@
          <h1 class="resumen__nombre"> {{this.nombre}}</h1>
          <h1 class="resumen__nombre"> {{this.proyecto}}</h1>
          <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">{{this.tower}} {{this.apto}}
-            <ion-icon *ngIf="account_config_ok" (click)="set_apt()" name="create-outline"></ion-icon>
+            <!-- <ion-icon *ngIf="account_config_ok" (click)="set_apt()" name="create-outline"></ion-icon> -->
         </h1>
          
          <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="set_apt()">¡Envia tus datos!<ion-icon name="arrow-redo-outline"></ion-icon></h1>

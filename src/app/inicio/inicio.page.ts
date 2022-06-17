@@ -267,6 +267,19 @@ personal = [
     //console.log("Pruyeba de ver servisios y descrp: ", this.servicios)
   }
 
+  send_email(){
+    let email = {
+      app: "PROPY",
+      from: this.email,
+      to: this.admin_email,
+      cc: '',
+      subject: 'Rellena la información y envia este correo',
+      body: 'Hola ' + this.nombre + '. <br><br> Por temas de seguridad, solicitamos a los administradores que verifiquen la información de los usuarios antes de asignarles su apartamento.<br><br> Para esto, necesitamos que llenes la siguiente información: <br><br> - Cédula propietario: <br> - Apartamento: <br> - Integrantes del apto (para inscribirlos también)<br><br> Una vez rellenes todos los datos envia este correo.',
+      isHtml: true
+    }
+    this.emailComposer.open(email);
+  }
+
   async presentAlert(tittle,header,text) {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -470,10 +483,10 @@ personal = [
       //   this.servicios[18].habilitado = this.proyect_services.data.monitoreo;
       //   this.servicios[19].habilitado = this.proyect_services.data.seguridad;
       //   this.servicios[20].habilitado = this.proyect_services.data.citofonia;
-      //   this.admin_email = this.proyect_services.data.admin_email;
+        this.admin_email = this.proyect_services.data.admin_email;
       //   this.admin_name = this.proyect_services.data.admin_name;
       //   console.log("auth: ", this.servicios[13])
-        console.log("auth: ", this.proyect_services.data)
+        console.log("auth: ", this.admin_email, this.proyect_services.data)
         //this.emergencia = true;
        // console.log(this.uid,this.nombre,this.proyecto,this.reserva,this.pagos,this.documento,this.comunicado,this.aircall,this.emergencia)
       //  // this.consultar_lista_servicios()
