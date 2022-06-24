@@ -27,7 +27,6 @@ const AIRCALL_SERVICE = '';
 const BLE_SERVICE = "ffe0";
 const BLE_CHARACTERISTIC = "ffe1";
 //____________________________________________________________
-
 @Component({
   selector: 'app-botonera',
   templateUrl: './botonera.page.html',
@@ -91,7 +90,7 @@ export class BotoneraPage {
   public viajesdoce;
   public viajestrece;
   public viajescatorce;
-  public uuid;
+  public uuid = "";
   public uuidconnect;
 
   backToTop: boolean = false;
@@ -172,47 +171,6 @@ export class BotoneraPage {
     
   }
 
-   getLocation(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-       this.lat = resp.coords.latitude;
-       this.long = resp.coords.longitude;
-       console.log("lat: " + this.lat + "   long: " + this.long)
-      // setTimeout(()=>{
-        this.getWeatherData();
-      // },2000)
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
-     
-     let watch = this.geolocation.watchPosition();
-     watch.subscribe((data) => {
-     });
-  }
-
-  getWeatherData(){ 
-    fetch('https://api.openweathermap.org/data/2.5/weather?lat='+this.lat+'&lon='+this.long+'&appid=7985db256b85b778e9af4d7ea225aaeb')
-    .then(response=>response.json())
-    .then(data=>{this.setWeatherData(data);})
-  }
-
-  setWeatherData(data){
-    this.WeatherData = data;
-    console.log("data: ")
-    console.log( this.WeatherData)
-    this.wind_speed = this.WeatherData.wind.speed;
-    this.day_mood = (this.WeatherData.weather[0].main)
-    console.log("MOOOOOOD: " + this.day_mood)
-    this.WeatherData.temp_celcius = (this.WeatherData.main.temp - 273.15).toFixed(0);
-    if (this.day_mood === "Rain") {
-      $("#lluvia").text("Esta lloviendo")
-      $("#lluvia").css("color","red");
-      console.log("si llueve")
-    }else{
-      $("#lluvia").text("No esta lloviendo")
-      $("#lluvia").css("color","green");
-    }
-  }
-
   async modal_scan(){
     const modal = await this.modalCtrl.create({
       component: ScanPage,
@@ -230,7 +188,7 @@ export class BotoneraPage {
       console.log(data)
       var closing = data['data'];
       if (closing) {
-        this.modalCtrl.dismiss()
+        this.runMyFloors();
       }else{
         console.log("no me cierro")
       } 
@@ -251,7 +209,7 @@ export class BotoneraPage {
     if(this.selected_floors == null || this.selected_floors == "" ){
       console.log("Aviso de nuevos usuaddddrios")
       this.setStatus('Introducción');
-    // this.pageTop.scrollToPoint(110,65,1000);
+     //this.pageTop.scrollToPoint(110,65,1000);
       $(".content_tiempo").css("display","none");
       $(".center_bottom_card").css("display","none");
       $(".card").css("display","none");
@@ -263,7 +221,7 @@ export class BotoneraPage {
       $(".iconPM").css("bottom","200px")
     }else{
      this.setStatus('Bienvenid@');
-    // this.pageTop.scrollToPoint(110,65,1000);
+     //this.pageTop.scrollToPoint(110,65,1000);
       $(".logofondo").css("display","block");
       $(".content_tiempo").css("display","flex");
       $(".center_bottom_card").css("display","flex");
@@ -304,7 +262,8 @@ Conexion_directa(ascensor){
 }
 
 onChange(){
-  $("summary").click();
+  //$("summary").click();
+  this.configactivated();
   this.pageTop.scrollToPoint(110,65,1000);
  localStorage.setItem("myfloors",JSON.stringify(this.selected_floors))
   console.log("Selection on change activated: " + this.selected_floors)
@@ -338,8 +297,47 @@ onChange(){
   }
 }
 
+async alert(header,subHeader,message) {
+  const alert = await this.alertCtrl.create({
+    cssClass: 'my-custom-class',
+    header: header,
+    subHeader: subHeader,
+    message: message,
+    buttons: ['OK']
+  });
+
+  await alert.present();
+
+  const { role } = await alert.onDidDismiss();
+  console.log('onDidDismiss resolved with role', role);
+}
+
+check_ble_configs(){
+  this.ble.isEnabled().then(
+   data => {
+      // this.alert("Error","Problema con el Bluetooth","Debes tener el Bluetooth encendido")
+       this.ble.isLocationEnabled().then(
+           data => {
+               //this.insertarpiso(piso,valor,viajenum)
+               //this.setStatus('CONFIG OK')
+                  },
+           err => {
+               console.log(err);
+               this.alert("Error","Problema con la ubicación","Debes tener la ubicacion prendida para utilizar BLE-ACCESS")
+                  }
+          );
+   },
+   err => {
+       console.log(err);
+       this.alert("Error","Problema con el Bluetooth","Debes tener el Bluetooth encendido")
+   }
+);
+ }
+
 Connected(piso,valor,viajenum){
+  this.check_ble_configs()
   this.use_connect = localStorage.getItem("use_connect")
+  console.log("Bandera de modod conexion: ",this.use_connect)
   this.uuidconnect =  localStorage.getItem("uuid");
   $(".buttonpad").css("background-color","#e39774");
   $("#aviso_modo").text("Oprime para ir al piso");
@@ -361,9 +359,18 @@ Connected(piso,valor,viajenum){
    //console.log("el piso que oprimi fue: " + piso)
    this.Scan();
    setTimeout(() => {
-   console.log('INTENTANDO CONECTAR a: ' + this.uuid);
-   this.Connect(piso,valor,viajenum)
-   }, 1000)
+        if(this.uuid === ""){
+          this.setStatus('No se encontró el dispositivo');
+          setTimeout(() => {
+          this.setStatus('Debes estar dentro del ascensor');
+            }, 1000)
+         }else{
+          setTimeout(() => {
+          console.log('INTENTANDO CONECTAR a: ' + this.uuid);
+          this.Connect(piso,valor,viajenum)
+          }, 500)
+       }
+   }, 1000);
     // this.cancelado = true;
    }
 }
@@ -371,7 +378,7 @@ Connected(piso,valor,viajenum){
 Connect(piso,valor,viajenum){
     localStorage.setItem("use_connect","0");
     //this.setStatus('uuid: ' + this.uuid + typeof(this.uuid));
-   this.setStatus('Comando en cola, esperando...');       
+   this.setStatus('Comando en cola, esperando...');
   (<any>window).ble.connect(this.uuid, device => {
     this.setStatus('Enviando comando...');
     console.log('Connected', device);
@@ -424,12 +431,13 @@ Disconnect(uuid){
 });
 }
 
-  downpage(){
+downpage(){
     this.pageTop.scrollToBottom(1000);
-  }
+}
 
   comenzar(){
-    this.getLocation();
+    //this.getLocation();
+    this.configactivated();
     console.log("subiendo....")
     this.pageTop.scrollToTop(1000)
     // setTimeout(() => {
@@ -442,6 +450,8 @@ Disconnect(uuid){
 
   configactivated(){
     if (this.activeconfig){
+      $(".iconPMF").css("transform","rotate(90deg)")
+      $(".edit_floors").css("display","flex")
       $(".card").css("filter","blur(5px)")
       $(".textocentral").css("filter","blur(5px)")
       $(".textocentral").css("width","90%")
@@ -454,6 +464,8 @@ Disconnect(uuid){
       $(".iconPM").css("bottom","200px")
       this.activeconfig = false;
     }else{
+      $(".iconPMF").css("transform","rotate(0deg)")
+      $(".edit_floors").css("display","none")
       $(".card").css("filter","blur(0px)")
       $(".textocentral").css("filter","blur(0px)")
       $(".textocentral").css("width","100%")
@@ -563,34 +575,34 @@ Disconnect(uuid){
   Scan(){
     this.setStatus('Escaneando Ascensor');
     this.devices = [];  // clear list
-
     this.ble.scan([], 5).subscribe(
       device => this.onDeviceDiscovered(device), 
       error => this.scanError(error)
     );
-
     setTimeout(this.setStatus.bind(this), 5000, '');
   }
 
 
   onDeviceDiscovered(device){
+    //this.setStatus('buscando...');
     console.log('Discovered' + JSON.stringify(device,null,2));
     this.ngZone.run(()=>{
       this.devices.push(device)
       console.log(device)
     })
-    if(device.name === 'AIRCALL SV' || device.name === 'CARAPP PRUEBA BLE'){
+    if(device.name === 'AIRCALL SV'){
       this.uuid = device.id;
     }
   }
 
   // If location permission is denied, you'll end up here
   async scanError(error) {
+   // this.setStatus('Ocurrio un problema');
     this.setStatus('Error ' + error);
     let toast = await this.toastCtrl.create({
-      message: 'Error scanning for Bluetooth low energy devices',
-      position: 'middle',
-      duration: 5000
+      message: 'Error escaneando dispositivos Bluetooh',
+      position: 'bottom',
+      duration: 2000
     });
     toast.present();
   }
@@ -615,23 +627,22 @@ Disconnect(uuid){
 
 
 dismiss(){
-  this.modalCtrl.dismiss();
-  $(".card").css("filter","blur(0px)")
-  $(".textocentral").css("filter","blur(0px)")
-  $(".textocentral").css("width","100%")
-  $(".textocentral").css("margin-left","0%")
   $(".align-center").css("filter","blur(0px)")
-  $(".align-center").css("width","100%")
-  $(".align-center").css("margin-left","0%")
-  // $(".logofondo").css("display","block")
-  // $(".logofondo").css("z-index","1")
-  $(".iconPM").css("bottom","200px")
-  $(".iconPM").css("transform","rotate(0deg)")
-  //this.activeconfig = true;
+  $(".card").css("filter","blur(0px)")
+  $(".logofondo").css("display","block");
+  $(".content_tiempo").css("display","flex");
+  $(".center_bottom_card").css("display","flex");
+  $(".card").css("display","block");
+  $(".texto").css("display","flex")
+  $(".textocentral").css("display","none")
+  $(".iconPM").css("display","none") 
+  $("#aviso_modo").text("Oprime para ir al piso")
+  $("#aviso_modo").css("color","black");
+  $(".buttonpad").css("background-color","#e39774")
+  this.modalCtrl.dismiss(false);
 }
 
-
-  // cancelcall(){
+// cancelcall(){
   //   this.setStatus('LLamada cancelada');
   //    this.Disconnected()
   //    setTimeout(() => {

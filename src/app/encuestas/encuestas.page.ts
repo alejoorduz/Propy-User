@@ -109,7 +109,7 @@ export class EncuestasPage implements OnInit {
   }
 
     async GoToURL(url){
-     const browser = this.iab.create(url,'_self',{location:'no'});
+     const browser = this.iab.create(url,'_system',{location:'yes'});
   }
 
   async modal_info(url){

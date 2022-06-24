@@ -43,7 +43,6 @@
          <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">{{this.tower}} {{this.apto}}
             <!-- <ion-icon *ngIf="account_config_ok" (click)="set_apt()" name="create-outline"></ion-icon> -->
         </h1>
-         
          <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="set_apt()">¡Envia tus datos!<ion-icon name="arrow-redo-outline"></ion-icon></h1>
        </div>
     </div>
@@ -55,7 +54,6 @@
       <div class="delete_parraf">Parece que tu administrador elimino el negocio, eliminalo tu tambien de tu lista
       <button class="delete_button" (click)="delete(this.proyecto)">Eliminar de mi lista</button></div>
     </div>
-
 
     <div *ngIf="setApt" class="div__timepicker">
     <div  class="time_picker">
@@ -93,7 +91,7 @@
   <h1 class="parrafo__texto"><strong> Control </strong> </h1>
   <ion-slides class="slides" [options]="option" #slideWithNav pager="true">
     <ion-slide  class="slide" *ngFor="let servicio of control">
-      <ion-card class="card" *ngIf="servicio.habilitado==true" (click)="this.elegir_servicio(servicio.nombre,true)">
+      <ion-card class="card" [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
         <ion-card-header>
           <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
           <ion-card-title>{{servicio.nombre}}</ion-card-title>

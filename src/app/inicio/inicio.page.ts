@@ -32,7 +32,6 @@ import { CitofoniaPage } from "../citofonia/citofonia.page";
 import { AlertController } from '@ionic/angular';
 import { InfoPage } from "../info/info.page";
 import { VotacionesPage } from "../voting/votaciones/votaciones.page";
-import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-inicio',
@@ -267,14 +266,71 @@ personal = [
     //console.log("Pruyeba de ver servisios y descrp: ", this.servicios)
   }
 
+  get_proyect_services(){
+    this.fbs.consultarPorId("Proyectos/", this.proyecto).subscribe((resultado) => {
+      if (resultado.payload.data() != null) {
+          this.proyect_services.id = resultado.payload.id;
+          this.proyect_services.data = resultado.payload.data();
+      }
+      if (this.proyect_services.id=="") {
+        this.show = true;
+        this.show_services = false;
+        this.emergencia = false;
+      }else{
+        this.show = false;
+        this.show_services = true;
+        this.emergencia = true;
+      }
+      console.log("dataa larga: ")
+      console.log(this.proyect_services)
+      // Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
+// Documentos, Clasificados, Encuestas, Controles de Acceso
+// Pagos, Monitoreo, Finanzas, Beneficios, Seguridad, Citofonia
+//en array de admin
+      this.admin[0].habilitado = this.proyect_services.data.reservas;
+      this.admin[1].habilitado = this.proyect_services.data.votaciones;
+      this.admin[2].habilitado = this.proyect_services.data.comunicados;
+      this.admin[3].habilitado = this.proyect_services.data.directorio;
+      this.admin[4].habilitado = this.proyect_services.data.preguntas;
+      this.admin[5].habilitado = this.proyect_services.data.eventos;
+      this.admin[6].habilitado = this.proyect_services.data.beneficios;
+      this.admin[7].habilitado = this.proyect_services.data.documentos;
+      this.admin[8].habilitado = this.proyect_services.data.clasificados;
+      this.admin[9].habilitado = this.proyect_services.data.encuestas;
+      this.admin[10].habilitado = this.proyect_services.data.finanzas;
+      this.admin[11].habilitado = this.proyect_services.data.pagos;
+      this.admin[12].habilitado = this.proyect_services.data.emergencias;
+//en array de control
+      this.control[0].habilitado = this.proyect_services.data.acceso;
+      this.control[1].habilitado = this.proyect_services.data.aircall;
+     // this.servicios14].habilitado = false;
+//en array de personal
+      this.personal[0].habilitado = this.proyect_services.data.autorizaciones;
+      this.personal[1].habilitado = this.proyect_services.data.mascotas;
+      this.personal[2].habilitado = this.proyect_services.data.trasteo;
+//en array de monitoreo
+      this.monitor[0].habilitado = this.proyect_services.data.monitoreo;
+      this.monitor[1].habilitado = this.proyect_services.data.seguridad;
+      this.monitor[2].habilitado = this.proyect_services.data.citofonia;
+      this.admin_email = this.proyect_services.data.admin_email;
+    //   this.admin_name = this.proyect_services.data.admin_name;
+    //   console.log("auth: ", this.servicios[13])
+      console.log("auth: ", this.admin_email, this.proyect_services.data)
+      //this.emergencia = true;
+     // console.log(this.uid,this.nombre,this.proyecto,this.reserva,this.pagos,this.documento,this.comunicado,this.aircall,this.emergencia)
+    //  // this.consultar_lista_servicios()
+    //   console.log("usuario: ",this.reservas,this.pagos,this.comunicados,this.documentos)
+  });
+}
+
   send_email(){
     let email = {
       app: "PROPY",
       from: this.email,
       to: this.admin_email,
       cc: '',
-      subject: 'Rellena la información y envia este correo',
-      body: 'Hola ' + this.nombre + '. <br><br> Por temas de seguridad, solicitamos a los administradores que verifiquen la información de los usuarios antes de asignarles su apartamento.<br><br> Para esto, necesitamos que llenes la siguiente información: <br><br> - Cédula propietario: <br> - Apartamento: <br> - Integrantes del apto (para inscribirlos también)<br><br> Una vez rellenes todos los datos envia este correo.',
+      subject: 'Cuenta bloqueada - Contacto con administrador',
+      body: 'Buen dia, <br><br> Envio este correo para solicitar amablemente la activación de mi cuenta PROPY o que se contacten conmigo, muchas gracias! <br><br> Cordialmente, <br> '+ this.nombre,
       isHtml: true
     }
     this.emailComposer.open(email);
@@ -441,58 +497,7 @@ personal = [
     }
   }
 
-  get_proyect_services(){
-      this.fbs.consultarPorId("Proyectos/", this.proyecto).subscribe((resultado) => {
-        if (resultado.payload.data() != null) {
-            this.proyect_services.id = resultado.payload.id;
-            this.proyect_services.data = resultado.payload.data();
-        }
-        if (this.proyect_services.id=="") {
-          this.show = true;
-          this.show_services = false;
-          this.emergencia = false;
-        }else{
-          this.show = false;
-          this.show_services = true;
-          this.emergencia = true;
-        }
-        console.log("dataa larga: ")
-        console.log(this.proyect_services)
-        // Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
-// Documentos, Clasificados, Encuestas, Controles de Acceso
-// Pagos, Monitoreo, Finanzas, Beneficios, Seguridad, Citofonia
-      //   this.servicios[0].habilitado = this.proyect_services.data.reservas;
-      //   this.servicios[1].habilitado = this.proyect_services.data.votaciones;
-      //   this.servicios[2].habilitado = this.proyect_services.data.comunicados;
-      //   this.servicios[3].habilitado = this.proyect_services.data.directorio;
-      //   this.servicios[4].habilitado = this.proyect_services.data.preguntas;
-      //   this.servicios[5].habilitado = this.proyect_services.data.eventos;
-      //   this.servicios[6].habilitado = this.proyect_services.data.beneficios;
-      //   this.servicios[7].habilitado = this.proyect_services.data.documentos;
-      //   this.servicios[8].habilitado = this.proyect_services.data.clasificados;
-      //   this.servicios[9].habilitado = this.proyect_services.data.encuestas;
-      //   this.servicios[10].habilitado = this.proyect_services.data.finanzas;
-      //   this.servicios[11].habilitado = this.proyect_services.data.pagos;
-      //   this.servicios[12].habilitado = this.proyect_services.data.emergencias;
-      //   this.servicios[13].habilitado = this.proyect_services.data.acceso;
-      //   this.servicios[14].habilitado = this.proyect_services.data.aircall;
-      //  // this.servicios14].habilitado = false;
-      //   this.servicios[15].habilitado = this.proyect_services.data.autorizaciones;
-      //   this.servicios[16].habilitado = this.proyect_services.data.mascotas;
-      //   this.servicios[17].habilitado = this.proyect_services.data.trasteo;
-      //   this.servicios[18].habilitado = this.proyect_services.data.monitoreo;
-      //   this.servicios[19].habilitado = this.proyect_services.data.seguridad;
-      //   this.servicios[20].habilitado = this.proyect_services.data.citofonia;
-        this.admin_email = this.proyect_services.data.admin_email;
-      //   this.admin_name = this.proyect_services.data.admin_name;
-      //   console.log("auth: ", this.servicios[13])
-        console.log("auth: ", this.admin_email, this.proyect_services.data)
-        //this.emergencia = true;
-       // console.log(this.uid,this.nombre,this.proyecto,this.reserva,this.pagos,this.documento,this.comunicado,this.aircall,this.emergencia)
-      //  // this.consultar_lista_servicios()
-      //   console.log("usuario: ",this.reservas,this.pagos,this.comunicados,this.documentos)
-    });
-  }
+
 
   async modal_info(url){
     const modal = await this.modalCtrl.create({
@@ -524,15 +529,16 @@ personal = [
 
   elegir_servicio(servicio,habilitado){
     if (!this.habilitado) {
-      alert("No estás habilitado para utilizar la APP, contacta a tu Administrador para mas información")
+      alert("No estás habilitado para utilizar la APP, contacta a tu Administrador para que te habilite")
     }else{
 
     if (!this.apto) {
       alert("Debes estar inscrito a un apartamento para comenzar a usar los servicios, si todavia no tienes asignado un apartamento contacta al administrador")
     }else{
     if(!habilitado){
-      alert("Este servicio es para miembros GOLD, contactanos para activar tu plan (El administrador de este edificio no tiene activo este servicio)")
+      alert("El administrador de este edificio no tiene activo este servicio activo")
     }else{
+      console.log("elegiste el servicio: ", servicio)
       // console.log("Vamos a elegir que ventana abrir dependiendo del servicio oprimido, este es el servicio: " + servicio)
         if (servicio == "Reservas") {
         // console.log("reservas if")

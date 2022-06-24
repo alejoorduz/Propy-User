@@ -24,7 +24,7 @@ export class AccesoPage implements OnInit {
   @Input() nombre
   @Input() proyecto
  
-uuid;
+uuid = "";
   //test in aircall :  a8a7e679-3a55-1702-464c-c1dc2d0dd6ea
   // comunicados  = [
   //   {"titulo":"Main Entrance",
@@ -91,14 +91,12 @@ uuid;
   }
 
   Scan(clave){
-    this.setStatus('Escaneando Entrada: ' + clave);
+    this.setStatus('Buscando acceso...');
     this.devices = [];  // clear list
-
     this.ble.scan([], 1).subscribe(
       device => this.onDeviceDiscovered(device,clave), 
       error => this.scanError(error)
     );
-
     setTimeout(this.setStatus.bind(this), 1000, '');
   }
 
@@ -109,7 +107,7 @@ uuid;
       console.log(device)
     })
     if(device.name === clave){
-      this.setStatus("se encontro el device " + clave)
+     // this.setStatus("se encontro el device " + clave)
       this.uuid = device.id;
     }
   }
@@ -119,8 +117,8 @@ uuid;
     this.setStatus('Error ' + error);
     let toast = await this.toastCtrl.create({
       message: 'Error scanning for Bluetooth low energy devices',
-      position: 'middle',
-      duration: 5000
+      position: 'bottom',
+      duration: 2000
     });
     toast.present();
   }
@@ -136,14 +134,23 @@ uuid;
      //console.log("el piso que oprimi fue: " + piso)
      this.Scan(clave);
      setTimeout(() => {
-      console.log('INTENTANDO CONECTAR a: ' + uid);
-      this.Connect(nombre,uid,"1")
-     }, 1000)
+          if(this.uuid === ""){
+          this.setStatus('Intenta nuevamente');
+          setTimeout(() => {
+          this.setStatus('Debes estar cerca a la puerta');
+            }, 1000)
+          }else{
+          setTimeout(() => {
+          console.log('INTENTANDO CONECTAR a: ' + this.uuid);
+          this.Connect(nombre,uid)
+          }, 500)
+      }
+     }, 1000);
       // this.cancelado = true;
      }
 
   
-  Connect(nombre,uid,mensaje){
+  Connect(nombre,uid){
       localStorage.setItem("use_connect","0");
       //this.setStatus('uuid: ' + this.uuid + typeof(this.uuid));
      this.setStatus('Comando en cola, esperando...');    
@@ -154,9 +161,9 @@ uuid;
       this.setStatus('Conectado.....');
       console.log('Connected', device);
         setTimeout(() => {
-      this.BleWrite(nombre,this.uuid,"2");
-       // this.Disconnect();
-       }, 500)
+          this.BleWrite(nombre,this.uuid);
+          // this.Disconnect();
+        }, 500)
     }, error => {
       console.log('Disconnected', error);
       //this.cancelado = false;
@@ -164,7 +171,7 @@ uuid;
     });
   }
   
-  BleWrite(nombre,uid,mensaje) {
+  BleWrite(nombre,uid) {
     var data = new Uint8Array(1);
     data[0] = 0x31;
     this.ble.write(

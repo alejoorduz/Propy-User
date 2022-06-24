@@ -43,6 +43,7 @@
     "ionic2-calendar": "^0.6.9",
     "jquery": "^3.6.0",
     "moment": "^2.29.1",
+    "onesignal-cordova-plugin": "3.0.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -53,7 +54,7 @@
     "@angular-eslint/eslint-plugin": "~13.0.1",
     "@angular-eslint/eslint-plugin-template": "~13.0.1",
     "@angular-eslint/template-parser": "~13.0.1",
-    "@angular/cli": "~13.2.3",
+    "@angular/cli": "13.2.6",
     "@angular/compiler": "~13.2.2",
     "@angular/compiler-cli": "~13.2.2",
     "@angular/language-service": "~13.2.2",
@@ -95,7 +96,6 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "mx.ferreyra.callnumber": "0.0.2",
-    "onesignal-cordova-plugin": "^2.11.3",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "typescript": "~4.4.4"
@@ -124,9 +124,9 @@
       "cordova-plugin-file": {},
       "cordova-plugin-inappbrowser": {},
       "call-number": {},
-      "onesignal-cordova-plugin": {},
       "cordova-plugin-vibration": {},
-      "cordova-plugin-email-composer": {}
+      "cordova-plugin-email-composer": {},
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "android",
