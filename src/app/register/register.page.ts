@@ -15,36 +15,49 @@ export class RegisterPage implements OnInit {
   constructor(private alertCtrl: AlertController,private fbs: FirestoreService ,private authsvc:AuthService, private router:Router) { }
 
   nombre_proyecto: string
+
+  name;
+  mail;
+  cont;
+  cont_rep;
   
   usuario_habilitado: boolean = true
 
   ngOnInit() {
+    console.log(this.name,this.mail,this.cont,this.cont_rep)
   }
 
   async onRegister(email, password,nombre){
-    if ($("#nombre").val() == "" || $("#email").val() == "" || $("#contra").val() == "" || $("#contra_rep").val() == "") {
+    console.log(this.name,this.mail,this.cont,this.cont_rep)
+    // if ($("#nombre").val() == "" || $("#email").val() == "" || $("#contra").val() == "" || $("#contra_rep").val() == "") {
+    if (typeof this.name === 'undefined' || typeof this.mail === 'undefined' || typeof this.cont === 'undefined' || typeof this.cont_rep === 'undefined') {
       this.presentAlert("Debes rellenar todos los espacios")
       console.log("rellena todo maldito")
-    } else {
-      if ($("#contra").val() !=  $("#contra_rep").val()) {
-        this.presentAlert("Las contraseñas deben coincidir")
-        console.log("no son iguals las contras")
-      } else {
-        console.log("datos del registro-------------" + email.value + password.value + nombre.value)
-        console.log(email.value, password.value)
-      try {
-        const user = await this.authsvc.register(email.value,password.value,nombre.value)
-        if (user) {
-        let uid = user.uid
-        const isverified = this.authsvc.isEmailVerified(user);
-        console.log("eemail verificado, este es el uid del usuario: " + uid)
-        this.initialize_user(uid,nombre.value);
-        this.router.navigate(['verificacion']);
+    }else{
+      if (this.name === '' || this.mail === '' || this.cont === '' || this.cont_rep === '') {
+          this.presentAlert("Debes rellenar todos los espacios")
+          console.log("rellena todo maldito desde el seugundo")
+        }else {
+          if (this.cont !=  this.cont_rep) {
+            this.presentAlert("Las contraseñas deben coincidir")
+            console.log("no son iguals las contras")
+          } else {
+            console.log("datos del registro-------------" + email.value + password.value + nombre.value)
+            console.log(email.value, password.value)
+          try {
+            const user = await this.authsvc.register(email.value,password.value,nombre.value)
+            if (user) {
+            let uid = user.uid
+            const isverified = this.authsvc.isEmailVerified(user);
+            console.log("eemail verificado, este es el uid del usuario: " + uid)
+            this.initialize_user(uid,nombre.value);
+            this.router.navigate(['verificacion']);
+            }
+          } catch (error) {
+            console.log(error)
+          }
+          }
         }
-      } catch (error) {
-        console.log(error)
-      }
-      }
     }
   }
 

@@ -140,21 +140,21 @@ ion-content{
   }
 
   .card{
-     background-color: white;
-    border: solid black 1px;
-   // box-shadow: -10px 8px rgb(153, 153, 153);
-    width: 120%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-width: 90px;
-   // background-color: #B2B8A3;
-    font-size: 5px;
-    border-radius: 5px;
-    color: #11324D;
-  }
+    background-color: white;
+   border: solid black 1px;
+  // box-shadow: -10px 8px rgb(153, 153, 153);
+   width: 120%;
+   height: auto;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   min-width: 100px;
+  // background-color: #B2B8A3;
+   font-size: 5px;
+   border-radius: 5px;
+   color: #11324D;
+ }
   .card:active{
     background-color:  rgb(164, 120, 230); ;
     box-shadow: 0 5px #666;      
@@ -222,7 +222,7 @@ ion-content{
   }
 
   ion-card-title{
-    font-size: 15px;
+    font-size: 13px;
     color: black;
   } 
 

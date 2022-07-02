@@ -1,0 +1,67 @@
+<ion-content>
+  <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title > </ion-title>
+    </div>
+  </div>
+
+  <div class="todo">
+    <div class="titulo">
+      <h1 class="atencion"><strong>Solicitar SPOT</strong></h1>
+    </div>
+      <div class="descripcion">
+       Pulsa click en solicitar para pedirle al dueño permiso de usar su SPOT.
+       </div> 
+       <div class="descripcion">
+       El SPOT tiene un costo de $3000 pesos la hora.
+        </div> 
+        <!-- <div class="descripcion">
+        a jua!
+          </div>  -->
+          <div class="card" tabindex="1">
+            <!-- <div class="imagen">
+              <ion-icon class="img-icon" name="calendar-outline"></ion-icon>
+            </div> -->
+            <div class="card-inner">
+              <div class="top">
+                <div class="titulo">  
+                  <strong>Fecha:</strong>  {{ this.fecha }} 
+                </div>
+                <!-- <div class="dia_hora">  
+                  <div class="dia">
+                      {{ comunicado.subtitulo }}  
+                  </div>
+                  <div class="hora">
+                    {{ comunicado.fecha }} 
+                  </div>
+                </div> -->
+            </div>
+            <div class="tema">
+              <strong>Dueño:</strong>{{ this.propietario }} 
+           </div>
+           <div class="tema">
+            <strong>Apto:</strong>{{ this.torre}} {{this.apto}}
+         </div>
+            <div class="tema">
+              <strong>Spot:</strong> {{ this.spot}} 
+            </div>
+            <div class="tema">
+              <strong>Horas:</strong> {{ this.hora_inicial}}:00 - {{this.hora_final}}:00
+          </div>
+          <div class="tema">
+            <strong>Disponible:</strong>{{ this.hora_final - this.hora_inicial}} horas
+          </div>
+          </div>
+            <!-- <div class="descarga"><ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="download-outline"></ion-icon></div> -->
+        </div>
+       <div class="botonuno">
+        <button class="boton">Solicitar SPOT</button>
+      </div>
+      <!-- <div class="botondos">
+        <button class="boton">3176398568</button>
+      </div> -->
+   </div>   
+</ion-content>

@@ -1,0 +1,121 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <div class="headercontainer">
+        <div class="back">
+          <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+        </div>
+      <div class="headertittle">
+        Añadir SPOT
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+<div class="todo">
+<div class="divform">
+  <div class="formulario">
+    <ion-item class="nombre_servicio" mode='ios' lines="none">
+    <ion-label class="formulario__label" position="floating" >A nombre de</ion-label>
+    <ion-input type="text" id="nombre" name="servicio" [value]="this.nombre"></ion-input>
+    </ion-item>
+  </div>
+  <div class="formulario">
+    <ion-item class="nombre_servicio" mode='ios' lines="none">
+    <ion-label class="formulario__label" position="floating" >Torre</ion-label>
+    <ion-input type="text" id="torre" name="servicio" [value]="this.torre"></ion-input>
+    </ion-item>
+  </div>
+  <div class="formulario">
+    <ion-item class="nombre_servicio" mode='ios' lines="none">
+    <ion-label class="formulario__label" position="floating" >Apartamento</ion-label>
+    <ion-input type="text" id="apto" name="servicio" [value]="this.apto"></ion-input>
+    </ion-item>
+  </div>
+  <div class="formulario">
+    <ion-item class="nombre_servicio" mode='ios' lines="none">
+    <ion-label class="formulario__label" position="floating" >Numero de parqueadero</ion-label>
+    <ion-input type="text" id="spot" name="servicio" [(ngModel)]="this.spot"></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="formulario">
+    <ion-item (click)="timedate()" class="nombre_servicio" mode='ios' lines="none">
+    <ion-label class="formulario__label" position="floating" >Fecha de dispinibilidad</ion-label>
+    <ion-input type="text" id="fecha" name="servicio" [(ngModel)]="this.fecha"></ion-input>
+    </ion-item>
+  </div>
+
+  <div class="formulario">
+      <label class="formulario__label">
+      Hora disponible inicial y final
+      </label>
+      <div class="time_picker">
+        <!-- <ion-label>Inicio</ion-label> -->
+        <ion-select placeholder="Hora incial" id="hora_inicial" class="ion-select-mes" [(ngModel)]="hora_inicial">
+          <ion-select-option value=1>1 AM</ion-select-option>
+          <ion-select-option value=2>2 AM</ion-select-option>
+          <ion-select-option value=3>3 AM</ion-select-option>
+          <ion-select-option value=4>4 AM</ion-select-option>
+          <ion-select-option value=5>5 AM</ion-select-option>
+          <ion-select-option value=6>6 AM</ion-select-option>
+          <ion-select-option value=7>7 AM</ion-select-option>
+          <ion-select-option value=8>8 AM</ion-select-option>
+          <ion-select-option value=9>9 AM</ion-select-option>
+          <ion-select-option value=10>10 AM</ion-select-option>
+          <ion-select-option value=11>11 AM</ion-select-option>
+          <ion-select-option value=12>12 AM</ion-select-option>
+          <ion-select-option value=13>1 PM</ion-select-option>
+          <ion-select-option value=14>2 PM</ion-select-option>
+          <ion-select-option value=15>3 PM</ion-select-option>
+          <ion-select-option value=16>4 PM</ion-select-option>
+          <ion-select-option value=17>5 PM</ion-select-option>
+          <ion-select-option value=18>6 PM</ion-select-option>
+          <ion-select-option value=19>7 PM</ion-select-option>
+          <ion-select-option value=20>8 PM</ion-select-option>
+          <ion-select-option value=21>9 PM</ion-select-option>
+          <ion-select-option value=22>10 PM</ion-select-option>
+          <ion-select-option value=23>11 PM</ion-select-option>
+          <ion-select-option value=24>12 PM</ion-select-option>
+        
+      </ion-select>
+        <!-- <ion-datetime class="datetime" presentation="time" ></ion-datetime> -->
+        <!-- <ion-label>Fin</ion-label> -->
+        <ion-select  placeholder="Hora final" id="hora_final" class="ion-select-mes" [(ngModel)]="hora_final">
+    
+          <ion-select-option value=1>1 AM</ion-select-option>
+          <ion-select-option value=2>2 AM</ion-select-option>
+          <ion-select-option value=3>3 AM</ion-select-option>
+          <ion-select-option value=4>4 AM</ion-select-option>
+          <ion-select-option value=5>5 AM</ion-select-option>
+          <ion-select-option value=6>6 AM</ion-select-option>
+          <ion-select-option value=7>7 AM</ion-select-option>
+          <ion-select-option value=8>8 AM</ion-select-option>
+          <ion-select-option value=9>9 AM</ion-select-option>
+          <ion-select-option value=10>10 AM</ion-select-option>
+          <ion-select-option value=11>11 AM</ion-select-option>
+          <ion-select-option value=12>12 AM</ion-select-option>
+          <ion-select-option value=13>1 PM</ion-select-option>
+          <ion-select-option value=14>2 PM</ion-select-option>
+          <ion-select-option value=15>3 PM</ion-select-option>
+          <ion-select-option value=16>4 PM</ion-select-option>
+          <ion-select-option value=17>5 PM</ion-select-option>
+          <ion-select-option value=18>6 PM</ion-select-option>
+          <ion-select-option value=19>7 PM</ion-select-option>
+          <ion-select-option value=20>8 PM</ion-select-option>
+          <ion-select-option value=21>9 PM</ion-select-option>
+          <ion-select-option value=22>10 PM</ion-select-option>
+          <ion-select-option value=23>11 PM</ion-select-option>
+          <ion-select-option value=24>12 PM</ion-select-option> 
+      </ion-select>
+    </div>
+ </div>
+
+
+
+<button class="submit" (click)="submitForm()" expand="block">Guardar</button>
+    </div>
+
+</div>
+</ion-content>

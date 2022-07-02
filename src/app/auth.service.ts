@@ -86,8 +86,8 @@ export class AuthService {
       return user
     }
     catch(error){
-      console.log("Error:",error)
-      this.presentAlert("No se pudo completar el registro, verifica tus datos e intentalo de nuevo (No usar autorelleno)");
+      console.log("Error de registro:",error)
+      this.presentAlert("No se pudo completar el registro, es posible que el email no sea valido o que algun usuario ya tenga este email en uso, verifica tus datos e intentalo de nuevo (No usar autorelleno). La contraseña debe tener al menos 6 caracteres");
     }
   }
 
@@ -97,7 +97,7 @@ export class AuthService {
     }
     catch(error){
       console.log("Error:",error)
-      this.presentAlert("No se pudo enviar el mensaje, intentalo de nuevo");
+      this.presentAlert("No se pudo enviar el correo de verificación, intenta enviarlo de nuevo");
     }
   }
 

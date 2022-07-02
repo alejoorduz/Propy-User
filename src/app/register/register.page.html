@@ -21,25 +21,25 @@
       <div class="div_email">
       <ion-item class="email" mode='ios' lines="none">
         <ion-label position="floating">Nombre y Apellido</ion-label>
-        <ion-input id="nombre" type="text" #nombre required></ion-input>
+        <ion-input id="nombre" [(ngModel)]="name" type="text" #nombre required></ion-input>
       </ion-item>
       </div>
     <div class="div_email">
       <ion-item class="email" mode='ios' lines="none">
         <ion-label position="floating">Email</ion-label>
-        <ion-input id="email" type="text" #email required></ion-input>
+        <ion-input id="email" [(ngModel)]="mail" type="text" #email required></ion-input>
       </ion-item>
-      </div>
+    </div>
       <div class="div_email" >
         <ion-item class="email" mode='ios' lines="none">
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input id="contra" type="password" #password required></ion-input>
+          <ion-input id="contra" [(ngModel)]="cont" type="password" #password required></ion-input>
         </ion-item>
       </div>
       <div class="div_email">
         <ion-item class="email" mode='ios' lines="none">
           <ion-label position="floating">Verificar contraseña</ion-label>
-          <ion-input id="contra_rep" type="password" #password_double required></ion-input>
+          <ion-input id="contra_rep" [(ngModel)]="cont_rep" type="password" #password_double required></ion-input>
         </ion-item>
       </div>
       <div class="div_login">

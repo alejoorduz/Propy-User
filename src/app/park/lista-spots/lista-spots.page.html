@@ -1,0 +1,87 @@
+<ion-header class="header">
+  <ion-toolbar>
+<div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title > Spots </ion-title>
+    </div>
+  </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div class="headercontainer">
+    <div class="back">
+      <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+    </div>
+    <div class="headertittle">
+      <ion-title > Control de Acceso </ion-title>
+    </div>
+  </div> -->
+
+<div class="todo">
+    <div class="ver_comunicados">
+            <h1 class="texto"><strong>{{this.fecha}}</strong></h1>
+            <ion-grid class="grid">
+              <ion-col class="col">
+                <ion-row class="row" *ngFor="let tarjetero of tarjeteros">
+                  <!-- <h1 class="texto">
+                    <button (click)="modal_votaciones(tarjetero.data.nombre)" class="boton_actividad" >
+                      Ver actividad
+                    </button>
+                  </h1> -->
+                    <div class="card" tabindex="1" (click)="modal_table(tarjetero.data.propietario,tarjetero.data.torre,tarjetero.data.apto,tarjetero.data.spot,tarjetero.data.hora_inicial,tarjetero.data.hora_final)">
+                      <!-- <div class="imagen">
+                        <ion-icon class="img-icon" name="calendar-outline"></ion-icon>
+                      </div> -->
+                      <div class="card-inner">
+                        <div class="top">
+                          <div class="titulo">  
+                            <strong>Fecha:</strong>  {{ tarjetero.data.fecha }} 
+                          </div>
+                          <!-- <div class="dia_hora">  
+                            <div class="dia">
+                                {{ comunicado.subtitulo }}  
+                            </div>
+                            <div class="hora">
+                              {{ comunicado.fecha }} 
+                            </div>
+                          </div> -->
+                      </div>
+                      <div class="tema">
+                        <strong>Dueño:</strong>{{ tarjetero.data.propietario }} 
+                     </div>
+                     <div class="tema">
+                      <strong>Apto:</strong>{{ tarjetero.data.torre}} {{tarjetero.data.apto}}
+                   </div>
+                      <div class="tema">
+                        <strong>Spot:</strong> {{ tarjetero.data.spot}} 
+                      </div>
+                      <div class="tema">
+                        <strong>Horas:</strong> {{ tarjetero.data.hora_inicial}}:00 - {{tarjetero.data.hora_final}}:00
+                    </div>
+                    <div class="tema">
+                      <strong>Disponible:</strong>{{ tarjetero.data.hora_final - tarjetero.data.hora_inicial}} horas
+                    </div>
+                    </div>
+                      <!-- <div class="descarga"><ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="download-outline"></ion-icon></div> -->
+                  </div>
+                </ion-row>
+              </ion-col>
+            </ion-grid>
+    </div> 
+</div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+    <ion-row>
+    <ion-col style="text-align: center"><p class="footer_message"> {{ statusMessage }}</p></ion-col>
+    </ion-row>
+  </ion-grid>
+    
+  </ion-toolbar>
+</ion-footer>

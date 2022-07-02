@@ -1,14 +1,18 @@
-<ion-header class="header">
-    <div class="align-header">
-          <ion-buttons class="size" slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-       <div id="cabeza">   
-        <ion-title mode=ios class="tittle" >
-          Verificación
-        </ion-title>
+<ion-header>
+  <ion-toolbar>
+      <div class="headercontainer">
+      <div class="back">
+        <div class="back">
+          <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+        </div>
       </div>
-    </div>
+      <div class="headertittle">
+        <ion-title >Registrate</ion-title>
+      </div>
+      <div class="headericon">
+        </div>
+     </div>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="user$ | async as user">
@@ -41,7 +45,7 @@
   </ion-col>
   <ion-col class="column">
     <button  class="boton" routerLink="/iniciosesion">
-      Volver a inicio
+      Iniciar Sesión
     </button>
   </ion-col>
   </ion-row>

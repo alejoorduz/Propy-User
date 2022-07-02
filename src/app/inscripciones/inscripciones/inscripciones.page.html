@@ -13,7 +13,9 @@
   </div>
   </ion-toolbar>    
 </ion-header>
+
 <ion-content>
+  <div class="todo">
   <div class="parrafo">
       <div class="imagen_perfil"> 
             <ion-thumbnail *ngIf="profile_image_yes" (click)="perfil()" class="imagePerfil" slot="start">
@@ -27,111 +29,87 @@
          <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="perfil()">¡Agrega tu apartamento!<ion-icon name="arrow-redo-outline"></ion-icon></h1>
          -->
          <div class="divWeatherMain_bottom">
-          <div class="weatherWidgetRow_bottom" >
-            <div class="h1" style="font-size: clamp(15px, 4vw, 20px); margin-top: 10px;">{{WeatherData.temp_celcius}}°</div>
-          </div>
-          <div class="weatherWidgetRow_bottom" >
-            <div class="h2">Humedad</div> 
-            <div class="h1">{{this.WeatherData.main.humidity}} %</div> 
-            
-          </div>
-          <div class="weatherWidgetRow_bottom" >
-            <div class="h2">Presión</div> 
-            <div class="h1">{{this.WeatherData.main.pressure}} hPa</div>
-            
-          </div>
-          <div class="weatherWidgetRow_bottom" >
-            <div class="h2">Viento</div>
-            <div class="h1">{{this.wind_speed}} m/s</div>
-            
-          </div>
-      </div>
-      </div>
-  <!-- <h2 class="parrafo__texto">Por ejemplo: </h2> -->
-  <ion-icon (click)="perfil()" name="create-outline"></ion-icon>
-  </div>
-
-<div class="todo">
-<!-- <div class="add_icon" (click)="this.elegir_servicio(servicio)"><ion-icon name="add-circle-outline" style="zoom:3.0;"></ion-icon></div> -->
-<img class="imagen" src="../../../assets/images/edifc.png" alt="">
-<div class="new_user" *ngIf="!this.activate_account">
-<h1 class="new_user_text">Nos contactaremos pronto contigo para activar tu cuenta o envianos un mensaje a whats app +573177531223</h1>
-</div>
-<div class="new_user" *ngIf="this.new_user">
-<h1 class="new_user_text">Bienvenido a PROPY! 
-  <br>
-  Donde podrás tener control de los servicios que ofrece tu edificio o negocio. 
-  Para comenzar, comienza suscribiendote oprimiendo en el signo '+'</h1>
-</div>
-<div class="slider" *ngIf="this.activate_account">
-<ion-icon class="show_delete" (click)="show_delete()" *ngIf="!this.new_user" name="trash-outline"></ion-icon> 
-
-<!-- (click)="modal_proyecto(servicio.id,servicio.data.reservas,servicio.data.pagos,servicio.data.comunicados,servicio.data.documentos,servicio.data.monitoreo,servicio.data.aircall)" -->
-
-
-<ion-slides [options]="option" #slideWithNav pager="true">
-  <ion-slide class="slide" *ngFor="let servicio of lista_servicio">
-    <ion-card (click)="modal_proyecto(servicio.id,servicio.data.reservas,servicio.data.pagos,servicio.data.comunicados,servicio.data.documentos,servicio.data.monitoreo,servicio.data.aircall,true)">
-      <ion-card-header>
-        <!-- <ion-card-subtitle>Negocio</ion-card-subtitle> -->
-        <ion-icon class="building" name="business-outline"></ion-icon>
-        <ion-card-title>{{servicio.id}}</ion-card-title>
-      </ion-card-header>
-      <!-- <ion-card-content>
-        <div class="sercice__onoff"> 
-          Esta disponible desde las {{ servicio.data.horainicial }}:00 y las {{ servicio.data.horafinal }}:00
+                <div class="weatherWidgetRow_bottom" >
+                  <div class="h1" style="font-size: clamp(15px, 4vw, 20px); margin-top: 10px;">{{WeatherData.temp_celcius}}°</div>
+                </div>
+                <div class="weatherWidgetRow_bottom" >
+                  <div class="h2">Humedad</div> 
+                  <div class="h1">{{this.WeatherData.main.humidity}} %</div> 
+                </div>
+                <div class="weatherWidgetRow_bottom" >
+                  <div class="h2">Presión</div> 
+                  <div class="h1">{{this.WeatherData.main.pressure}} hPa</div>
+                </div>
+                <div class="weatherWidgetRow_bottom" >
+                  <div class="h2">Viento</div>
+                  <div class="h1">{{this.wind_speed}} m/s</div>
+                </div>
+           </div>
        </div>
-         <div class="service__days">Los dias  
-           <label *ngIf="servicio.data.lunes==true" > Lun </label>
-           <label *ngIf="servicio.data.martes==true" > Mar </label>
-           <label *ngIf="servicio.data.miercoles==true" > Mier </label>
-           <label *ngIf="servicio.data.jueves==true" > Juev </label>
-           <label *ngIf="servicio.data.viernes==true" > Vier </label>
-           <label *ngIf="servicio.data.sabado==true" > Sab </label>
-           <label *ngIf="servicio.data.domingo==true" > Dom </label>  
-         </div>
-      </ion-card-content> -->
-    </ion-card>
-    <ion-icon *ngIf="this.show_delete_button" class="trash-icon" (click)="presentAlert(servicio.id)" name="trash-outline"></ion-icon>
-   </ion-slide>
-</ion-slides>
-</div>
-
-
-<!-- <ion-content>
-  <div class="headercontainer">
-    <div class="back">
-      <ion-icon name="exit-outline" class="iconoback" (click)="cerrarsesion()"></ion-icon>
-    </div>
-<div class="headertittle">
-  <ion-title > MyAdmin Vecinos </ion-title>
-</div>
-<div class="headericon">
-   <ion-icon class="icono"  name="person-circle-outline" (click)="perfil()"></ion-icon>
+      <!-- <h2 class="parrafo__texto">Por ejemplo: </h2> -->
+      <ion-icon (click)="perfil()" name="create-outline"></ion-icon>
   </div>
-</div> -->
 
- <!-- <img class="logo" src="../../assets/logo/Logo 2.png" alt=""> -->
-
-<!-- <div class="todo">
- 
-  <div class="parrafo">
-    <h1 class="parrafo__texto">Bienvenido {{this.current_user_name}}</h1>
-    <h1 class="parrafo__texto">Tus Negocios</h1>
-
-  </div>
-  <div class="add_icon" (click)="this.elegir_servicio(servicio)"><ion-icon name="add-circle-outline" style="zoom:3.0;"></ion-icon></div>
-  <ion-grid class="grid">
-    <ion-col class="col">
-      <ion-row class="row" *ngFor="let servicio of lista_proyectos" >
-          <div class="service_label">
-            <div class="derecha">  
-                <div class="service__service"
-                (click)="modal_proyecto(servicio.id,servicio.data.reservas,servicio.data.pagos,servicio.data.comunicados,servicio.data.documentos,servicio.data.monitoreo)"><strong>{{ servicio.id }}</strong>  </div>
-            </div>
+    <!-- <div class="add_icon" (click)="this.elegir_servicio(servicio)"><ion-icon name="add-circle-outline" style="zoom:3.0;"></ion-icon></div> -->
+      <img class="imagen" src="../../../assets/images/edifc.png" alt="">
+      <div class="new_user" *ngIf="!this.activate_account">
+          <h1 class="new_user_text">Nos contactaremos pronto contigo para activar tu cuenta o envianos un mensaje a whats app +573177531223</h1>
+      </div>
+      <div class="new_user" *ngIf="this.new_user">
+            <h1 class="new_user_text">Bienvenido a PROPY! 
+              <br>
+              Donde podrás tener control de los servicios que ofrece tu edificio o negocio. 
+              Para comenzar, comienza suscribiendote oprimiendo en el signo '+'
+            </h1>
+      </div>
+    <div class="slider" *ngIf="this.activate_account">
+    <ion-icon class="show_delete" (click)="show_delete()" *ngIf="!this.new_user" name="trash-outline"></ion-icon> 
+    <!-- (click)="modal_proyecto(servicio.id,servicio.data.reservas,servicio.data.pagos,servicio.data.comunicados,servicio.data.documentos,servicio.data.monitoreo,servicio.data.aircall)" -->
+    <div class="slidery">
+      <h1 class="parrafo__textox"><strong> Mis Edificios </strong> </h1>
+    <ion-slides [options]="option" #slideWithNav pager="true">
+      <ion-slide class="slide" *ngFor="let servicio of lista_servicio">
+        <ion-card (click)="modal_proyecto(servicio.id,servicio.data.reservas,servicio.data.pagos,servicio.data.comunicados,servicio.data.documentos,servicio.data.monitoreo,servicio.data.aircall,true)">
+          <ion-card-header>
+            <!-- <ion-card-subtitle>Negocio</ion-card-subtitle> -->
+            <ion-icon class="building" name="business-outline"></ion-icon>
+            <ion-card-title>{{servicio.id}}</ion-card-title>
+          </ion-card-header>
+          <!-- <ion-card-content>
+            <div class="sercice__onoff"> 
+              Esta disponible desde las {{ servicio.data.horainicial }}:00 y las {{ servicio.data.horafinal }}:00
           </div>
-      </ion-row>
-    </ion-col>
-  </ion-grid>
+            <div class="service__days">Los dias  
+              <label *ngIf="servicio.data.lunes==true" > Lun </label>
+              <label *ngIf="servicio.data.martes==true" > Mar </label>
+              <label *ngIf="servicio.data.miercoles==true" > Mier </label>
+              <label *ngIf="servicio.data.jueves==true" > Juev </label>
+              <label *ngIf="servicio.data.viernes==true" > Vier </label>
+              <label *ngIf="servicio.data.sabado==true" > Sab </label>
+              <label *ngIf="servicio.data.domingo==true" > Dom </label>  
+            </div>
+          </ion-card-content> -->
+        </ion-card>
+        <ion-icon *ngIf="this.show_delete_button" class="trash-icon" (click)="presentAlert(servicio.id)" name="trash-outline"></ion-icon>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <!-- <div class="sliderx">
+    <h1 class="parrafo__textox"><strong> Mis Servicios </strong> </h1>
+    <ion-slides class="slidesx" [options]="option" #slideWithNav pager="true">
+      <ion-slide  class="slidex" *ngFor="let servicio of personales">
+        <ion-card class="cardx" [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
+          <ion-card-header>
+            <ion-card-title>{{servicio.nombre}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-icon class="iconx" [name]='servicio.icon'></ion-icon>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div> -->
+  </div>
 </div>
-</ion-content> -->
+</ion-content>
+

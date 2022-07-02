@@ -150,7 +150,45 @@ const routes: Routes = [
   {
     path: 'vote-info',
     loadChildren: () => import('./voting/vote-info/vote-info.module').then( m => m.VoteInfoPageModule)
+  },
+  {
+    path: 'vehiculos',
+    loadChildren: () => import('./personal/rides/vehiculos/vehiculos.module').then( m => m.VehiculosPageModule)
+  },
+  {
+    path: 'modal-rides',
+    loadChildren: () => import('./personal/rides/modal-rides/modal-rides.module').then( m => m.ModalRidesPageModule)
+  },
+  {
+    path: 'parking',
+    loadChildren: () => import('./park/parking/parking.module').then( m => m.ParkingPageModule)
+  },
+  {
+    path: 'ofrecer-spot',
+    loadChildren: () => import('./park/ofrecer-spot/ofrecer-spot.module').then( m => m.OfrecerSpotPageModule)
+  },
+  {
+    path: 'buscar-spot',
+    loadChildren: () => import('./park/buscar-spot/buscar-spot.module').then( m => m.BuscarSpotPageModule)
+  },  {
+    path: 'timedate-picker',
+    loadChildren: () => import('./popups/timedate-picker/timedate-picker.module').then( m => m.TimedatePickerPageModule)
+  },
+  {
+    path: 'mis-spots',
+    loadChildren: () => import('./park/mis-spots/mis-spots.module').then( m => m.MisSpotsPageModule)
+  },
+  {
+    path: 'lista-spots',
+    loadChildren: () => import('./park/lista-spots/lista-spots.module').then( m => m.ListaSpotsPageModule)
+  },
+  {
+    path: 'modal-spot',
+    loadChildren: () => import('./park/modal-spot/modal-spot.module').then( m => m.ModalSpotPageModule)
   }
+
+
+
 
 
 

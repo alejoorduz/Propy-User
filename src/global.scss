@@ -45,12 +45,35 @@
    // padding: 20% 10% !important;
 }
 
+.timedate {
+    --width: 70%;
+    --height: 70%;
+    border: solid black 2px;
+    background-color: #5c9ead;
+    //top: 10%;
+   // position: absolute; 
+   // display: block; 
+   // padding: 20% 10% !important;
+}
+
+.spot_modal{
+    --width: 70%;
+    --height: 70%;
+    border: solid black 2px;
+    background-color: #5c9ead;
+    //top: 10%;
+   // position: absolute; 
+   // display: block; 
+   // padding: 20% 10% !important;
+}
+
 
 
 .popover .popover-viewport {
     background: #5c9ead;
-    height: 80%;
-    width: 80%;
+    height: 100%;
+    --width: 420px;
+    --min-width: 400;
     border: solid 3px black;
   }
 

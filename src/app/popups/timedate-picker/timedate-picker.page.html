@@ -1,0 +1,19 @@
+<div class="todo">
+    <div class="titulo">
+      <h1 class="atencion"><strong>ELEGIR FECHA</strong></h1>
+    </div>
+    <div class="descripcion">
+      Elige la fecha de disponibilidad de tu SPOT
+    </div> 
+    <div class="botonuno">
+        <ion-datetime
+        class="datetime"
+        presentation="date"
+        [(ngModel)]="date"
+        locale="es-ES"
+      ></ion-datetime>
+    </div>
+      <div class="botondos">
+        <button class="boton" (click)="save(date)">Guardar</button>
+      </div>
+</div>

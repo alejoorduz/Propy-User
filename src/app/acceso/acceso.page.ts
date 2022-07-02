@@ -3,6 +3,7 @@ import { FirestoreService } from '../firestore.service';
 import * as $ from "jquery";
 import { ToastController,AlertController,ModalController } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
+import * as moment from "moment";
 
 //_____________________________________________________________
 const BLE_SERVICE = "ffe0";
@@ -23,6 +24,8 @@ export class AccesoPage implements OnInit {
   @Input() uid
   @Input() nombre
   @Input() proyecto
+  @Input() apto
+  @Input() torre
  
 uuid = "";
   //test in aircall :  a8a7e679-3a55-1702-464c-c1dc2d0dd6ea
@@ -83,9 +86,7 @@ uuid = "";
       message: message,
       buttons: ['OK']
     });
-  
     await alert.present();
-  
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
@@ -124,7 +125,7 @@ uuid = "";
   }
 
   Connected(nombre,uid,clave){
-    this.check_ble_configs()
+    //this.check_ble_configs()
    // this.use_connect = localStorage.getItem("use_connect")
    // this.uuidconnect =  localStorage.getItem("uuid");
     console.log("Abriendo ",nombre," con este uid: ", uid)
@@ -135,14 +136,14 @@ uuid = "";
      this.Scan(clave);
      setTimeout(() => {
           if(this.uuid === ""){
-          this.setStatus('Intenta nuevamente');
-          setTimeout(() => {
-          this.setStatus('Debes estar cerca a la puerta');
+            this.setStatus('Intenta nuevamente');
+            setTimeout(() => {
+            this.setStatus('Debes estar cerca a la puerta');
             }, 1000)
           }else{
-          setTimeout(() => {
-          console.log('INTENTANDO CONECTAR a: ' + this.uuid);
-          this.Connect(nombre,uid)
+            setTimeout(() => {
+            console.log('INTENTANDO CONECTAR a: ' + this.uuid);
+            this.Connect(nombre,uid)
           }, 500)
       }
      }, 1000);
@@ -187,9 +188,10 @@ uuid = "";
                 debugger;   
                 console.log(data);
                 //this.insertarpiso(piso,valor,viajenum)
-                this.setStatus('Puerta abierta')
+                this.setStatus('¡Puerta abierta!')
+                this.upload_movement(nombre);
                 setTimeout(() => {
-                  this.Disconnect(this.uuid);
+                  this.Disconnect(this.uuid,nombre);
                  }, 500)
             },
             err => {
@@ -198,8 +200,32 @@ uuid = "";
             }
         );
   }
+
+upload_movement(nombre){
+ // const res = confirm("Estas seguro que quieres agregar esta autorización?");
+ // if(res){
+      var timei = new Date(Date.now());
+      var ti = moment(timei).format('h:mm:ss a'); 
+      var dt = moment(timei).format('DD-MM-YYYY'); 
+      let comunicado = {
+          nombre: this.nombre,
+          puerta: nombre,
+          dia: dt,
+          hora: ti,
+          apto: this.apto,
+          torre: this.torre
+      };
+    var id = Math.floor(Math.random() * 3213546846468435454) + 1
+    console.log("random",id)
+    var sid = id.toString()
+    //this.fbs.insertar("Proyectos/"+this.proyecto+"/accesshistory", sid, comunicado )
+    this.fbs.insertar("Proyectos/"+this.proyecto+"/accesshistory/"+nombre+"/dias/", dt, {ultimo: ti} )
+    this.fbs.insertar("Proyectos/"+this.proyecto+"/accesshistory/"+nombre+"/dias/"+dt+"/movimientos", ti, comunicado )
+   // this.presentAlertdone();
+ // }
+  }
   
-  Disconnect(uuid){
+  Disconnect(uuid,nombre){
     this.ble.disconnect(uuid)
     .then(data => {
       this.uuid = "";
@@ -209,7 +235,6 @@ uuid = "";
        setTimeout(() => {
        this.setStatus('Bienvenid@ ' + this.nombre);
        }, 1000)
-    
   });
   }
 

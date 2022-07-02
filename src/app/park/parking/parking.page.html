@@ -1,0 +1,50 @@
+<ion-header class="header">
+  <ion-toolbar>
+      <div class="headercontainer">
+        <div class="back">
+          <ion-icon name="arrow-back" class="iconoback" (click)="dismiss()"></ion-icon>
+        </div>
+        <div class="headertittle">
+          ParkMe up
+        </div>
+        <!-- <div class="headericon">
+          <ion-icon class="icono_mas" name="add-outline" (click)="this.elegir_servicio(servicio)"></ion-icon>
+        </div> -->
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!-- <img class="imagen" src="../../../assets/images/reservas.png" alt=""> -->
+<div class="todo">
+
+  <!-- <div class="parrafo">
+    <h1 class="parrafo__texto">Historial de reservas</h1>
+    <h2 class="parrafo__texto">Ingresa para reservar</h2>
+    <button class="mis_reservas">Mis Reservas</button>
+  </div> -->
+
+  <div class="parrafo">
+    <h1 class="parrafo__texto">Bienvenido a ParkMe up</h1>
+    <h2 class="parrafo__texto">En esta sección podrás encontrar parqueaderos disponibles en {{this.proyecto}}</h2>
+  </div>
+  <!-- <div class="add_icon" (click)="this.elegir_servicio(servicio)"><ion-icon name="add-circle-outline" style="zoom:3.0;"></ion-icon></div> -->
+
+  <div class="ver_comunicados">
+    <!-- <h1 class="texto">Comunicados del Edificio {{this.proyecto}}</h1> -->
+    <ion-grid class="grid">
+      <ion-col class="col">
+        <ion-row class="row" *ngFor="let servicio of lista_servicio">
+            <div class="card" (click)="open_modal(servicio.nombre)"> 
+                <div class="titulo">  
+                  <ion-icon class="icon" [name]='servicio.icon'></ion-icon>
+                  <strong>{{ servicio.nombre }}</strong>  
+                </div>
+               <!-- <ion-icon class="trash-icon" (click)="delete(comunicado.id)" name="trash-outline"></ion-icon> -->
+          </div>
+        </ion-row>
+      </ion-col>
+    </ion-grid>
+</div> 
+</div>
+</ion-content>

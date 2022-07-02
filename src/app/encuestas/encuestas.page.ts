@@ -7,6 +7,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { OpenLinkPage } from '../open-link/open-link.page';
 
 
+
 @Component({
   selector: 'app-encuestas',
   templateUrl: './encuestas.page.html',

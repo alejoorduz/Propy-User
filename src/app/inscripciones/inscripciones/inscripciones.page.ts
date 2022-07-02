@@ -35,6 +35,18 @@ export class InscripcionesPage implements OnInit {
   comunicados:string;
   documentos:string;
   aircall:string;
+  
+  personales = [
+       {"nombre":"Vehiculos",
+        "descripcion":"Ten control de las fechas de tus vehiculos",
+        icon:"car-sport-outline",
+        "habilitado":true},
+  
+        {"nombre":"Dinero",
+        "descripcion":"Una ayuda al control de tu dinero",
+        icon:"wallet-outline",
+        "habilitado":true},
+  ]
 
   lista_servicio = [];
   lista_proyectos = [];
@@ -312,11 +324,13 @@ export class InscripcionesPage implements OnInit {
   //   //this.setStatus('¡Bienvenido! Escoge el carro');
   // }
 
-  elegir_servicio(){
- // this.array_servicios_admin = localStorage.getItem("servicios")
- // console.log("Este es el dato: " + this.array_servicios_admin)
-  console.log("abrir modal con adicionar servicios: " ,)
-  this.abrirmodal()
+  elegir_servicio(nombre,habilitado){
+    console.log(nombre);
+    if (nombre === "Vehiculos") {
+       this.router.navigate(['vehiculos']);
+    } else {
+      console.log("nada")
+    }
   }
 
   

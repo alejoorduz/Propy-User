@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { Observable } from "rxjs";
 import { AuthService } from '../auth.service';
 import { User } from "../user";
+import { Router, NavigationExtras } from "@angular/router";
 
 
 @Component({
@@ -14,7 +15,7 @@ export class VerificacionPage implements OnInit {
 
   user$: Observable<User> = this.authSvc.afAuth.user;
 
-  constructor(private authSvc: AuthService) { }
+  constructor(private authSvc: AuthService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -29,6 +30,12 @@ async sendemail(): Promise<void>{
 
 ngOnDestroy(): void{
   this.authSvc.logout();
+}
+
+dismiss(){
+  console.log("cerrando modal de perfil")
+  //this.modalCtrl.dismiss();
+  this.router.navigate(['iniciosesion']);
 }
 
 

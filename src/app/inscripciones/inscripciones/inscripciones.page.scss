@@ -68,11 +68,12 @@ ion-content {
   }
   
   .todo{
+      margin-top: 20px;
       width: 100%;
       height: 40%;
       //background-color: rgb(131, 172, 207);
       display: flex;
-      justify-content: center;
+      justify-content: start;
       align-items: center;
       flex-direction: column;
   }
@@ -403,7 +404,7 @@ ion-content {
 }
 
 .slider{
-  margin-top: 60px;
+  //margin-top: 60px;
   width: 100%;
   z-index: 20;
   max-width: 400px;
@@ -414,7 +415,7 @@ ion-content {
 
 .slide{
   //background-color: rgba(255, 171, 93, 0.39);
-  height: 350px;
+  height: 300px;
   width: 80%;
   z-index: 20;
   background-color: transparent !important;
@@ -523,3 +524,82 @@ ion-card-title{
 
 //-------------------------------------------------------------
   
+
+.sliderx{
+  height: auto;
+  //margin-top: 20px;
+  width: 100%;
+  //background-color: rgb(62, 1, 102);
+  background-color: rgb(211, 199, 228);     //background-color: transparent !important;
+  color: black;
+  // border-top: solid 1px rgb(163, 163, 163);
+  // border-bottom: solid 1px rgb(163, 163, 163);
+}
+
+.slidery{
+  height: auto;
+  //margin-top: 20px;
+  width: 100%;
+  //background-color: rgb(62, 1, 102);
+  background-color: rgb(178, 206, 189);    //background-color: transparent !important;
+  color: black;
+  // border-top: solid 1px rgb(163, 163, 163);
+  // border-bottom: solid 1px rgb(163, 163, 163);
+}
+
+.parrafo__textox{
+  //@debug: 30px;
+  font-size: 20px;
+  text-align: center;
+  //font-size: clamp(10px, 4vw, 50px);
+  color: black;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slidesx{
+  width: 100%;
+  height: 200px;
+}
+
+.slidex{
+ // background-color: rgba(95, 180, 25, 0.945);
+  height: 80%;
+  width: 50%;
+  background-color: grey;
+  background-color: transparent !important;
+  color: black;
+}
+
+.cardx{
+  background-color: white;
+ border: solid black 1px;
+// box-shadow: -10px 8px rgb(153, 153, 153);
+ width: 120%;
+ height: auto;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+ min-width: 100px;
+// background-color: #B2B8A3;
+ font-size: 5px;
+ border-radius: 5px;
+ color: #11324D;
+}
+.cardx:active{
+  background-color:  rgb(164, 120, 230); ;
+  box-shadow: 0 5px #666;      
+  transform: translateY(15px);
+  color: white;
+}
+
+.iconx{
+  //margin-top: 20px;
+  width: 60px;
+//  min-width: 30px;
+  height: 60px;
+ // min-height: 30px;
+}

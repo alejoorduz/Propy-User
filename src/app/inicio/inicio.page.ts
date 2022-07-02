@@ -32,6 +32,7 @@ import { CitofoniaPage } from "../citofonia/citofonia.page";
 import { AlertController } from '@ionic/angular';
 import { InfoPage } from "../info/info.page";
 import { VotacionesPage } from "../voting/votaciones/votaciones.page";
+import { ParkingPage } from "../park/parking/parking.page";
 
 @Component({
   selector: 'app-inicio',
@@ -195,6 +196,11 @@ admin = [
     "descripcion":"Contacto directo con el Call-Center del ascensor",
     icon:"alert-circle-outline",
     "habilitado":true},
+    
+    {"nombre":"Parking",
+    "descripcion":"Consigue parqueadero",
+    icon:"car-outline",
+    "habilitado":true},
 ]
 
 control = [
@@ -300,6 +306,7 @@ personal = [
       this.admin[10].habilitado = this.proyect_services.data.finanzas;
       this.admin[11].habilitado = this.proyect_services.data.pagos;
       this.admin[12].habilitado = this.proyect_services.data.emergencias;
+      this.admin[13].habilitado = this.proyect_services.data.parking;
 //en array de control
       this.control[0].habilitado = this.proyect_services.data.acceso;
       this.control[1].habilitado = this.proyect_services.data.aircall;
@@ -626,9 +633,40 @@ personal = [
           console.log("Citofonia");
           this.modal_citofonia();
         }
+        if (servicio == "Parking") {
+          console.log("Parking");
+          this.modal_parking();
+        }
     }
   }
    }
+  }
+
+  async modal_parking(){
+    const modal = await this.modalCtrl.create({
+      component: ParkingPage,
+      cssClass: 'adding_modal',
+      componentProps: {
+        uid: this.uid,
+        nombre: this.nombre,
+        proyecto: this.proyecto,
+        apto: this.apto,
+        torre: this.tower
+        //reserva: this.reserva
+      }
+    });
+    modal.onDidDismiss()
+    .then((data) => {
+      console.log("esta es la data que devuelve el modal")
+      console.log(data)
+      var closing = data['data'];
+      if (closing) {
+        this.modalCtrl.dismiss()
+      }else{
+        console.log("no me cierro")
+      } 
+  });
+    return await modal.present();
   }
 
   async modal_emergencias(){
