@@ -27,7 +27,7 @@ export class RegisterPage implements OnInit {
     console.log(this.name,this.mail,this.cont,this.cont_rep)
   }
 
-  async onRegister(email, password,nombre){
+  async onRegister(){
     console.log(this.name,this.mail,this.cont,this.cont_rep)
     // if ($("#nombre").val() == "" || $("#email").val() == "" || $("#contra").val() == "" || $("#contra_rep").val() == "") {
     if (typeof this.name === 'undefined' || typeof this.mail === 'undefined' || typeof this.cont === 'undefined' || typeof this.cont_rep === 'undefined') {
@@ -42,15 +42,15 @@ export class RegisterPage implements OnInit {
             this.presentAlert("Las contraseñas deben coincidir")
             console.log("no son iguals las contras")
           } else {
-            console.log("datos del registro-------------" + email.value + password.value + nombre.value)
-            console.log(email.value, password.value)
+           // console.log("datos del registro-------------" + email.value + password.value + nombre.value)
+           // console.log(email.value, password.value)
           try {
-            const user = await this.authsvc.register(email.value,password.value,nombre.value)
+            const user = await this.authsvc.register(this.mail,this.cont,this.name)
             if (user) {
             let uid = user.uid
             const isverified = this.authsvc.isEmailVerified(user);
-            console.log("eemail verificado, este es el uid del usuario: " + uid)
-            this.initialize_user(uid,nombre.value);
+            console.log("email verificado, este es el uid del usuario: " + uid)
+            this.initialize_user(uid,this.name);
             this.router.navigate(['verificacion']);
             }
           } catch (error) {

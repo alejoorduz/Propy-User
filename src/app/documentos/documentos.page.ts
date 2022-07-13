@@ -112,12 +112,14 @@ async uploadFile(id, file): Promise<any> {
   }
 }
 
-downloadAndOpenPdf(urly) {
+async downloadAndOpenPdf(urly){
+  await this.presentLoading();
   let downloadUrl = urly;
  let path = this.file.dataDirectory;
  const transfer = this.ft.create();      
  transfer.download (downloadUrl, `${path}myfile.pdf`).then(entry => {
     let url = entry.toURL();
+    this.loading.dismiss();
     if (this.platform.is('ios')) {
      this.document.viewDocument(url, 'application/pdf', {});
      } else {
@@ -128,7 +130,7 @@ downloadAndOpenPdf(urly) {
 
 async presentLoading() {
   this.loading = await this.loadingController.create({
-    message: 'Please wait...'
+    message: 'Abriendo...'
   });
   return this.loading.present();
 }

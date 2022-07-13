@@ -311,6 +311,10 @@ ion-content {
    // background-color: red;
     width: 100%;
 }
+.download_icon:active{
+  color: red;
+  transform: scale(2.5);
+}
 
 .trash_icon{
  // background-color: blue;

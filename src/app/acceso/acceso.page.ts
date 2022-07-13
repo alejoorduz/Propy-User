@@ -125,7 +125,7 @@ uuid = "";
   }
 
   Connected(nombre,uid,clave){
-    //this.check_ble_configs()
+    this.check_ble_configs()
    // this.use_connect = localStorage.getItem("use_connect")
    // this.uuidconnect =  localStorage.getItem("uuid");
     console.log("Abriendo ",nombre," con este uid: ", uid)
