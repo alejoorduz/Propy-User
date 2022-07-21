@@ -1,0 +1,313 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+  <div class="headercontainer">
+        <div class="back">
+          <!-- <ion-icon name="exit-outline" class="iconoback" (click)="cerrarsesion()"></ion-icon> -->
+          <!-- <ion-icon name="business-outline" class="iconoback" (click)="dismiss()"></ion-icon> -->
+        </div>
+    <div class="headertittle">
+      <ion-title ></ion-title>
+    </div>
+    <div class="headericon" *ngIf="this.activate_account">
+        <ion-icon class="icono_mas" name="add-outline" (click)="this.abrirmodal()"></ion-icon>
+    </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <div class="todo">
+<div class="parrafo" *ngIf='this.show_services'>
+<h1 class="parrafo__texto">¡Bienvenido a {{this.proyecto}}!</h1>
+<h1 class="parrafo__texto">Estos son los servicios disponibles</h1>
+</div> -->
+
+
+<ion-content padding>
+  <!-- <img class="imagen" src="../../assets/images/Building_Back.jpg" alt=""> -->
+  <div class="todo">
+    <div class="userData">
+      <div class="userData__box" id="userData__box-top">
+          <div class="userData__box-imagen" > 
+                <ion-thumbnail *ngIf="profile_image_yes" (click)="perfil()" class="userData__box-imagen-contour" slot="start">
+                  <img *ngIf="profile_image_yes" class="userData__box-imagen-img" [src]="this.current_user_image" alt="">
+                </ion-thumbnail>
+                <ion-icon (click)="perfil()" *ngIf="!profile_image_yes" class="userData__box-icono"  name="person-circle-outline"></ion-icon>
+          </div>
+          <div class="userData__box-nameBox">
+            <div class="userData__box-nombre" style="font-size: 20px;">Apartamento</div>
+              <div class="userData__box-nombre">{{this.torre}} {{this.apto}}</div>
+              <!-- <div class="divWeatherMain_bottom">
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h1" style="font-size: clamp(15px, 4vw, 20px); margin-top: 10px;">{{WeatherData.temp_celcius}}°</div>
+                  </div>
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h2">Humedad</div> 
+                    <div class="weatherWidgetRow_bottom-h1">{{this.WeatherData.main.humidity}} %</div> 
+                  </div>
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h2">Presión</div> 
+                    <div class="weatherWidgetRow_bottom-h1">{{this.WeatherData.main.pressure}} hPa</div>
+                  </div>
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h2">Viento</div>
+                    <div class="weatherWidgetRow_bottom-h1">{{this.wind_speed}} m/s</div>
+                  </div>
+            </div> -->
+        </div>
+      </div>  
+      <div class="userData__box" id="userData__box-bottom">
+        <div class="userData__box-bottom-container">
+              <!-- <ion-icon class="userData__box-bottom-container-icon" name="business-outline" (click)="show_building_selector()"></ion-icon> -->
+              <ion-select id="proyecto" class="proyect_selector" [(ngModel)]="proyecto" (ngModelChange)="proyecto_info()">
+                <ion-select-option  style="background-color: transparent;" *ngFor="let proyecto of lista_proyectos" [value]="proyecto.id">
+                  <!-- {{proyecto.id}} -->
+                </ion-select-option>
+              </ion-select>
+        </div>
+            <!-- <ion-icon *ngIf="account_config_ok" (click)="set_apt()" name="create-outline"></ion-icon> -->
+      </div>  
+    </div>
+
+<div class="new_user" *ngIf="this.no_apto">
+      <h1 class="new_user_text">OOPS... 
+        <br>
+        ¡No tienes asigado aun un departamento! 
+        <br>
+        Debes esperar a que el administrador te asigne el tuyo.
+      </h1>
+ </div>
+
+<!-- <div class="swiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">Slide 1</div>
+    <div class="swiper-slide">Slide 2</div>
+    <div class="swiper-slide">Slide 3</div>
+    ...
+  </div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-scrollbar"></div>
+</div> -->
+
+
+    <!-- <div class="top_page">
+        <div *ngIf="!this.new_user"  class="parrafo__texto">{{this.proyecto}} </div>
+        <div *ngIf="!this.new_user" class="parrafo__texto" id="sub"><strong> {{this.tower}} {{this.apto}} </strong> </div>
+    </div> -->
+   
+
+<div class="top" *ngIf="!this.no_apto">
+  <div class="top__box">
+    <div class="top__box-tittle">
+      <div class="top__box-tittleText">
+        Membresia
+      </div>
+    </div>
+    <div class="top__box-body">
+      <div class="top__box-body-left">
+        <div class="top__box-body-tittle">
+          Membresia Basica
+        </div>
+        <div class="top__box-body-subtittle">
+          Vig 19/12/22
+        </div>
+      </div>
+      <div class="top__box-body-right">
+        <ion-icon class="icon" name='id-card-outline'></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="top__box">
+    <div class="top__box-tittle">
+      <div class="top__box-tittleText">
+        Medios de Pago
+      </div>
+    </div>
+    <div class="top__box-body">
+      <div class="top__box-body-left">
+        <div class="top__box-body-tittle">
+          Principal
+        </div>
+        <div class="top__box-body-subtittle">
+          **** 4567 
+        </div>
+      </div>
+      <div class="top__box-body-right">
+        <ion-icon class="icon" name='card-outline'></ion-icon>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- <div class="servicios__tittle"><strong> Servicios </strong> </div> -->
+<div  class="slider_infinite" *ngIf="!this.no_apto">
+    <div class="service" *ngFor="let servicio of personal_service">
+        <div class="service__bubble" (click)="this.elegir_servicio(servicio.nombre)">
+          <ion-icon class="icon" [name]='servicio.icon'></ion-icon></div>
+        <div class="service__bubble-tittle">{{servicio.nombre.toUpperCase()}}</div>
+   </div>
+</div>
+
+<div class="card" *ngIf="!this.no_apto">
+  <div class="card__tittle">
+    <div class="card__tittle-text">
+     <strong>Mis Vehiculos</strong> 
+    </div>
+    <div class="card__tittle-add" (click)="modal_vehiculos()">
+      <ion-icon class="icon" name='add-circle-outline'></ion-icon>
+      Agregar Vehiculo
+    </div>
+  </div>
+  <div class="slider_infiniteBox" >
+    <div class="serviceBox" *ngFor="let servicio of vehiculos | async">
+      <div class="service__bubble-tittleBox"> <strong>{{servicio.tipo.toUpperCase()}} </strong></div>
+          <div class="card__grid-rowCard-right-imageBox">
+              <ion-thumbnail (click)="modal_info(servicio.imageUrl)" class="card__grid-rowCard-right-imageBox-image" slot="start" *ngIf="servicio.imageUrl">
+              <img class="card__grid-rowCard-right-imageBox-imageReal" [src]="servicio.imageUrl" alt="">
+              </ion-thumbnail>
+          </div>
+          
+          <div class="service__bubble-tittleBox">{{servicio.marca.toUpperCase()}} {{servicio.modelo.toUpperCase()}} </div>
+          <!-- <div class="service__bubble-tittleBox"> {{servicio.modelo.toUpperCase()}}</div> -->
+          <div class="service__bubble-tittleBox"> {{servicio.placa.toUpperCase()}}</div>
+    </div>
+ </div>
+  <!-- <div class="card__grid">
+    <div class="card__grid-colum">
+      <div class="card__grid-row" *ngFor="let vehiculo of vehiculos">
+        <div class="card__grid-rowCard">
+          <div class="card__grid-rowCard-left">
+            <div class="card__grid-rowCard-leftTittle">
+              {{vehiculo.tipo}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{vehiculo.marca}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{vehiculo.modelo}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{vehiculo.placa}}
+            </div>
+          </div>
+          <div class="card__grid-rowCard-right">
+            <ion-icon class="icon" name='car-outline'></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<div class="card" *ngIf="!this.no_apto">
+  <div class="card__tittle">
+    <div class="card__tittle-text">
+      <strong>Mis Mascotas</strong> 
+    </div>
+    <div class="card__tittle-add" (click)="modal_mascotas()">
+      <ion-icon class="icon" name='add-circle-outline'></ion-icon>
+      Agregar Mascota
+    </div>
+  </div>
+  <div class="slider_infiniteBox" >
+      <div class="serviceBox" *ngFor="let servicio of mascotas | async">
+            <div class="card__grid-rowCard-right-imageBox">
+                <ion-thumbnail (click)="modal_info(servicio.imageUrl)" class="card__grid-rowCard-right-imageBox-image" slot="start" *ngIf="servicio.imageUrl">
+                <img class="card__grid-rowCard-right-imageBox-imageReal" [src]="servicio.imageUrl" alt="">
+                </ion-thumbnail>
+            </div>
+            <div class="service__bubble-tittleBox"><strong>Nombre:</strong> {{servicio.nombre}}</div>
+            <div class="service__bubble-tittleBox"><strong>Raza:</strong> {{servicio.raza}}</div>
+            <div class="service__bubble-tittleBox"><strong>Especie:</strong>  {{servicio.especie}}</div>
+      </div>
+   </div>
+  <!-- <div class="card__grid">
+    <div class="card__grid-colum">
+      <div class="card__grid-row" *ngFor="let mascota of mascotas | async">
+        <div class="card__grid-rowCard">
+          <div class="card__grid-rowCard-left">
+            <div class="card__grid-rowCard-leftTittle">
+              {{mascota.nombre}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{mascota.raza}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{mascota.especie}}
+            </div>
+          </div>
+          <div class="card__grid-rowCard-right">
+            <div class="card__grid-rowCard-right-imageBox">
+              <ion-thumbnail (click)="modal_info(mascota.imageUrl)" class="card__grid-rowCard-right-imageBox-image" slot="start" *ngIf="mascota.imageUrl">
+              <img class="card__grid-rowCard-right-imageBox-imageReal" [src]="mascota.imageUrl" alt="">
+              </ion-thumbnail>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<div class="card" *ngIf="!this.no_apto">
+  <div class="card__tittle">
+    <div class="card__tittle-text">
+      <strong>Mis Trabajdores</strong> 
+    </div>
+    <div class="card__tittle-add" (click)="modal_trabajadores()">
+      <ion-icon class="icon" name='add-circle-outline'></ion-icon>
+      Agregar Trabajador
+    </div>
+  </div>
+  <div class="slider_infiniteBox" >
+    <div class="serviceBox" *ngFor="let servicio of trabajadores | async" (click)="open_info_modal(servicio.nombre)">
+          <div class="card__grid-rowCard-right-imageBox">
+              <ion-thumbnail (click)="modal_info(servicio.imageUrl)" class="card__grid-rowCard-right-imageBox-image" slot="start" *ngIf="servicio.imageUrl">
+              <img class="card__grid-rowCard-right-imageBox-imageReal" [src]="servicio.imageUrl" alt="">
+              </ion-thumbnail>
+          </div>
+          <div class="service__bubble-tittleBox">{{servicio.nombre}}</div>
+          <div class="service__bubble-tittleBox">{{servicio.numero}}</div>
+          <div class="service__bubble-tittleBox"> {{servicio.horario}}</div>
+    </div>
+ </div>
+  <!-- <div class="card__grid">
+    <div class="card__grid-colum">
+      <div class="card__grid-row" *ngFor="let trabajador of trabajadores">
+        <div class="card__grid-rowCard">
+          <div class="card__grid-rowCard-left">
+            <div class="card__grid-rowCard-leftTittle">
+              {{trabajador.nombre}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{trabajador.dias}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{trabajador.entrada}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{trabajador.salida}}
+            </div>
+            <div class="card__grid-rowCard-leftBody">
+              {{trabajador.celular}}
+            </div>
+          </div>
+          <div class="card__grid-rowCard-right">
+            <ion-icon class="icon" name='walk-outline'></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<!-- <div *ngIf="!this.new_user"  class="bottom_button">
+  <button class="unsubscribe" (click)="unsubscribe()">Desinscribirme</button>
+</div> -->
+
+  
+

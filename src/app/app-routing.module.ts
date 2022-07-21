@@ -170,7 +170,8 @@ const routes: Routes = [
   {
     path: 'buscar-spot',
     loadChildren: () => import('./park/buscar-spot/buscar-spot.module').then( m => m.BuscarSpotPageModule)
-  },  {
+  },
+  {
     path: 'timedate-picker',
     loadChildren: () => import('./popups/timedate-picker/timedate-picker.module').then( m => m.TimedatePickerPageModule)
   },
@@ -185,12 +186,26 @@ const routes: Routes = [
   {
     path: 'modal-spot',
     loadChildren: () => import('./park/modal-spot/modal-spot.module').then( m => m.ModalSpotPageModule)
+  },  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'my-apto',
+    loadChildren: () => import('./my-apto/my-apto.module').then( m => m.MyAptoPageModule)
+  },
+  {
+    path: 'control-popup',
+    loadChildren: () => import('./control-popup/control-popup.module').then( m => m.ControlPopupPageModule)
+  },
+  {
+    path: 'trabajadores',
+    loadChildren: () => import('./trabajadores/trabajadores.module').then( m => m.TrabajadoresPageModule)
+  },
+  {
+    path: 'vehiculos',
+    loadChildren: () => import('./vehiculos/vehiculos.module').then( m => m.VehiculosPageModule)
   }
-
-
-
-
-
 
 ];
 

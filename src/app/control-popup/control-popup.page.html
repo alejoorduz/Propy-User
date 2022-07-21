@@ -1,0 +1,66 @@
+<div class="todo">
+
+
+<div class="titulo">
+  <h1 class="atencion"><strong>C O N T R O L</strong></h1>
+</div>
+
+
+<div class="descripcion">
+  <div class="tittle"><strong>Accesos</strong></div>
+  <!-- <div class="edit_floors" (click)="modal_acceso()">Ir</div> -->
+</div>
+<div class="position-keypad">
+    <div class="align-center">
+        <ion-grid class="grid">
+           <ion-row class="row">
+               <div class="col_acceso" *ngFor="let acceso of accesos">
+                  <button class="buttonpad_acceso" (click)="Connected(acceso.data.clave,'0x31',acceso.data.nombre,'acceso')">
+                    <ion-icon class="icon" name="radio-outline"></ion-icon> 
+                    {{acceso.data.nombre}}
+                  </button>
+               </div>
+           </ion-row>
+        </ion-grid>
+      </div>
+ </div>
+
+  <div class="descripcion">
+    <div class="tittle"><strong>Tus pisos</strong></div>
+    <div class="edit_floors" (click)="modal_aircall()">AirCall</div>
+  </div>
+  <div class="position-keypad">
+  <div class="align-center">
+      <ion-grid class="grid">
+          <ion-row class="row">
+              <div class="col" *ngFor="let floor of fav_floors" (click)="Connected('AIRCALL SV',floor.code,'','aircall')">
+                <button [disabled]="cancelado" class="buttonpad">{{floor.valor}}</button>
+              </div>
+          </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+  <div *ngIf="this.show_alert" class="alert" id="ale">
+    <div class="alert__message">
+      {{statusMessage}}
+    </div>
+    <div class="alert__close">
+      <ion-icon class="alert__tittle-closeIcon" name="close-outline" (click)="close_toast()"></ion-icon> 
+  </div>
+</div>
+</div>
+
+
+
+<!-- <ion-footer style="background-color: #326273;">
+  <ion-toolbar>
+    <ion-grid>
+    <ion-row>
+    
+    <ion-col style="text-align: center"><p class="footer_message"> {{ statusMessage }}</p></ion-col>
+    
+    </ion-row>
+  </ion-grid>
+    
+  </ion-toolbar>
+</ion-footer> -->

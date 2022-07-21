@@ -28,33 +28,6 @@ export class AccesoPage implements OnInit {
   @Input() torre
  
 uuid = "";
-  //test in aircall :  a8a7e679-3a55-1702-464c-c1dc2d0dd6ea
-  // comunicados  = [
-  //   {"titulo":"Main Entrance",
-  //   // "subtitulo":"Decreto 148",
-  //   "icon":"wifi-outline",
-  //   // "fecha":"28/02/2022"
-  // },
-
-  //  {"titulo":"GYM",
-  //   // "subtitulo":"Aviso importante",
-  //   "icon":"wifi-outline",
-  //   // "fecha":"31/11/2021"
-  // },
- 
-  //   {"titulo":"Car Door",
-  //   // "subtitulo":"Calleja B4",
-  //   "icon":"wifi-outline",
-  //   // "fecha":"15/01/2022"
-  // },
-
-  //   {"titulo":"Door 2",
-  //   // "subtitulo":"Reunion Anual",
-  //   "icon":"wifi-outline",
-  //   // "fecha":"12/10/2021"
-  // }
-
-  // ]
 
   tarjeteros = [];
 
@@ -161,6 +134,7 @@ uuid = "";
     (<any>window).ble.connect(this.uuid, device => {
       this.setStatus('Conectado.....');
       console.log('Connected', device);
+       this.upload_movement(nombre);
         setTimeout(() => {
           this.BleWrite(nombre,this.uuid);
           // this.Disconnect();
@@ -189,7 +163,6 @@ uuid = "";
                 console.log(data);
                 //this.insertarpiso(piso,valor,viajenum)
                 this.setStatus('¡Puerta abierta!')
-                this.upload_movement(nombre);
                 setTimeout(() => {
                   this.Disconnect(this.uuid,nombre);
                  }, 500)

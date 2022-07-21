@@ -91,7 +91,7 @@ export class InscribirseModalPage implements OnInit {
           this.lista_config.data = resultado.payload.data();
       }
       this.password = this.lista_config.data.key;
-      console.log("usuario: ", this.lista_config.data.key)
+      //console.log("usuario: ", this.lista_config.data.key)
   });
   }
 
@@ -142,8 +142,9 @@ export class InscribirseModalPage implements OnInit {
     this.firestoreService.insertardos("user",this.uid,"proyectos", this.proyecto, {"config": "configs"} )
     this.firestoreService.insertardos("Proyectos", this.proyecto, "usuarios", this.nombre, data )
     //this.firestoreService.updatedos("Proyectos",this.proyecto,"usuarios", this.nombre,  {"email": this.email} )
-    this.presentAlert('¡Listo!',"Te inscribiste a " + this.proyecto +".","Por temas de seguridad, debes contactar a tu administrador para que verifique tu usuario y te asigne tu apartamento")
-    this.modalCtrl.dismiss();
+    localStorage.setItem("last",this.proyecto);
+    this.presentAlert('¡Listo!',"Te inscribiste a " + this.proyecto +".","El administrador habilitará tu cuenta tan pronto verifique tus datos. ¡Ten paciencia!")
+    this.modalCtrl.dismiss(true);
     // .then(() => {
     //   console.log('Datos subidos correctamente!');
     //   //this.tareaEditando= {} as Tarea;
@@ -165,7 +166,7 @@ export class InscribirseModalPage implements OnInit {
   }
 
   dismiss(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss(false);
   }
 
 

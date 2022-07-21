@@ -169,7 +169,6 @@ export class InscripcionesPage implements OnInit {
     this.profile_image_yes = false;
   }
   });
-
   }
 
   getLocation(){

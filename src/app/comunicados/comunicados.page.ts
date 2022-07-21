@@ -33,6 +33,9 @@ export class ComunicadosPage implements OnInit {
       //this.password = this.lista_proyectos.data.key
       console.log("traigamos la lista de comunicados")
       console.log(this.comunicados)
+      if(this.comunicados.length === 0){
+        console.log("no hay comunicados")
+      }
     });
 }
 

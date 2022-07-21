@@ -35,6 +35,9 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@awesome-co
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
+import Swiper, { Navigation, Pagination }  from 'swiper';
+
+
 
 
 @NgModule({
@@ -53,6 +56,7 @@ import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule],
   providers: [
+    Swiper,
     EmailComposer,
     OneSignal,
     File,

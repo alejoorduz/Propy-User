@@ -20,17 +20,22 @@ export class IniciosesionPage implements OnInit {
   user;
   password;
 
+  show_password;
+
   constructor(private alertCtrl: AlertController,public router: Router,private authSvc: AuthService) { }
 
   ngOnInit() {
     this.user =localStorage.getItem("user")
     this.password = localStorage.getItem("password")
-    console.log("credentials: ",this.user,this.password)
+    // this.nguser = this.user;
+    // this.ngpass = this.password;
+    //console.log("credentials: ",this.user,this.password)
     $("#email").val(this.user);
     $("#password").val(this.password);
     if (this.user) {
       $("#basico").prop("checked",true)
     }
+    this.show_password = false;
   }
 
   checkbasic(){
@@ -39,20 +44,19 @@ export class IniciosesionPage implements OnInit {
     if ($("#basico").prop("checked") === false) {
       var usr = $("#email").val();
       var pswrd = $("#password").val();
-      console.log("cedentials in checkbox: ", usr, pswrd)
-      localStorage.setItem("user",usr)
-      localStorage.setItem("password",pswrd)
+      //console.log("cedentials in checkbox: ", usr.toString(), pswrd, typeof(usr.toString()),typeof(pswrd))
+       localStorage.setItem("user",usr.toString())
+       localStorage.setItem("password",pswrd.toString())
     }else{
       localStorage.clear();
     }
   }
 
 async onlogin(email,password){
-      //console.log("iniciando sesion o error")
     try {
       const user = await this.authSvc.login(email.value,password.value);
       if (user){
-        console.log("y aca?")
+        console.log("Iniciando Sesión")
         const isverified = this.authSvc.isEmailVerified(user);
         this.redirectUser(isverified)
       }
@@ -72,9 +76,7 @@ async presentAlert(error) {
     message: error,
     buttons: ['OK']
   });
-
   await alert.present();
-
   const { role } = await alert.onDidDismiss();
   //console.log('onDidDismiss resolved with role', role);
 }
@@ -82,7 +84,7 @@ async presentAlert(error) {
 
 redirectUser(isverified:boolean = true){
   if(isverified){
-    this.router.navigate(['inscripciones']);
+    this.router.navigate(['tabs']);
   }else{
     console.log("verificar email")
     this.presentAlert("Debes verificar tu cuenta desde el correo electronico (verifica en la bandeja de SPAM)")
@@ -99,4 +101,15 @@ recuperacion(){
   this.router.navigate(['recuperacion']);
 }
 
+hide_show_password(){
+  if (!this.show_password) {
+     $("#password").attr('type', 'text'); 
+    this.show_password = true;
+   } 
+   else {
+    this.show_password = false;
+    $("#password").attr('type', 'password'); 
   }
+}
+  
+}

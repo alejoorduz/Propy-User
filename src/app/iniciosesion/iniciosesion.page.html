@@ -25,7 +25,7 @@
     <div class="div_email">
       <ion-item  class="email" lines="none">
         <ion-label position="floating">Email</ion-label>
-        <ion-input class="input" type="text" id="email" #email required></ion-input>
+        <ion-input class="input" type="text" id="email" #email required ></ion-input>
       </ion-item>
     </div>
 
@@ -38,8 +38,11 @@
   <div class="div_contra">
         <ion-item class="contra" lines="none">
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" id="password" #password required></ion-input>
+          <ion-input class="pass_input" type="password" id="password" #password required ></ion-input>
+          <ion-icon *ngIf="!show_password" class="eye_icon" name="eye-outline" (click)="hide_show_password()"></ion-icon>
+          <ion-icon *ngIf="show_password" class="eye_icon" name="eye-off-outline" (click)="hide_show_password()"></ion-icon>
        </ion-item>
+       
   </div>
 
   <div class="olvide">

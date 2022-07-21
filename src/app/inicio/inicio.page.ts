@@ -12,7 +12,7 @@ import { PagoadminPage } from "../pagoadmin/pagoadmin.page";
 import { MonitoreoPage } from "../monitoreo/monitoreo.page";
 import { UsuariosPage } from "../usuarios/usuarios.page";
 import { BotoneraPage } from "../aircall/botonera/botonera.page";
-//import { NotificationsComponent } from '../notifications/notifications.component';
+import { ControlPopupPage } from '../control-popup/control-popup.page';
 import { PopoverController } from '@ionic/angular';
 import { EmergenciasPage } from "../emergencias/emergencias.page";
 import { DocumentosPage } from "../documentos/documentos.page";
@@ -33,6 +33,13 @@ import { AlertController } from '@ionic/angular';
 import { InfoPage } from "../info/info.page";
 import { VotacionesPage } from "../voting/votaciones/votaciones.page";
 import { ParkingPage } from "../park/parking/parking.page";
+import { InscribirseModalPage } from "../inscripciones/inscribirse-modal/inscribirse-modal.page";
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import * as $ from "jquery";
+import { LoadingController } from '@ionic/angular';
+import { PerfilPage } from "../perfil/perfil.page";
+import { Console } from 'console';
+
 
 @Component({
   selector: 'app-inicio',
@@ -41,40 +48,50 @@ import { ParkingPage } from "../park/parking/parking.page";
 })
 export class InicioPage implements OnInit {
 
-  @Input() uid
-  @Input() nombre
-  @Input() email
-  @Input() imageURL
-  @Input() proyecto
+//variable que guardara el proyecto en el que el usuario está (current_proyect)
+  proyecto;
   
-  // @Input() reserva
-  // @Input() pagos
-  // @Input() comunicado
-  // @Input() documento
-  // @Input() monitoreo
-  // @Input() emergencia
+  //Variables que activan y desactivan *NgIf en el HTML
+  activate_account: boolean;
 
-  reserva :boolean
-  pagos :boolean
-  comunicado :boolean 
-  documento :boolean 
-  monitoreo :boolean
-  aircall: boolean
-  emergencia: boolean 
+  //Variables que contienen los datos del CurrentUser
+  current_user_uid;
+  current_user_name;
+  current_user_email;
+  current_user_rol;
+  current_user_activate;
+  current_user_apto;
+  current_user_image;
+
+  user_info: any = {
+    id: "",
+    data: {}
+};
+
+new_user: boolean;
+
+//Variables de localizacion y Clima --
+  lat;
+  long;
+  wind_speed;
+  day_mood: string;
+  WeatherData:any = {
+    main : {},
+    isDay: true
+  };
+
+  //Comunidados de cada edificio (this.proyecto)
+  comunicados = [];
+
+  //Variables relacionadas a los servicios
+  lista_servicios = [];
+  lista_proyectos = [];
 
   profile_image_yes: boolean;
   account_config_ok: Boolean;
 
 admin_email;
 admin_name;
-
-//   emergencias:boolean = true;
-
-  // reservas:string;
-  // pagos:string;
-  // comunicados:string;
-  // documentos:string;
-  // monitoreo: string;
 
   proyect_services: any = {
     id: "",
@@ -86,10 +103,6 @@ app: any = {
   data: {}
 };
 
-// torres: any = {
-//   id: "",
-//   data: {}
-// }
 torres = [];
 torre: any = {
   id: "",
@@ -105,11 +118,11 @@ inquilino
 habilitado: Boolean = true;
 
 option = {
-  slidesPerView: 1.2,
+  slidesPerView: 1,
   centeredSlides: true,
   loop: false,
-  spaceBetween: 5,
-  autoplay:false,
+  spaceBetween: 0,
+  autoplay:true,
 }
 
 option_big = {
@@ -125,10 +138,23 @@ show_services: boolean
 
 name: any 
 
+loading: HTMLIonLoadingElement;
+
+no_proyect;
 
  // Servicios_np : any = this.Servicios_np
 
- constructor(private emailComposer: EmailComposer,public alertController: AlertController,public  router: Router,private fbs: FirestoreService,private modalCtrl: ModalController ,private authSvc: AuthService,public afAuth:AngularFireAuth, private afs: AngularFirestore) {
+ constructor(private loadingController: LoadingController,
+  public popoverController: PopoverController,
+  private emailComposer: EmailComposer,
+  private geolocation: Geolocation,
+  public alertController: AlertController,
+  public  router: Router,
+  private fbs: FirestoreService,
+  private modalCtrl: ModalController ,
+  private authSvc: AuthService,
+  public afAuth:AngularFireAuth, 
+  private afs: AngularFirestore) {
 }
 
 admin = [
@@ -152,7 +178,7 @@ admin = [
     icon:"call-outline",
     "habilitado":true},
 
-    {"nombre":"Preguntas y Respuestas",
+    {"nombre":"Preguntas",
     "descripcion":"Resuelve tus dudas",
     icon:"information-outline",
     "habilitado":true},
@@ -192,7 +218,7 @@ admin = [
     icon:"cash-outline",
     "habilitado":true},
 
-    {"nombre":"Emergencias 24/7",
+    {"nombre":"Emergencias",
     "descripcion":"Contacto directo con el Call-Center del ascensor",
     icon:"alert-circle-outline",
     "habilitado":true},
@@ -250,26 +276,195 @@ personal = [
  ]
 
   ngOnInit() {
+    this.proyecto = localStorage.getItem("last");
+    console.log("ultimo favorito: ", this.proyecto)
+    console.log(this.proyecto)
+    if (this.proyecto) {
+      console.log("Si hay proyecto anterior");
+      this.presentLoading();
+      this.no_proyect = true;
+    }else{
+      this.no_proyect = false;
+      console.log("No hay proyecto anterior")
+    }
+    this.getLocation();
+    this.new_user = true;
+    this.getuseruid();
+    this.setApt = false;
    // this.current_user_image = this.imageURL
    this.account_config_ok = true;
-   this.profile_image_yes = true;
-    console.log(this.imageURL)
+   this.profile_image_yes = false;
+    //console.log("img url", this.current_user_image)
+    this.activate_account = true;
+    
   }
 
-  ionViewDidEnter() {
-    //console.log('ionViewDidEnter');
-    //console.log("Aviso de incio de app, estos son los servicios del usuario: " + this.servicios )
-    //console.log("servicio 1: " + this.servicios[0])
-    //console.log(this.uid,this.nombre,this.proyecto,this.reserva,this.pagos,this.documento,this.comunicado,this.emergencia)
-   // console.log(this.uid,this.nombre,this.proyecto)
-   // console.log(this.proyect_services)
-   this.get_torre()
-   this.setApt = false;
+  getLocation(){
+    this.geolocation.getCurrentPosition().then((resp) => {
+       this.lat = resp.coords.latitude;
+       this.long = resp.coords.longitude;
+      //  console.log("lat: " + this.lat + "   long: " + this.long)
+      // setTimeout(()=>{
+        this.getWeatherData();
+      // },2000)
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+     
+     let watch = this.geolocation.watchPosition();
+     watch.subscribe((data) => {
+     });
+  }
+
+  getWeatherData(){ 
+    fetch('https://api.openweathermap.org/data/2.5/weather?lat='+this.lat+'&lon='+this.long+'&appid=7985db256b85b778e9af4d7ea225aaeb')
+    .then(response=>response.json())
+    .then(data=>{this.setWeatherData(data);})
+  }
+
+  setWeatherData(data){
+    this.WeatherData = data;
+    console.log("data: ")
+    console.log( this.WeatherData)
+    this.wind_speed = this.WeatherData.wind.speed;
+    this.day_mood = (this.WeatherData.weather[0].main)
+    console.log("MOOOOOOD: " + this.day_mood)
+    this.WeatherData.temp_celcius = (this.WeatherData.main.temp - 273.15).toFixed(0);
+    if (this.day_mood === "Rain") {
+      $("#lluvia").text("Esta lloviendo")
+      $("#lluvia").css("color","red");
+      console.log("si llueve")
+    }else{
+      $("#lluvia").text("No esta lloviendo")
+      $("#lluvia").css("color","green");
+    }
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Obteniendo datos, por favor espere...'
+    });
+    return this.loading.present();
+  }
+
+  //PROBAR ESTE ACORDEON!!!!!!!!--------------------------
+  myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else { 
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+
+  async getuseruid(){
+    //try{
+      var user_uid = localStorage.getItem("uid");
+      //localStorage.clear();
+      // console.log("traido de minibd: ", user_uid)
+       if (!user_uid) {
+        // console.log("No habia ningun uid guardado")
+          var uid = await (await this.afAuth.currentUser).uid
+          localStorage.setItem("uid",uid);
+         // console.log("Se guardo el UID en la miniBD:)")
+         // console.log(uid)
+          this.current_user_uid = uid
+         // console.log("uid:",this.current_user_uid)
+          this.getName(uid);
+       }else{
+        // console.log("Ya habia valor gurdado y se uso ese")
+         this.current_user_uid = user_uid
+        //  console.log("uid:",this.current_user_uid)
+          this.getName(user_uid);
+       }
+   // }
+    // catch(error){
+    //   console.log("Errorsuelo:",error)
+    //   this.router.navigate(["/iniciosesion"])
+    //   //this.presentAlert(error);
+    // }
+  }
+
+  async getName(uid){
+    this.fbs.consultarPorId("user/", uid).subscribe((resultado) => {
+      if (resultado.payload.data() != null) {
+          this.user_info.id = resultado.payload.id;
+          this.user_info.data = resultado.payload.data();
+      }  
+      this.current_user_name = this.user_info.data.nombre;
+      localStorage.setItem("nombre",this.current_user_name);
+      this.current_user_email = this.user_info.data.email;
+      this.current_user_rol = this.user_info.data.rol;
+      this.current_user_activate = this.user_info.data.habilitado;
+      this.current_user_apto = this.user_info.data.apto;
+      this.current_user_image = this.user_info.data.image_url;
+      //console.log("el usuario esta activado? :",this.current_user_activate)
+      //let edificio = this.user_info.data.proyecto
+      this.consultar_proyectos()
+      console.log("Apartamento, img url ",this.current_user_activate, this.current_user_image)
+        //this.current_user_apto = "4048"
+  if (this.current_user_apto) {
+    console.log("si hay algo en 'apto'")
+    this.account_config_ok = true;
+  }else{
+    console.log("No hay nada en 'apto'")
+    this.account_config_ok = false;
+  }
+  if (this.current_user_image) {
+    console.log("Si hay algo en 'image_url'")
+    this.profile_image_yes = true;
+  }else{
+    console.log("No hay nada en 'image_url'")
+    this.profile_image_yes = false;
+  }
+   this.get_more_user_info();
+  });
+  }
+
+  proyecto_info(){
+    this.no_proyect = true;
+    console.log("este es el proeycto favorito: ", this.proyecto);
+    localStorage.setItem("last",this.proyecto);
+    this.get_more_user_info();
+  }
+
+  get_more_user_info(){
+    // console.log("habilitado en : ", this.proyecto,this.current_user_name)
+    this.fbs.consultarPorId("Proyectos/"+this.proyecto+"/usuarios/", this.current_user_name).subscribe((resultado) => {
+      if (resultado.payload.data() != null) {
+          this.torre.id = resultado.payload.id;
+          this.torre.data = resultado.payload.data();
+      }
+      console.log("data_")
+      console.log(this.torre)
+      this.tower = this.torre.data.torre
+      this.apto = this.torre.data.apto
+      localStorage.setItem("torre",this.tower)
+      localStorage.setItem("apto",this.apto)
+      this.habilitado = this.torre.data.habilitado
+      console.log("info", this.tower , this.apto ,this.habilitado)
+      if(this.apto){
+        this.account_config_ok = true
+      }else{
+        this.account_config_ok = false;
+      }
+      this.get_services()
+    })
+  }
+
+  get_services(){
+    this.fbs.consultar("servicios").subscribe((servicios) => {
+      this.lista_servicios = [];
+      servicios.forEach((datosTarea: any) => {
+        this.lista_servicios.push({
+          id: datosTarea.payload.doc.id,
+          data: datosTarea.payload.doc.data()
+        });
+      })
+      // console.log("lista de servicios: " , this.lista_servicios)
+      // console.log("tipo: " , typeof(this.lista_servicios))
+    })
     this.get_proyect_services()
-    //this.getuseruid();
-    //this.setStatus('¡Bienvenido! Escoge el carro');
-    //this.className = 'clase1';
-    //console.log("Pruyeba de ver servisios y descrp: ", this.servicios)
   }
 
   get_proyect_services(){
@@ -278,110 +473,221 @@ personal = [
           this.proyect_services.id = resultado.payload.id;
           this.proyect_services.data = resultado.payload.data();
       }
-      if (this.proyect_services.id=="") {
-        this.show = true;
-        this.show_services = false;
-        this.emergencia = false;
-      }else{
-        this.show = false;
-        this.show_services = true;
-        this.emergencia = true;
-      }
-      console.log("dataa larga: ")
-      console.log(this.proyect_services)
-      // Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
+      var test = this.proyect_services.data;
+      // console.log("test: ", test)
+      // console.log("dataa larga: ")
+      // console.log(typeof(test))
+      var result = Object.keys(test).map((key) => [key, test[key]]);
+      // console.log("resultado:" ,result);
+      this.lista_servicios.forEach((servicio: any) => {
+       for (let index = 0; index < result.length; index++) {
+         if(result[index][0].toUpperCase() === servicio.data.nombre.toUpperCase()){
+            // console.log(typeof(servicio.data) , " - " ,servicio.data.nombre.toUpperCase() , " - " , result[index][0].toUpperCase() , " - " , result[index][1] );
+            const objToPush = {
+               habilitado:  result[index][1] 
+            };
+           servicio.data = { ...servicio.data, ...objToPush };
+         }
+       }
+      })
+      // console.log("Areglo final crack: " , this.lista_servicios)
+// Reservas, AirCall, Comunicados, Mascotas, Aviso de trasteo, Directorio, Autorizaciones, Preguntas, Emergencia Ascensor, Eventos
 // Documentos, Clasificados, Encuestas, Controles de Acceso
 // Pagos, Monitoreo, Finanzas, Beneficios, Seguridad, Citofonia
-//en array de admin
-      this.admin[0].habilitado = this.proyect_services.data.reservas;
-      this.admin[1].habilitado = this.proyect_services.data.votaciones;
-      this.admin[2].habilitado = this.proyect_services.data.comunicados;
-      this.admin[3].habilitado = this.proyect_services.data.directorio;
-      this.admin[4].habilitado = this.proyect_services.data.preguntas;
-      this.admin[5].habilitado = this.proyect_services.data.eventos;
-      this.admin[6].habilitado = this.proyect_services.data.beneficios;
-      this.admin[7].habilitado = this.proyect_services.data.documentos;
-      this.admin[8].habilitado = this.proyect_services.data.clasificados;
-      this.admin[9].habilitado = this.proyect_services.data.encuestas;
-      this.admin[10].habilitado = this.proyect_services.data.finanzas;
-      this.admin[11].habilitado = this.proyect_services.data.pagos;
-      this.admin[12].habilitado = this.proyect_services.data.emergencias;
-      this.admin[13].habilitado = this.proyect_services.data.parking;
-//en array de control
-      this.control[0].habilitado = this.proyect_services.data.acceso;
-      this.control[1].habilitado = this.proyect_services.data.aircall;
-     // this.servicios14].habilitado = false;
-//en array de personal
-      this.personal[0].habilitado = this.proyect_services.data.autorizaciones;
-      this.personal[1].habilitado = this.proyect_services.data.mascotas;
-      this.personal[2].habilitado = this.proyect_services.data.trasteo;
-//en array de monitoreo
-      this.monitor[0].habilitado = this.proyect_services.data.monitoreo;
-      this.monitor[1].habilitado = this.proyect_services.data.seguridad;
-      this.monitor[2].habilitado = this.proyect_services.data.citofonia;
-      this.admin_email = this.proyect_services.data.admin_email;
-    //   this.admin_name = this.proyect_services.data.admin_name;
-    //   console.log("auth: ", this.servicios[13])
-      console.log("auth: ", this.admin_email, this.proyect_services.data)
-      //this.emergencia = true;
-     // console.log(this.uid,this.nombre,this.proyecto,this.reserva,this.pagos,this.documento,this.comunicado,this.aircall,this.emergencia)
-    //  // this.consultar_lista_servicios()
-    //   console.log("usuario: ",this.reservas,this.pagos,this.comunicados,this.documentos)
   });
+  this.get_comunicados()
 }
 
+redirect(path){
+  this.elegir_servicio(path,true)
+}
+
+consultar_proyectos(){
+  // this.presentLoading();
+   if (this.current_user_activate === false) {
+     console.log("non activated false: ", this.current_user_activate)
+     this.activate_account = false; 
+     this.new_user = false;
+   } else {
+     console.log("activated")
+     this.activate_account = true; 
+      console.log()
+     
+     this.fbs.consultar("user/"+this.current_user_uid+"/proyectos").subscribe((servicios) => {
+       this.lista_proyectos = [];
+       servicios.forEach((datosTarea: any) => {
+         this.lista_proyectos.push({
+           id: datosTarea.payload.doc.id,
+           data: datosTarea.payload.doc.data()
+         });
+       })
+       
+      //  console.log("lista de servicios: " , this.lista_proyectos)
+        if (this.lista_proyectos.length === 0) { 
+       console.log("usuario nuevo sin negocio")
+       this.new_user = true;      
+     } else {
+       this.new_user = false;
+       console.log("usuario nuevito ")
+       
+     }
+      setTimeout(() => {
+      // this.loading.dismiss();
+      }, 800);
+     });
+   }
+   
+   // this.fbs.consultar("user/"+this.current_user_uid+"/proyectos").subscribe((servicios) => {
+   //   this.lista_proyectos = [];
+   //   servicios.forEach((datosTarea: any) => {
+   //     this.lista_proyectos.push({
+   //       id: datosTarea.payload.doc.id,
+   //       data: datosTarea.payload.doc.data()
+   //     });
+   //   })
+   //   console.log("proyectos: " ,this.lista_proyectos)
+   // });
+ }
+
   send_email(){
+    console.log(this.current_user_email,this.admin_email,this.admin_name)
     let email = {
       app: "PROPY",
-      from: this.email,
+      from: this.current_user_email,
       to: this.admin_email,
       cc: '',
       subject: 'Cuenta bloqueada - Contacto con administrador',
-      body: 'Buen dia, <br><br> Envio este correo para solicitar amablemente la activación de mi cuenta PROPY o que se contacten conmigo, muchas gracias! <br><br> Cordialmente, <br> '+ this.nombre,
+      body: 'Buen dia, <br><br> Envio este correo para solicitar amablemente la activación de mi cuenta PROPY o que se contacten conmigo, muchas gracias! <br><br> Cordialmente, <br> '+ this.current_user_name,
       isHtml: true
     }
     this.emailComposer.open(email);
   }
 
-  async presentAlert(tittle,header,text) {
+  cerrarsesion(){
+    localStorage.setItem("uid","")
+    this.authSvc.logout();
+    this.router.navigate(["/iniciosesion"])
+  }
+
+  async unsubscribe() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: tittle,
-      subHeader: header,
-      message: text,
+      header: '¿Estas seguro?',
+      subHeader: 'Estas a punto de desuscribirte de ' + this.proyecto,
+      message: "Perderás todas las reservas y datos relacionados"  ,
       buttons: [
         {
-          text: 'Cancelar',
+          text: 'Atrás',
           role: 'cancel',
           cssClass: 'secondary',
           id: 'cancel-button',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+          //  console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Avisar',
+          text: 'Confirmar',
           id: 'confirm-button',
           handler: () => {
-            console.log('Confirm Okay');
-             let email = {
-              app: "PROPY",
-              from: this.email,
-              to: this.admin_email,
-              cc: '',
-              subject: 'Rellena la información y envia este correo',
-              body: 'Hola ' + this.nombre + '. <br><br> Por temas de seguridad, solicitamos a los administradores que verifiquen la información de los usuarios antes de asignarles su apartamento.<br><br> Para esto, necesitamos que llenes la siguiente información: <br><br> - Cédula propietario: <br> - Apartamento: <br> - Integrantes del apto (para inscribirlos también)<br><br> Una vez rellenes todos los datos envia este correo.',
-              isHtml: true
-            }
-            this.emailComposer.open(email);
-            //this.router.navigate(["inscripciones"])
+            //console.log('Confirm Okay');
+            this.delete()
           }
         }
       ]
     });
     await alert.present();
-    const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
+
+  // const { role } = await alert.onDidDismiss();
+  // console.log('onDidDismiss resolved with role', role);
+}
+
+get_comunicados(){
+  this.fbs.consultar("/Proyectos/"+this.proyecto+"/comunicados").subscribe((servicios) => {
+    this.comunicados = [];
+    console.log("banderaaaaaaaaaa",this.comunicados)
+    servicios.forEach((datosTarea: any) => {
+      this.comunicados.push({
+        id: datosTarea.payload.doc.id,
+        data: datosTarea.payload.doc.data()
+      });
+    })
+    //this.password = this.lista_proyectos.data.key
+    console.log("traigamos la lista de comunicados")
+    console.log(this.comunicados)
+  });
+  if (this.proyecto) {
+    setTimeout(() => {
+      this.loading.dismiss();
+     }, 500);
+    }
+    // else{
+    //   this.no_proyect = false;
+    // }
+ 
+}
+
+async deshab_popup() {
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: "¿Por que mi cuenta esta bloqueada?",
+    subHeader: "Estas son las posibles razones",
+    message: "- Acabas de inscribirte al edificio y debes esperar a que verifiquen tus datos <br><br> - El administrador te deshabilitó por algun motivo relacionado a pagos <br><br> - El administrador te deshabilitó en forma de penalización",
+    buttons: [
+      {
+        text: 'Entendido',
+        role: 'cancel',
+        cssClass: 'secondary',
+        id: 'cancel-button',
+        handler: (blah) => {
+          console.log('Confirm Cancel: blah');
+        }
+      }
+    ]
+  });
+  await alert.present();
+  const { role } = await alert.onDidDismiss();
+  console.log('onDidDismiss resolved with role', role);
+}
+
+
+  // async presentAlert(tittle,header,text) {
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'my-custom-class',
+  //     header: tittle,
+  //     subHeader: header,
+  //     message: text,
+  //     buttons: [
+  //       {
+  //         text: 'Cancelar',
+  //         role: 'cancel',
+  //         cssClass: 'secondary',
+  //         id: 'cancel-button',
+  //         handler: (blah) => {
+  //           console.log('Confirm Cancel: blah');
+  //         }
+  //       }, {
+  //         text: 'Avisar',
+  //         id: 'confirm-button',
+  //         handler: () => {
+  //           console.log('Confirm Okay');
+  //            let email = {
+  //             app: "PROPY",
+  //             from: this.email,
+  //             to: this.admin_email,
+  //             cc: '',
+  //             subject: 'Rellena la información y envia este correo',
+  //             body: 'Hola ' + this.nombre + '. <br><br> Por temas de seguridad, solicitamos a los administradores que verifiquen la información de los usuarios antes de asignarles su apartamento.<br><br> Para esto, necesitamos que llenes la siguiente información: <br><br> - Cédula propietario: <br> - Apartamento: <br> - Integrantes del apto (para inscribirlos también)<br><br> Una vez rellenes todos los datos envia este correo.',
+  //             isHtml: true
+  //           }
+  //           this.emailComposer.open(email);
+  //           //this.router.navigate(["inscripciones"])
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   await alert.present();
+  //   const { role } = await alert.onDidDismiss();
+  //   console.log('onDidDismiss resolved with role', role);
+  // }
 
   return_flag(){
     this.modalCtrl.dismiss({
@@ -389,41 +695,57 @@ personal = [
       })
   }
 
-  // get_torre(){
-  //   console.log("trayendo la torre!!")
-  //   this.fbs.consultarPorId("user/"+this.uid+"/proyectos/", this.proyecto).subscribe((resultado) => {
-  //     if (resultado.payload.data() != null) {
-  //         this.torre.id = resultado.payload.id;
-  //         this.torre.data = resultado.payload.data();
-  //     }
-  //     this.tower = this.torre.data.torre
-  //     this.apto = this.torre.data.apto
-  //     console.log("this.torre ",this.torre)
-  //     if(this.apto){
-  //       this.account_config_ok = true
-  //     }else{
-  //       this.account_config_ok = false;
-  //     }
-  //   })
-  // }
 
-  get_torre(){
-    console.log("trayendo la torre!!")
-    this.fbs.consultarPorId("Proyectos/"+this.proyecto+"/usuarios/", this.nombre).subscribe((resultado) => {
-      if (resultado.payload.data() != null) {
-          this.torre.id = resultado.payload.id;
-          this.torre.data = resultado.payload.data();
+  async presentPopover(event) {
+    const modal = await this.modalCtrl.create({
+      component: ControlPopupPage,
+      cssClass: 'popover_control',
+      componentProps: {
+        uid: this.current_user_uid,
+        nombre: this. current_user_name,
+        proyecto: this.proyecto,
+        apto: this.apto,
+        torre: this.tower
       }
-      this.tower = this.torre.data.torre
-      this.apto = this.torre.data.apto
-      this.habilitado = this.torre.data.habilitado
-      console.log("this.habilitado ",this.habilitado)
-      if(this.apto){
-        this.account_config_ok = true
+    });
+    modal.onDidDismiss()
+    .then((data) => {
+      console.log("eewjvnaskljvlkhj")
+            console.log(data)
+        //   this.storage.forEach((value, key, index) => {
+        //   console.log(`ITEM - ${key} = ${value} [${index}]`);
+        // });
+      
+  });
+    return await modal.present();
+  }
+
+
+  async abrirmodal(){
+    const modal = await this.modalCtrl.create({
+      component: InscribirseModalPage,
+      cssClass: 'adding_modal',
+      componentProps: {
+        uid: this.current_user_uid,
+        nombre: this. current_user_name
+      }
+    });
+    modal.onDidDismiss()
+    .then((data) => {
+      console.log("eewjvnaskljvlkhj")
+      console.log(data)
+      var closing = data['data'];
+      if (closing) {
+          this.ngOnInit();
       }else{
-        this.account_config_ok = false;
-      }
-    })
+          console.log("Cerrado sin inscribirse a ni M")
+      } 
+        //   this.storage.forEach((value, key, index) => {
+        //   console.log(`ITEM - ${key} = ${value} [${index}]`);
+        // });
+      
+  });
+    return await modal.present();
   }
 
   get_torres(){
@@ -440,79 +762,19 @@ personal = [
           });
   }
 
-  get_aptos(){
-    this.fbs.consultar("Proyectos/"+this.proyecto+"/apartamentos/"+this.torr+"/aptos").subscribe((servicios) => {
-      servicios.forEach((datosTarea: any) => {
-        this.aptos.push({
-          id: datosTarea.payload.doc.id,
-          data: datosTarea.payload.doc.data()
-        });
-      })
-      //this.password = this.lista_proyectos.data.key
-      console.log("traigamos la lista de aptos e inquilino")
-      console.log(this.aptos,this.inquilino)
-    });
+  show_building_selector(){
+    console.log("abriendo")
+   // $(".proyect_selector").css("display","block");
+    $(".proyect_selector").click();
   }
-
-  set_apt(){
-    console.log("open apto setting")
-    this.get_torres();
-      this.setApt = true;
-  }
-
-  close_timepicker(){
-    this.setApt = false;
-    this.torres = [];
-    this.aptos = [];
-  }
-
-  set_apto(){
-    this.fbs.consultarPorId("Proyectos/"+this.proyecto+"/apartamentos/"+this.torr+"/aptos", this.apt).subscribe((resultado) => {
-      if (resultado.payload.data() != null) {
-          this.app.id = resultado.payload.id;
-          this.app.data = resultado.payload.data();
-      }
-      this.inquilino = this.app.data.inquilino;
-      console.log("pude armar al inquilino., ", this.inquilino)
-    })
-    
-  }
-
-  save_apto(){
-    if (this.inquilino === this.nombre) {
-      const res = confirm("Enviar este apartamento: "+ this.torr + " " + this.apt + "?");
-    if(res){
-      this.tower = this.torr;
-      this.apto = this.apt;
-      console.log("esta torre y apto:---> ",  this.torre , this.apto)
-      this.fbs.insertar("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/"+this.apto+"/habitantes/",this.nombre,{"nombre": this.nombre})
-      this.fbs.insertar("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/"+this.apto+"/habitantes/",this.nombre,{"habilitado": false})
-      this.fbs.update("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/",this.apto,{"torre": this.tower})
-      this.fbs.update("Proyectos/"+this.proyecto+"/usuarios/"+this.tower+"/aptos/",this.apto,{"apto": this.apto})
-      
-      this.fbs.update("user/"+this.uid+"/proyectos/",this.proyecto,{"torre": this.tower})
-      this.fbs.update("user/"+this.uid+"/proyectos/",this.proyecto,{"apto": this.apto})
-      this.setApt = false;
-      this.account_config_ok = false;
-      this.aptos = [];
-      this.torres = [];
-      this.close_timepicker();
-     this.presentAlert('Enviar Email de Aviso',"El administrador debe habilitar tu cuenta","¿Enviar solicitud al administrador para que me asigne mi apartamento basado en los datos que daré a continuación?")
-    }
-    } else {
-      alert("Tu nombre no esta registrado como inquilino de este apartamento, asegurate de elegir el tuyo")
-    }
-  }
-
-
 
   async modal_info(url){
     const modal = await this.modalCtrl.create({
       component: InfoPage,
       cssClass: 'info_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         //proyecto: this.proyecto,
         url: url,
         modaly: "clasificados"
@@ -535,10 +797,9 @@ personal = [
 
 
   elegir_servicio(servicio,habilitado){
-    if (!this.habilitado) {
+    if (!this.habilitado){
       alert("No estás habilitado para utilizar la APP, contacta a tu Administrador para que te habilite")
     }else{
-
     if (!this.apto) {
       alert("Debes estar inscrito a un apartamento para comenzar a usar los servicios, si todavia no tienes asignado un apartamento contacta al administrador")
     }else{
@@ -574,10 +835,10 @@ personal = [
         if (servicio == "Usuarios") {
           this.modal_usuarios();
         }
-        if (servicio == "Ingreso Mascotas") {
-          console.log("Mascotas");
-          this.modal_mascotas();
-        }
+        // if (servicio == "Ingreso Mascotas") {
+        //   console.log("Mascotas");
+        //   this.modal_mascotas();
+        // }
         if (servicio == "Avisos de trasteo") {
           console.log("Aviso trasteo");
           this.modal_trasteos();
@@ -606,19 +867,19 @@ personal = [
           console.log("Beneficios");
           this.modal_beneficios();
         }
-        if (servicio == "Autorizaciones") {
-          console.log("Autorizar");
-          this.modal_autorizaciones();
-        }
+        // if (servicio == "Autorizaciones") {
+        //   console.log("Autorizar");
+        //   this.modal_autorizaciones();
+        // }
         if (servicio == "Seguridad") {
           console.log("Seguridad");
           this.modal_seguridad();
         }
-        if (servicio == "Preguntas y Respuestas") {
+        if (servicio == "Preguntas") {
           console.log("QA");
           this.modal_preguntas();
         }
-        if (servicio == "Emergencias 24/7") {
+        if (servicio == "Emergencias") {
           this.modal_emergencias();
         }
         if (servicio == "Acceso") {
@@ -647,8 +908,8 @@ personal = [
       component: ParkingPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -674,8 +935,8 @@ personal = [
       component: EmergenciasPage,
       cssClass: 'emergencias_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         //reserva: this.reserva
       }
@@ -699,8 +960,8 @@ personal = [
       component: BotoneraPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         //reserva: this.reserva
       }
@@ -724,8 +985,8 @@ personal = [
       component: UsuariosPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         //reserva: this.reserva
       }
@@ -749,8 +1010,8 @@ personal = [
       component: MonitoreoPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -776,8 +1037,8 @@ personal = [
       component: PagoadminPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -803,8 +1064,8 @@ personal = [
       component: ComunicadosPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -830,8 +1091,8 @@ personal = [
       component: VotacionesPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -856,8 +1117,8 @@ personal = [
       component: ReservasPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -883,8 +1144,8 @@ personal = [
       component: DocumentosPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -905,40 +1166,40 @@ personal = [
     return await modal.present();
   }
 
-  async modal_mascotas(){
-    const modal = await this.modalCtrl.create({
-      component: MascotasPage,
-      cssClass: 'adding_modal',
-      componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
-        proyecto: this.proyecto,
-        apto: this.apto,
-        torre: this.tower
-        //reserva: this.reserva
-      }
-    });
-    modal.onDidDismiss()
-    .then((data) => {
-      console.log("esta es la data que devuelve el modal")
-      console.log(data)
-      var closing = data['data'];
-      if (closing) {
-        this.modalCtrl.dismiss()
-      }else{
-        console.log("no me cierro")
-      } 
-  });
-    return await modal.present();
-  }
+  // async modal_mascotas(){
+  //   const modal = await this.modalCtrl.create({
+  //     component: MascotasPage,
+  //     cssClass: 'adding_modal',
+  //     componentProps: {
+  //       uid: this.uid,
+  //       nombre: this.nombre,
+  //       proyecto: this.proyecto,
+  //       apto: this.apto,
+  //       torre: this.tower
+  //       //reserva: this.reserva
+  //     }
+  //   });
+  //   modal.onDidDismiss()
+  //   .then((data) => {
+  //     console.log("esta es la data que devuelve el modal")
+  //     console.log(data)
+  //     var closing = data['data'];
+  //     if (closing) {
+  //       this.modalCtrl.dismiss()
+  //     }else{
+  //       console.log("no me cierro")
+  //     } 
+  // });
+  //   return await modal.present();
+  // }
 
   async modal_trasteos(){
     const modal = await this.modalCtrl.create({
       component: TrasteosPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -964,8 +1225,8 @@ personal = [
       component: ClasificadosPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -991,8 +1252,8 @@ personal = [
       component: DirectorioPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1018,8 +1279,8 @@ personal = [
       component: FinanzasPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1045,8 +1306,8 @@ personal = [
       component: EncuestasPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1072,8 +1333,8 @@ personal = [
       component: BeneficiosPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1094,40 +1355,15 @@ personal = [
     return await modal.present();
   }
 
-  async modal_autorizaciones(){
-    const modal = await this.modalCtrl.create({
-      component: AutorizacionesPage,
-      cssClass: 'adding_modal',
-      componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
-        proyecto: this.proyecto,
-        apto: this.apto,
-        torre: this.tower
-        //reserva: this.reserva
-      }
-    });
-    modal.onDidDismiss()
-    .then((data) => {
-      console.log("esta es la data que devuelve el modal")
-      console.log(data)
-      var closing = data['data'];
-      if (closing) {
-        this.modalCtrl.dismiss()
-      }else{
-        console.log("no me cierro")
-      } 
-  });
-    return await modal.present();
-  }
+
 
   async modal_seguridad(){
     const modal = await this.modalCtrl.create({
       component: SeguridadPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1153,8 +1389,8 @@ personal = [
       component: PreguntasPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1180,8 +1416,8 @@ personal = [
       component: AccesoPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1207,8 +1443,8 @@ personal = [
       component: EventosPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1234,8 +1470,8 @@ personal = [
       component: CitofoniaPage,
       cssClass: 'adding_modal',
       componentProps: {
-        uid: this.uid,
-        nombre: this.nombre,
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
         proyecto: this.proyecto,
         apto: this.apto,
         torre: this.tower
@@ -1256,14 +1492,53 @@ personal = [
     return await modal.present();
   }
 
+  async perfil(){
+    const modal = await this.modalCtrl.create({
+      component: PerfilPage,
+      cssClass: 'adding_modal',
+      componentProps: {
+        uid: this.current_user_uid,
+        nombre: this.current_user_name,
+        email: this.current_user_email,
+        rol: this.current_user_rol,
+        apto: this.current_user_apto,
+        image_url: this.current_user_image
+      }
+    });
+    modal.onDidDismiss()
+    .then((data) => {
+      console.log("esta es la data que devuelve el modal")
+      console.log(data)
+      var closing = data['data'];
+      if (closing) {
+        console.log("volvi de perfil con bandera en true",closing)
+       // this.modalCtrl.dismiss()
+      }else{
+        console.log("Volvi con bandera en false,", closing)
+      } 
+  });
+    return await modal.present();
+  }
+
   dismiss(){
     this.modalCtrl.dismiss();
   }
 
-  delete(proyecto){
-    this.fbs.delete_doc("user/"+this.uid+"/proyectos", proyecto).then(() => {
-      console.log("proyecto borrado")
-      this.dismiss();
+
+
+  delete(){
+    localStorage.setItem("last","");
+    this.fbs.delete_doc("user/"+this.current_user_uid+"/proyectos", this.proyecto).then(() => {
+      console.log("proyecto borrado: ", this.proyecto)
+    //  this.dismiss();
+      // Actualizar la lista completa
+      //this.consultar_lista_servicios();
+      // Limpiar datos de pantalla
+      //this.tareaEditando = {} as Tarea;
+    })
+    this.fbs.delete_doc("Proyectos/"+this.proyecto+"/usuarios", this.current_user_name).then(() => {
+      console.log("Usuario borrado del proeycto: ", this.current_user_name)
+    //  this.dismiss();
       // Actualizar la lista completa
       //this.consultar_lista_servicios();
       // Limpiar datos de pantalla

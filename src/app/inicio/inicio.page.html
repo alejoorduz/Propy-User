@@ -1,13 +1,15 @@
-<ion-header class="header">
+<ion-header class="ion-no-border">
   <ion-toolbar>
   <div class="headercontainer">
         <div class="back">
-          <ion-icon name="business-outline" class="iconoback" (click)="dismiss()"></ion-icon>
+          <ion-icon name="exit-outline" class="iconoback" (click)="cerrarsesion()"></ion-icon>
+          <!-- <ion-icon name="business-outline" class="iconoback" (click)="dismiss()"></ion-icon> -->
         </div>
     <div class="headertittle">
       <ion-title ></ion-title>
     </div>
-    <div class="headericon">
+    <div class="headericon" *ngIf="this.activate_account">
+        <ion-icon *ngIf="!this.new_user" class="icono_mas" name="add-outline" (click)="this.abrirmodal()"></ion-icon>
     </div>
     </div>
   </ion-toolbar>
@@ -21,89 +23,179 @@
 
 
 <ion-content padding>
-  <!-- <img class="imagen" src="../../assets/images/security.png" alt=""> -->
+  <!-- <img class="imagen" src="../../assets/images/Building_Back.jpg" alt=""> -->
   <div class="todo">
-    <div *ngIf="!habilitado"  class="aviso_habilitado">
-      <h1 class="habilitado" (click)="send_email()"> Cuenta deshabilitada
-      <ion-icon  name="alert-circle-outline"></ion-icon>
-      </h1>
+    <div class="userData">
+      <div class="userData__box" id="userData__box-top">
+          <div class="userData__box-imagen" > 
+                <ion-thumbnail *ngIf="profile_image_yes" (click)="perfil()" class="userData__box-imagen-contour" slot="start">
+                  <img *ngIf="profile_image_yes" class="userData__box-imagen-img" [src]="this.current_user_image" alt="">
+                </ion-thumbnail>
+                <ion-icon (click)="perfil()" *ngIf="!profile_image_yes" class="userData__box-icono"  name="person-circle-outline"></ion-icon>
+          </div>
+          <div class="userData__box-nameBox">
+              <div class="userData__box-nombre">{{this.current_user_name}}</div>
+              <div class="divWeatherMain_bottom">
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h1" style="font-size: clamp(15px, 4vw, 20px); margin-top: 10px;">{{WeatherData.temp_celcius}}°</div>
+                  </div>
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h2">Humedad</div> 
+                    <div class="weatherWidgetRow_bottom-h1">{{this.WeatherData.main.humidity}} %</div> 
+                  </div>
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h2">Presión</div> 
+                    <div class="weatherWidgetRow_bottom-h1">{{this.WeatherData.main.pressure}} hPa</div>
+                  </div>
+                  <div class="weatherWidgetRow_bottom" >
+                    <div class="weatherWidgetRow_bottom-h2">Viento</div>
+                    <div class="weatherWidgetRow_bottom-h1">{{this.wind_speed}} m/s</div>
+                  </div>
+            </div>
+        </div>
+      </div>  
+      <div class="userData__box" id="userData__box-bottom">
+        <div class="userData__box-bottom-container">
+              <ion-icon class="userData__box-bottom-container-icon" *ngIf="!this.new_user" name="business-outline" (click)="show_building_selector()"></ion-icon>
+              <ion-select *ngIf="!this.new_user" id="proyecto" class="proyect_selector" [(ngModel)]="proyecto" (ngModelChange)="proyecto_info()">
+                <ion-select-option  style="background-color: transparent;" *ngFor="let proyecto of lista_proyectos" [value]="proyecto.id">
+                  {{proyecto.id}}
+                </ion-select-option>
+              </ion-select>
+        </div>
+            <!-- <ion-icon *ngIf="account_config_ok" (click)="set_apt()" name="create-outline"></ion-icon> -->
+      </div>  
     </div>
 
-    <div class="parrafo">
-      <div class="imagen_perfil"> 
-            <ion-thumbnail *ngIf="profile_image_yes" (click)="modal_info(imageURL)" class="imagePerfil" slot="start">
-            <img *ngIf="profile_image_yes" class="imagenPerfil" [src]="this.imageURL" alt="">
-          </ion-thumbnail>
-           <ion-icon *ngIf="!profile_image_yes" class="icono"  name="person-circle-outline"></ion-icon>
-      </div>
-      <div class="resumen_perfil">
-        
-         <h1 class="resumen__nombre"> {{this.nombre}}</h1>
-         <h1 class="resumen__nombre"> {{this.proyecto}}</h1>
-         <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">{{this.tower}} {{this.apto}}
-            <!-- <ion-icon *ngIf="account_config_ok" (click)="set_apt()" name="create-outline"></ion-icon> -->
-        </h1>
-         <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="set_apt()">¡Envia tus datos!<ion-icon name="arrow-redo-outline"></ion-icon></h1>
-       </div>
-    </div>
   <!-- <h2 class="parrafo__texto">Por ejemplo: </h2> -->
   <!-- <ion-icon (click)="perfil()" name="create-outline"></ion-icon>
   </div> -->
 
-    <div class="parrafo_borrado" *ngIf='this.show'>
+    <!-- <div class="parrafo_borrado" *ngIf='this.show'>
       <div class="delete_parraf">Parece que tu administrador elimino el negocio, eliminalo tu tambien de tu lista
       <button class="delete_button" (click)="delete(this.proyecto)">Eliminar de mi lista</button></div>
+    </div> -->
+
+
+    <!-- <div class="popup" *ngIf="!no_proyect">
+      <div class="popup_box">
+        <ion-icon class="popup__triangle" name="triangle"></ion-icon>
+      </div>
     </div>
 
-    <div *ngIf="setApt" class="div__timepicker">
-    <div  class="time_picker">
-      <!-- <ion-label>Inicio</ion-label> -->
-      <ion-select placeholder="Torre" id="torre" class="ion-select-mes" [(ngModel)]="torr" (ngModelChange)="get_aptos()">
-        <ion-select-option style="background-color: transparent;" *ngFor="let torre of torres" [value]="torre.id">
-           {{torre.id}}
-        </ion-select-option>
-      </ion-select>
+     <div class="popupdn" *ngIf="!no_proyect">
+        <div class="popup_boxdn">
+          Si aun no has eledigo un edificio, utiliza este boton para encontrarlo
+        </div>
+    </div>     -->
 
-      <ion-select placeholder="Apto" id="apto" class="ion-select-mes" [(ngModel)]="apt" (ngModelChange)="set_apto()">
-        <ion-select-option style="background-color: transparent;" *ngFor="let apto of aptos" [value]="apto.id">
-          {{apto.id}}
-        </ion-select-option>
-      </ion-select>
-      <ion-icon  (click)="save_apto()" style="color: white;" name="save-outline"></ion-icon>
-      <ion-icon (click)="close_timepicker()" style="color: white;" name="close-circle-outline"></ion-icon>
-   </div>
+    <div class="new_user" *ngIf="this.new_user">
+      <h1 class="new_user_text">¡Bienvenido a PROPY!</h1>
+        <div class="welcome">
+          Acá encontrarás todo lo relacionado al edificio o negocio al que decidas inscribirte.
+        </div>
+    </div>
+
+    <div class="start" *ngIf="this.new_user">
+      <button class="button" (click)="this.abrirmodal()">
+        Comenzar
+      </button>
+    </div>
+
+<!-- <div class="grid" *ngIf='this.show_services'> -->
+    <div class="top_page" *ngIf="!this.new_user">
+        <!-- <div  class="aviso_habilitado">
+              <h1 *ngIf="!habilitado"  class="habilitado" (click)="send_email()"> Cuenta deshabilitada
+                <ion-icon  name="alert-circle-outline"></ion-icon>
+              </h1>
+        </div> -->
+        <div *ngIf="!this.new_user"  class="parrafo__texto">{{this.proyecto}} </div>
+        <div *ngIf="!this.new_user" class="parrafo__texto" id="sub"><strong> {{this.tower}} {{this.apto}} </strong> </div>
+    </div>
+
+    <div class="aviso_deshab" *ngIf="!habilitado">
+      <div class="new_user_deshab" >
+        <!-- <h1 class="new_user_text">Lo Sentimos...</h1> -->
+          <div class="welcome_deshab">
+            En estos momentos no puedes acceder a los servicios de {{this.proyecto}}.<br><br>
+          </div>
+          <div class="welcome_deshab">
+            Ponte en contacto con el administrador del edificio para mas información <br><br>
+          </div>
+          <div class="welcome_deshab">
+              <button class="button" (click)="send_email()">Contactar</button>
+          </div>
+          <div class="welcome_deshab">
+            <p style="text-decoration: underline white;" (click)="deshab_popup()">Oprime acá para ver las posibles causas </p>
+          </div>
+      </div>
+    </div>
+
+     <!-- <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">Apartamento: {{this.current_user_apto}}</h1>
+     <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="perfil()">¡Agrega tu apartamento!<ion-icon name="arrow-redo-outline"></ion-icon></h1> -->
+<!-- </div> -->
+
+<!-- <div class="servicios__tittle"><strong> Servicios </strong> </div> -->
+<div class="hide_box" *ngIf="habilitado">
+  <div *ngIf="!this.new_user" class="slider_infinite" >
+      <div class="service" *ngFor="let servicio of lista_servicios">
+          <div class="service__bubble" [class.blur]="!servicio.data.habilitado" (click)="this.elegir_servicio(servicio.data.nombre,servicio.data.habilitado)"><ion-icon class="icon" [name]='servicio.data.icon'></ion-icon></div>
+          <div class="service__bubble-tittle">{{servicio.data.nombre.toUpperCase()}}</div>
+    </div>
   </div>
-
-    <div class="grid" *ngIf='this.show_services'>
- 
- 
-      <!-- <div class="parrafo"> -->
-
-
-  <!-- <h1 class="parrafo__texto">Bienvenid@ {{this.nombre}} </h1> -->
-  <!-- <h1 class="parrafo__texto">A continuación encontrarás los servicios que ofrece <strong> {{this.proyecto}} </strong> </h1> -->
-  <!-- </div> -->
-   <!-- <h1 *ngIf="account_config_ok" id="apt" class="resumen__datos">Apartamento: {{this.current_user_apto}}</h1>
-   <h1 *ngIf="!account_config_ok" id="aviso_cuenta" class="resumen__datos__dos" (click)="perfil()">¡Agrega tu apartamento!<ion-icon name="arrow-redo-outline"></ion-icon></h1> -->
 </div>
 
-<div class="slider">
-  <h1 class="parrafo__texto"><strong> Control </strong> </h1>
-  <ion-slides class="slides" [options]="option" #slideWithNav pager="true">
-    <ion-slide  class="slide" *ngFor="let servicio of control">
-      <ion-card class="card" [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
+
+<div *ngIf="!this.new_user" class="comunicados">
+  <!-- <div class="comunicados__tittle"><strong> Comunicados </strong> </div> -->
+  <ion-slides *ngIf="habilitado" class="comunicados__slides" [options]="option" #slideWithNav pager="true">
+    <ion-slide  class="comunicados__slides-slide" *ngFor="let comunicado of comunicados">
+      <ion-card class="comunicados__slides-slide-card" (click)="redirect(comunicado.data.path)">
         <ion-card-header>
           <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
-          <ion-card-title>{{servicio.nombre}}</ion-card-title>
+          <ion-card-title>{{comunicado.data.titulo}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-icon class="icon" [name]='servicio.icon'></ion-icon>
-          <!-- <h1 class="descripcion">{{servicio.descripcion}} {{this.proyecto}}</h1> -->
+          <!-- <ion-icon class="icon" [name]='servicio.icon'></ion-icon> -->
+          <div class="descripcion">{{comunicado.data.tema}}</div>
+          <div class="descripcion">{{comunicado.data.reporte}}</div>
         </ion-card-content>
       </ion-card>
      </ion-slide>
   </ion-slides>
 </div>
+
+<div class="hide_box" *ngIf="habilitado">
+  <div *ngIf="!this.new_user" class="control">
+    <button class="control__button" (click)="presentPopover($event)">
+      <ion-icon class="control__button-radio" name="radio-outline"></ion-icon>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!this.new_user"  class="bottom_button">
+  <button *ngIf="habilitado"  class="unsubscribe" (click)="unsubscribe()">Desuscribirse</button>
+</div>
+
+
+<!-- <div class="slider">
+  <h1 class="parrafo__texto"><strong> Control </strong> </h1>
+  <ion-slides class="slides" [options]="option" #slideWithNav pager="true">
+    <ion-slide  class="slide" *ngFor="let servicio of control">
+      <ion-card class="card" [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
+        <ion-card-header>  -->
+          <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
+          <!-- <ion-card-title>{{servicio.nombre}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon class="icon" [name]='servicio.icon'></ion-icon> -->
+          <!-- <h1 class="descripcion">{{servicio.descripcion}} {{this.proyecto}}</h1> -->
+        <!-- </ion-card-content>
+      </ion-card>
+     </ion-slide>
+  </ion-slides>
+</div> -->
+
 <!-- *ngIf="servicio.habilitado==true"
 
 *ngIf="servicio.habilitado==true" (click)="this.elegir_servicio(servicio.nombre,true)"
@@ -114,12 +206,12 @@ class="icon" [name]='servicio.icon'
 
 -->
 
-<div class="big_container">
+<!-- <div class="big_container" *ngIf="habilitado">
   <ion-slides  [options]="option_big" #slideWithNav pager="true">
     <ion-slide >
       <ion-card class="card_admin">
         <ion-card-header>
-          <!-- <ion-card-subtitle></ion-card-subtitle> -->
+          <ion-card-subtitle></ion-card-subtitle>
           <ion-card-title class="parrafo__texto">Servicios Administrativos</ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -131,7 +223,7 @@ class="icon" [name]='servicio.icon'
                       <div class="col" *ngFor="let servicio of admin">
                         <ion-card class="card" [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
                           <ion-card-header>
-                            <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
+                            <ion-card-subtitle>Servicios</ion-card-subtitle>
                             <ion-card-title>{{servicio.nombre}}</ion-card-title>
                           </ion-card-header>
                           <ion-card-content>
@@ -150,7 +242,7 @@ class="icon" [name]='servicio.icon'
      <ion-slide  >
       <ion-card class="card_personal">
         <ion-card-header>
-          <!-- <ion-card-subtitle></ion-card-subtitle> -->
+          <ion-card-subtitle></ion-card-subtitle>
           <ion-card-title class="parrafo__texto">Servicios personales</ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -161,7 +253,7 @@ class="icon" [name]='servicio.icon'
                       <div class="col" *ngFor="let servicio of personal">
                         <ion-card class="card" [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
                           <ion-card-header>
-                            <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
+                            <ion-card-subtitle>Servicios</ion-card-subtitle>
                             <ion-card-title>{{servicio.nombre}}</ion-card-title>
                           </ion-card-header>
                           <ion-card-content>
@@ -180,7 +272,7 @@ class="icon" [name]='servicio.icon'
      <ion-slide  >
       <ion-card class="card_monitoreo">
         <ion-card-header>
-          <!-- <ion-card-subtitle></ion-card-subtitle> -->
+          <ion-card-subtitle></ion-card-subtitle>
           <ion-card-title class="parrafo__texto">Monitoreo</ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -191,7 +283,6 @@ class="icon" [name]='servicio.icon'
                       <div class="col" *ngFor="let servicio of monitor">
                         <ion-card class="card" [class.blur]="!servicio.habilitado" (click)="this.elegir_servicio(servicio.nombre,servicio.habilitado)">
                           <ion-card-header>
-                            <!-- <ion-card-subtitle>Servicios</ion-card-subtitle> -->
                             <ion-card-title>{{servicio.nombre}}</ion-card-title>
                           </ion-card-header>
                           <ion-card-content>
@@ -208,7 +299,7 @@ class="icon" [name]='servicio.icon'
       </ion-card>
      </ion-slide>
   </ion-slides>
-  </div>
+  </div> -->
 
 <!-- <ion-grid class="grid" *ngIf='this.show_services' >
     <ion-row class="row" *ngFor="let servicio of servicios" >

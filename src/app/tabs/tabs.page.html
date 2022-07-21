@@ -1,0 +1,22 @@
+<ion-content>
+    <ion-tabs class="tabs">
+      <div class="bottom_tabs">
+      <ion-tab-bar slot="bottom" class="tab_bar">
+        <ion-tab-button tab="perfil" class="tab_bar-button-izq" [disabled]="true" id="perfil" (click)="format('perfil')">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <ion-label>Profile</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="inicio" class="tab_bar-middle_button" id="inicio" (click)="format('inicio')">
+          <div class="tab_bar-middle_button-container">
+            <ion-icon class="home_icon" name="business-outline"></ion-icon>
+            <!-- <ion-label>Dashboard</ion-label> -->
+          </div>
+        </ion-tab-button>
+        <ion-tab-button tab="myApto" class="tab_bar-button-der" id="apto" (click)="format('apto')">
+          <ion-icon name="home-outline"></ion-icon>
+          <ion-label>Casa</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </div>
+   </ion-tabs>
+</ion-content>

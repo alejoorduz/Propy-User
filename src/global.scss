@@ -25,6 +25,11 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+//swiper imports for CSS
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
 .adding_modal {
     height: 100%;
     width: 100%;
@@ -67,7 +72,19 @@
    // padding: 20% 10% !important;
 }
 
-
+.popover_control{
+    --width: 90%;
+    --height: 40%;
+    border: solid black 2px;
+    --background: transparent !important;
+    //background-color: rgb(236,166,64,0.3);
+    --box-shadow: 0 0 200px 165px rgb(78, 78, 78);
+    --border-radius: 30px;
+    //top: 10%;
+   // position: absolute; 
+   // display: block; 
+   // padding: 20% 10% !important;
+  }
 
 .popover .popover-viewport {
     background: #5c9ead;

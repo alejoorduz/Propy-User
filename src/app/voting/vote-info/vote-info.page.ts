@@ -102,8 +102,8 @@ graph(){
         ]  
      }]
  };
-const ctx = $('#myChart');
-this.Chart = new Chart(ctx, {
+const ctx = ('#myChart');
+this.Chart = new Chart(ctx , {
   type: 'doughnut',
   data: pieData
 });
