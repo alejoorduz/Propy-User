@@ -56,7 +56,7 @@
       </div>  
       <div class="userData__box" id="userData__box-bottom">
         <div class="userData__box-bottom-container">
-              <ion-icon class="userData__box-bottom-container-icon" *ngIf="!this.new_user" name="business-outline" (click)="show_building_selector()"></ion-icon>
+              <ion-icon disabled class="userData__box-bottom-container-icon" *ngIf="!this.new_user" name="business-outline" (click)="show_building_selector()"></ion-icon>
               <ion-select *ngIf="!this.new_user" id="proyecto" class="proyect_selector" [(ngModel)]="proyecto" (ngModelChange)="proyecto_info()">
                 <ion-select-option  style="background-color: transparent;" *ngFor="let proyecto of lista_proyectos" [value]="proyecto.id">
                   {{proyecto.id}}

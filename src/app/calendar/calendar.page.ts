@@ -547,7 +547,7 @@ addNewEvent() {
   }
 
   dismiss(){
-    this.router.navigate(["inscripciones"])
+    this.router.navigate(["tabs"])
   }
 
   async presentAlertBlock(header,text) {
